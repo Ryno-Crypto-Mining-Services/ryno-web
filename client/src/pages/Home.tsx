@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import LogoShowcase from "@/components/LogoShowcase";
 import About from "@/components/About";
 import Platform from "@/components/Platform";
+import Technology from "@/components/Technology";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <LogoShowcase />
       <About />
       <Platform />
+      <Technology />
 
       {/* Retrofitting Section - Placeholder */}
       <section id="retrofitting" className="py-24 bg-card/50">
