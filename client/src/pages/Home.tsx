@@ -4,6 +4,7 @@ import LogoShowcase from "@/components/LogoShowcase";
 import About from "@/components/About";
 import Platform from "@/components/Platform";
 import Technology from "@/components/Technology";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -71,28 +72,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - Placeholder */}
-      <footer className="bg-card border-t border-border py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-muted-foreground">
-            <p>&copy; 2025 Ryno Crypto Services, LLC. All rights reserved.</p>
-            <div className="mt-4 flex justify-center gap-6">
-              <a href="https://bsky.app/profile/rynomining.bsky.social" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                Bluesky
-              </a>
-              <a href="https://x.com/RynoMining" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                X/Twitter
-              </a>
-              <a href="https://www.youtube.com/channel/UCQxX-_FZ8NUIFK1MdSse2AQ" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                YouTube
-              </a>
-              <a href="https://hashgrid.net/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                HashGrid
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

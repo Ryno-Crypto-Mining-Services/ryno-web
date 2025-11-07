@@ -1,72 +1,177 @@
-import { Linkedin } from 'lucide-react';
-import { handleAnchorClick } from '@/lib/scrollUtils';
+import { FileText, Github, Twitter, Mail, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-function Footer() {
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    handleAnchorClick(e);
-  };
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  const resources = [
+    {
+      icon: FileText,
+      label: "Whitepaper",
+      description: "Technical deep-dive into TerraHash Stack architecture",
+      href: "/terrahash-whitepaper.pdf",
+      external: true,
+    },
+    {
+      icon: FileText,
+      label: "Litepaper",
+      description: "Executive summary and key features overview",
+      href: "/terrahash-litepaper.pdf",
+      external: true,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      icon: Twitter,
+      label: "Twitter/X",
+      href: "https://x.com/RynoMining",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com/Ryno-Crypto-Mining-Services",
+      color: "hover:text-gray-400",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      href: "mailto:dev@hashgrid.net",
+      color: "hover:text-primary",
+    },
+  ];
+
+  const footerLinks = [
+    { label: "Home", href: "#" },
+    { label: "About", href: "#about" },
+    { label: "Platform", href: "#platform" },
+    { label: "Technology", href: "#technology" },
+    { label: "Contact", href: "#contact" },
+  ];
 
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 py-12">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Logo and Description */}
+    <footer className="bg-background border-t border-border relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(50, 184, 198, 0.3) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Main Footer Content */}
+        <div className="py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+          {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold text-white mb-4">Dealvia</h3>
-            <p className="text-gray-400 leading-relaxed">
-              Your premier destination for exclusive deals and unbeatable savings.
+            <h3 className="text-lg font-bold mb-4">Ryno Crypto Services</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Pioneer sustainable, autonomous bitcoin mining operations through
+              innovative technology and open-source stewardship.
             </p>
+            <div className="flex gap-3">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-muted-foreground transition-colors ${link.color}`}
+                  title={link.label}
+                >
+                  <link.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
           </div>
-          
-          {/* Navigation Links */}
+
+          {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Navigation</h4>
-            <ul className="space-y-3">
-              <li>
-                <a 
-                  href="#features" 
-                  className="text-gray-400 hover:text-orange-500 transition-colors duration-200"
-                  onClick={handleLinkClick}
-                >
-                  Features
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#pricing" 
-                  className="text-gray-400 hover:text-orange-500 transition-colors duration-200"
-                  onClick={handleLinkClick}
-                >
-                  Pricings
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#how-it-works" 
-                  className="text-gray-400 hover:text-orange-500 transition-colors duration-200"
-                  onClick={handleLinkClick}
-                >
-                  How it works
-                </a>
-              </li>
+            <h4 className="text-sm font-semibold text-foreground mb-4">
+              Navigation
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-        </div>
-        
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © 2024 Dealvia. All rights reserved.
-          </p>
-          
-          {/* Social Media */}
-          <div className="flex items-center space-x-4 mt-4 md:mt-0">
-            <a 
-              href="#" 
-              aria-label="LinkedIn" 
-              className="text-gray-400 hover:text-orange-500 transition-colors duration-200"
+
+          {/* Resources */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4">
+              Resources
+            </h4>
+            <ul className="space-y-3">
+              {resources.map((resource) => (
+                <li key={resource.label}>
+                  <a
+                    href={resource.href}
+                    target={resource.external ? "_blank" : undefined}
+                    rel={resource.external ? "noopener noreferrer" : undefined}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <resource.icon className="w-4 h-4" />
+                    <span>{resource.label}</span>
+                    {resource.external && (
+                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CTA */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4">
+              Get Started
+            </h4>
+            <p className="text-sm text-muted-foreground mb-4">
+              Ready to revolutionize your mining operations?
+            </p>
+            <Button
+              className="w-full"
+              onClick={() => {
+                const element = document.querySelector("#contact");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
             >
-              <Linkedin className="w-5 h-5" />
+              Contact Us
+            </Button>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-border"></div>
+
+        {/* Bottom Footer */}
+        <div className="py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            © {currentYear} Ryno Crypto Services, LLC. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-primary transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-primary transition-colors">
+              Terms of Service
+            </a>
+            <a href="#" className="hover:text-primary transition-colors">
+              Cookie Policy
             </a>
           </div>
         </div>
@@ -74,6 +179,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;
-

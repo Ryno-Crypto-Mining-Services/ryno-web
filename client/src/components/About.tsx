@@ -1,8 +1,22 @@
-import { Building2, Users, Award, TrendingUp } from "lucide-react";
+import {
+  Building2,
+  Users,
+  Award,
+  TrendingUp,
+  Code,
+  Lock,
+  Leaf,
+  Eye,
+  Layers,
+  Bitcoin,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export default function About() {
-  const features = [
+  const missionStatement =
+    "Ryno Crypto Services and our core technology TerraHash Stack are pioneering sustainable, autonomous bitcoin mining operations that maximize efficiency, profitability, and environmental stewardship through innovative liquid cooling, AI-driven optimization, and decentralized finance integration. We empower miners from enthusiasts to institutional operators to scale profitably while advancing the bitcoin ecosystem. As stewards of open-source mining technology and leading contributors to the global open-source mining development movement, we accelerate the democratization of mining and strengthen the resilience of the Bitcoin network through transparent, community-driven innovation.";
+
+  const leadership = [
     {
       icon: Building2,
       title: "Premier Mining Operator",
@@ -26,6 +40,63 @@ export default function About() {
       title: "Proven Results",
       description:
         "Delivering 40% equipment lifespan extension, 69% uptime improvement, and 65% operational cost reduction.",
+    },
+  ];
+
+  const coreValues = [
+    {
+      icon: Code,
+      title: "Open Source Stewardship",
+      description:
+        "Leading the open-source mining development movement with transparent contributions and community leadership",
+    },
+    {
+      icon: TrendingUp,
+      title: "Efficiency Through Innovation",
+      description:
+        "Constantly improving mining technology and operations, sharing innovations to strengthen the entire ecosystem",
+    },
+    {
+      icon: Lock,
+      title: "Autonomy & Decentralization",
+      description:
+        "Empowering miners with open tools that avoid lock-in and support independence",
+    },
+    {
+      icon: Leaf,
+      title: "Sustainability as Advantage",
+      description:
+        "Clean energy and resource recovery make mining more profitable and sustainable long-term",
+    },
+    {
+      icon: Bitcoin,
+      title: "Proof of Work Economics",
+      description:
+        "Real value comes from visible effort, investment, and productive work—not speculation",
+    },
+    {
+      icon: Eye,
+      title: "Transparency & Integrity",
+      description:
+        "Radical transparency in financials, performance, and technology builds trust and accountability",
+    },
+    {
+      icon: Layers,
+      title: "Scalable Excellence",
+      description:
+        "Maintaining quality and reliability as we scale from enthusiast to 100MW+ commercial operations",
+    },
+    {
+      icon: Users,
+      title: "Community Stewardship",
+      description:
+        "Building strong relationships and contributing value to local, developer, and Bitcoin communities",
+    },
+    {
+      icon: Bitcoin,
+      title: "Bitcoin Maximalism",
+      description:
+        "Committed to bitcoin as superior money while pragmatically balancing fiat realities for long-term holdings",
     },
   ];
 
@@ -60,68 +131,65 @@ export default function About() {
 
         {/* Mission Statement */}
         <div className="max-w-4xl mx-auto mb-16">
-          <Card className="p-8 md:p-12 bg-card/50 backdrop-blur-sm border-primary/20">
-            <h3 className="text-2xl font-bold mb-4 text-center">
+          <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/30">
+            <h3 className="text-2xl font-bold mb-4 text-center text-primary">
               Our Mission
             </h3>
-            <p className="text-lg text-foreground/90 text-center leading-relaxed">
-              Ryno Crypto Services and our core technology TerraHash Stack are
-              pioneering sustainable, autonomous bitcoin mining operations that
-              combine cutting-edge hardware with AI-powered management systems.
-              We're committed to revolutionizing the mining industry through
-              innovation, efficiency, and environmental responsibility.
+            <p className="text-lg text-foreground/90 leading-relaxed">
+              {missionStatement}
             </p>
           </Card>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          {features.map((feature, index) => (
+        {/* Leadership & Highlights */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-16">
+          {leadership.map((item, index) => (
             <Card
               key={index}
               className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group"
             >
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
+                  <item.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
                 </div>
               </div>
             </Card>
           ))}
         </div>
 
-        {/* Core Values */}
-        <div className="max-w-4xl mx-auto mt-16">
-          <h3 className="text-3xl font-bold text-center mb-8">Core Values</h3>
+        {/* Core Values Section */}
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+              Our <span className="text-primary">Core Values</span>
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Nine foundational principles that guide every decision, partnership,
+              and innovation at Ryno Crypto Services.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
-                Innovation
-              </div>
-              <p className="text-muted-foreground">
-                Pushing boundaries with AI-powered autonomous operations
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
-                Sustainability
-              </div>
-              <p className="text-muted-foreground">
-                50% energy reduction through renewable integration
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
-                Excellence
-              </div>
-              <p className="text-muted-foreground">
-                24/7 enterprise support and comprehensive training
-              </p>
-            </div>
+            {coreValues.map((value, index) => (
+              <Card
+                key={index}
+                className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+              >
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <value.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h4 className="text-lg font-bold">{value.title}</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {value.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
