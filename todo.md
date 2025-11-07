@@ -203,3 +203,19 @@
 - [x] Add company statistics and milestones (40%, 69%, 65%, 95% metrics)
 - [x] Create interactive timeline of company growth (2023-2025)
 - [x] Add market growth infographic from assets
+
+## Phase 26: Logo and Leadership Updates
+- [x] Replace logos with new versions from user uploads (ryno-logo.png, terrahash-logo.png)
+- [x] Update Elvis Nuno title to Chief Executive Officer
+- [x] Update Ken Ward title to Co-Founder
+- [x] Update Patrick Kodjoe title to Co-Founder
+- [x] Add Jacob Dobie as Chief Operating Officer
+- [x] Update Jacob Dobie expertise and contact information (jdobie@rynonzs.com, LinkedIn)
+
+## Phase 27: Retrofitting Services Section
+- [x] Create "Why Retrofit?" section with pain points (4 common challenges)
+- [x] Add TerraHash Stack advantages comparison table (7 key features)
+- [x] Implement service tiers (Small, Medium, Large, Mega) with pricing
+- [x] Add retrofitting process visualization (4 phases with timeline)
+- [ ] Create ROI calculator component (deferred - complex feature)
+- [ ] Add before/after case study examples (deferred - need real data)

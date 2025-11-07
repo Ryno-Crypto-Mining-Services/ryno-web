@@ -7,7 +7,7 @@ export default function LogoShowcase() {
             {/* Ryno Crypto Services Logo */}
             <div className="flex flex-col items-center justify-center p-8 bg-card/30 rounded-xl border border-border hover:border-primary/50 transition-all">
               <img
-                src="/ryno-logo-hq.png"
+                src="/ryno-logo.png"
                 alt="Ryno Crypto Services"
                 className="w-full max-w-md h-auto mb-4"
               />
@@ -19,7 +19,7 @@ export default function LogoShowcase() {
             {/* TerraHash Stack Logo */}
             <div className="flex flex-col items-center justify-center p-8 bg-card/30 rounded-xl border border-border hover:border-primary/50 transition-all">
               <img
-                src="/terrahash-logo-hq.png"
+                src="/terrahash-logo.png"
                 alt="TerraHash Stack"
                 className="w-full max-w-md h-auto mb-4"
               />

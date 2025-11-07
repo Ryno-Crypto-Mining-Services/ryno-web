@@ -48,7 +48,7 @@ export default function Navigation() {
             <div className="flex items-center gap-6">
               <Link href="/">
                 <img 
-                  src="/ryno-logo-hq.png" 
+                  src="/ryno-logo.png" 
                   alt="Ryno Crypto Services" 
                   className="h-16 md:h-20 w-auto hover:opacity-80 transition-opacity cursor-pointer"
                 />
@@ -119,7 +119,7 @@ export default function Navigation() {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
               <img 
-                src="/ryno-logo-hq.png" 
+                src="/ryno-logo.png" 
                 alt="Ryno Crypto Services" 
                 className="h-16 w-auto"
               />

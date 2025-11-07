@@ -4,9 +4,35 @@ import { Linkedin, Mail } from "lucide-react";
 export default function Leadership() {
   const leaders = [
     {
-      name: "Ken Ward",
+      name: "Elvis Nuno",
       title: "Chief Executive Officer",
-      bio: "Visionary leader with decades of experience in technology infrastructure and operations. Ken drives Ryno's strategic vision for sustainable, scalable bitcoin mining operations.",
+      bio: "Technical architect and open-source advocate leading TerraHash Stack development and cryptocurrency services. Elvis champions our commitment to open-source mining technology and community collaboration.",
+      expertise: [
+        "Blockchain Technology",
+        "Open-Source Development",
+        "System Architecture",
+        "Technical Leadership",
+      ],
+      linkedin: "#",
+      email: "dev@hashgrid.net",
+    },
+    {
+      name: "Jacob Dobie",
+      title: "Chief Operating Officer",
+      bio: "Operational excellence expert focused on infrastructure deployment and optimizing mining facility performance. Jacob oversees all day-to-day operations, ensuring world-class service delivery and process optimization.",
+      expertise: [
+        "Infrastructure Deployment",
+        "Operations Excellence",
+        "Process Optimization",
+        "Quality Assurance",
+      ],
+      linkedin: "https://www.linkedin.com/in/jacob-dobie-87759833/",
+      email: "jdobie@rynonzs.com",
+    },
+    {
+      name: "Ken Ward",
+      title: "Co-Founder",
+      bio: "Visionary leader with decades of experience in technology infrastructure and operations. Ken co-founded Ryno with a vision for sustainable, scalable bitcoin mining operations.",
       expertise: [
         "Technology Infrastructure",
         "Operations Management",
@@ -18,29 +44,16 @@ export default function Leadership() {
     },
     {
       name: "Patrick Kodjoe",
-      title: "Chief Operating Officer",
-      bio: "Operational excellence expert focused on optimizing mining facility performance and ensuring world-class service delivery. Patrick oversees all day-to-day operations and facility management.",
+      title: "Co-Founder",
+      bio: "Co-founder and strategic advisor with deep expertise in facility management and operational excellence. Patrick's vision helps shape Ryno's long-term growth and industry leadership.",
       expertise: [
-        "Operations Excellence",
+        "Strategic Advisory",
         "Facility Management",
-        "Process Optimization",
-        "Quality Assurance",
+        "Business Strategy",
+        "Industry Relations",
       ],
       linkedin: "#",
       email: "patrick@rynocrypto.com",
-    },
-    {
-      name: "Elvis Nuno",
-      title: "CEO, Crypto Services",
-      bio: "Technical architect and open-source advocate leading TerraHash Stack development and cryptocurrency services. Elvis champions our commitment to open-source mining technology and community collaboration.",
-      expertise: [
-        "Blockchain Technology",
-        "Open-Source Development",
-        "System Architecture",
-        "Technical Leadership",
-      ],
-      linkedin: "#",
-      email: "dev@hashgrid.net",
     },
   ];
 
@@ -72,7 +85,7 @@ export default function Leadership() {
         </div>
 
         {/* Leadership Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {leaders.map((leader, index) => (
             <Card
               key={index}
