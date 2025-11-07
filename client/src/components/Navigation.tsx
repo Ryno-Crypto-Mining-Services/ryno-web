@@ -49,20 +49,12 @@ export default function Navigation() {
               <Link href="/">
                 <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                   <img 
-                    src="/ryno-logo.png" 
+                    src="/ryno-logo-transparent.png" 
                     alt="Ryno Crypto Services" 
-                    className="h-10 w-auto"
+                    className="h-16 md:h-20 w-auto"
                   />
                 </a>
               </Link>
-              <div className="hidden lg:block h-6 w-px bg-border"></div>
-              <div className="hidden lg:flex items-center gap-2">
-                <img 
-                  src="/terrahash-logo.jpeg" 
-                  alt="TerraHash Stack" 
-                  className="h-8 w-auto"
-                />
-              </div>
             </div>
 
             {/* Desktop Navigation */}
@@ -129,9 +121,9 @@ export default function Navigation() {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
               <img 
-                src="/ryno-logo.png" 
+                src="/ryno-logo-transparent.png" 
                 alt="Ryno Crypto Services" 
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
