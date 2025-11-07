@@ -1,6 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useInView } from "@/hooks/useInView";
+import { useCountUp } from "@/hooks/useCountUp";
+
+function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: string; suffix?: string }) {
+  const { ref, isInView } = useInView({ threshold: 0.3 });
+  const count = useCountUp({ end: isInView ? value : 0, duration: 2000, suffix });
+
+  return (
+    <div
+      ref={ref}
+      className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
+    >
+      <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+        {count}
+      </div>
+      <div className="text-sm text-muted-foreground">{label}</div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,10 +29,10 @@ export default function Hero() {
   }, []);
 
   const stats = [
-    { value: "40%", label: "Equipment Lifespan Extension" },
-    { value: "69%", label: "Uptime Improvement" },
-    { value: "65%", label: "OpEx Reduction" },
-    { value: "30%", label: "Hash Rate Increase" },
+    { value: 40, label: "Equipment Lifespan Extension" },
+    { value: 69, label: "Uptime Improvement" },
+    { value: 65, label: "OpEx Reduction" },
+    { value: 30, label: "Hash Rate Increase" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -114,20 +133,12 @@ export default function Hero() {
           {/* Stats Ticker */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {stats.map((stat, index) => (
-              <div
+              <AnimatedStat
                 key={index}
-                className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
+                value={stat.value}
+                label={stat.label}
+                suffix="%"
+              />
             ))}
           </div>
         </div>

@@ -146,3 +146,9 @@
 - [x] Remove TerraHash Stack logo from navigation header
 - [x] Increase size of Ryno Crypto Services logo in navigation (h-16 to h-20)
 - [x] Ensure logos blend seamlessly with dark background
+
+## Phase 18: Statistics Animation
+- [x] Create custom hook for intersection observer
+- [x] Implement count-up animation for statistics
+- [x] Trigger animations when stats scroll into view
+- [x] Add easing and timing for smooth count-up effect (ease-out cubic, 2s duration)
