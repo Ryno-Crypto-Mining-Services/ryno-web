@@ -1,4 +1,4 @@
-import { FileText, Github, Twitter, Mail, ExternalLink } from "lucide-react";
+import { FileText, Github, Twitter, Mail, ExternalLink, Cloud, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -27,6 +27,18 @@ export default function Footer() {
       label: "Twitter/X",
       href: "https://x.com/RynoMining",
       color: "hover:text-blue-400",
+    },
+    {
+      icon: Cloud,
+      label: "Bluesky",
+      href: "https://bsky.app/profile/rynomining.bsky.social",
+      color: "hover:text-blue-500",
+    },
+    {
+      icon: Zap,
+      label: "Nostr",
+      href: "https://yakihonne.com/users/npub1jgzng58ux93r67dpju56rwgzzfejjdfe5rkazmvt3js547khendsxjweyj",
+      color: "hover:text-purple-400",
     },
     {
       icon: Github,

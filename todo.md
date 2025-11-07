@@ -228,3 +228,11 @@
 - [x] Create dedicated Mission Statement page with full content
 - [x] Add "Mission" link to navigation (routes to /mission-statement)
 - [x] Remove references to facility operations and case studies (stealth mode)
+
+## Phase 29: Social Media Links and Partnerships
+- [x] Add Bluesky profile link to Footer (https://bsky.app/profile/rynomining.bsky.social)
+- [x] Add Nostr profile link to Footer (Yakihonne profile)
+- [x] Create Partnerships section with partner logos and icons
+- [x] Add partner descriptions (Braiins, Chilldyne, Tailscale, Cloudflare, Pinecone, Pulumi)
+- [x] Add integration ecosystem explanation
+- [x] Include external links to partner websites
