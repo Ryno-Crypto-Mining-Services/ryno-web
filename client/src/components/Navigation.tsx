@@ -47,13 +47,11 @@ export default function Navigation() {
             {/* Logo Section */}
             <div className="flex items-center gap-6">
               <Link href="/">
-                <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                  <img 
-                    src="/ryno-logo-transparent.png" 
-                    alt="Ryno Crypto Services" 
-                    className="h-16 md:h-20 w-auto"
-                  />
-                </a>
+                <img 
+                  src="/ryno-logo-transparent.png" 
+                  alt="Ryno Crypto Services" 
+                  className="h-16 md:h-20 w-auto hover:opacity-80 transition-opacity cursor-pointer"
+                />
               </Link>
             </div>
 
