@@ -2,6 +2,8 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import LogoShowcase from "@/components/LogoShowcase";
 import About from "@/components/About";
+import CompanyHistory from "@/components/CompanyHistory";
+import Leadership from "@/components/Leadership";
 import Platform from "@/components/Platform";
 import Technology from "@/components/Technology";
 import Footer from "@/components/Footer";
@@ -13,6 +15,8 @@ export default function Home() {
       <Hero />
       <LogoShowcase />
       <About />
+      <CompanyHistory />
+      <Leadership />
       <Platform />
       <Technology />
 
