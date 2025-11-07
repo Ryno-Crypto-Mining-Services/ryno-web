@@ -1,74 +1,148 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { RainbowButton } from './magicui/rainbow-button';
-import crmDashboard from '../assets/crm-dashboard.webp';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 
-function Hero() {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start start', 'end end']
-  });
-  
-  // Transform for 3D rotation effect - starts inclined and becomes upright
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const stats = [
+    { value: "40%", label: "Equipment Lifespan Extension" },
+    { value: "69%", label: "Uptime Improvement" },
+    { value: "65%", label: "OpEx Reduction" },
+    { value: "30%", label: "Hash Rate Increase" },
+  ];
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <section ref={container} className="relative py-20 px-6 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg-dark)] via-[var(--bg-dark-alt)] to-[var(--bg-dark)]"></div>
-      
-      <div className="relative container mx-auto text-center">
-        {/* Main content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto mb-4"
-        >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-b from-[var(--text-primary)] to-[var(--text-secondary)] bg-clip-text text-transparent">
-              Your Deals, Clients & Tasks
-              <br />
-              All in One Dashboard
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-8 max-w-3xl mx-auto leading-relaxed">
-            Track performance, manage pipelines, and close deals faster with a CRM built for modern teams
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <RainbowButton size="lg">
-              Get Started Free
-            </RainbowButton>
-          </div>
-        </motion.div>
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5"></div>
         
-        {/* Dashboard Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          style={{
-            rotateX: rotateX,
-            scale: scale,
-            transformPerspective: 1000,
-            transformStyle: 'preserve-3d'
-          }}
-          className="relative max-w-6xl mx-auto"
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-20">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(50, 184, 198, 0.1) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(50, 184, 198, 0.1) 1px, transparent 1px)`,
+              backgroundSize: "50px 50px",
+            }}
+          ></div>
+        </div>
+
+        {/* Floating Particles */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-primary rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 3}s`,
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="container mx-auto px-4 py-32 relative z-10">
+        <div
+          className={`max-w-5xl mx-auto text-center transition-all duration-1000 ${
+            isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+            Next-Generation Bitcoin Mining Platform
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span className="text-foreground">MINING </span>
+            <span className="text-primary">EVOLVED</span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-2xl md:text-4xl font-semibold mb-4 text-foreground/90">
+            Less Energy, Less Cooling, More Hash
+          </p>
+
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+            TerraHash Stack - The Future of Sustainable Bitcoin Mining
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button
+              size="lg"
+              className="text-lg px-8 py-6 group"
+              onClick={() => scrollToSection("#contact")}
+            >
+              Schedule Consultation
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6"
+              onClick={() => scrollToSection("#platform")}
+            >
+              Explore Platform
+            </Button>
+          </div>
+
+          {/* Stats Ticker */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <button
+            onClick={() => scrollToSection("#about")}
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
           >
-            <img 
-              src={crmDashboard} 
-              alt="CRM Dashboard" 
-              className="w-full rounded-lg shadow-2xl border border-[var(--bg-muted)]"
-            />
-          </motion.div>
+            <span className="text-sm">Scroll to explore</span>
+            <ChevronDown className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </section>
   );
 }
-
-export default Hero;
-
