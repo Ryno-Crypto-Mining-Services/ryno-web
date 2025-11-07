@@ -48,15 +48,20 @@ export default function Navigation() {
             <div className="flex items-center gap-6">
               <Link href="/">
                 <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                  <div className="text-2xl font-bold">
-                    <span className="text-primary">Ryno</span>
-                    <span className="text-foreground"> Crypto</span>
-                  </div>
+                  <img 
+                    src="/ryno-logo.png" 
+                    alt="Ryno Crypto Services" 
+                    className="h-10 w-auto"
+                  />
                 </a>
               </Link>
               <div className="hidden lg:block h-6 w-px bg-border"></div>
-              <div className="hidden lg:block text-sm text-muted-foreground">
-                TerraHash Stack
+              <div className="hidden lg:flex items-center gap-2">
+                <img 
+                  src="/terrahash-logo.jpeg" 
+                  alt="TerraHash Stack" 
+                  className="h-8 w-auto"
+                />
               </div>
             </div>
 
@@ -123,13 +128,14 @@ export default function Navigation() {
         >
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
-              <div className="text-xl font-bold">
-                <span className="text-primary">Ryno</span>
-                <span className="text-foreground"> Crypto</span>
-              </div>
+              <img 
+                src="/ryno-logo.png" 
+                alt="Ryno Crypto Services" 
+                className="h-12 w-auto"
+              />
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 text-foreground hover:text-primary transition-colors"
+                className="p-2 text-foreground hover:text-primary transition-colors ml-auto"
               >
                 <X className="w-6 h-6" />
               </button>

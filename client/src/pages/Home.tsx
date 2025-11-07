@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import LogoShowcase from "@/components/LogoShowcase";
 import About from "@/components/About";
 import Platform from "@/components/Platform";
 
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
       <Hero />
+      <LogoShowcase />
       <About />
       <Platform />
 
