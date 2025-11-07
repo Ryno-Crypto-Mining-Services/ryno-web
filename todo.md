@@ -219,3 +219,12 @@
 - [x] Add retrofitting process visualization (4 phases with timeline)
 - [ ] Create ROI calculator component (deferred - complex feature)
 - [ ] Add before/after case study examples (deferred - need real data)
+
+## Phase 28: Content Cleanup and Mission Statement
+- [x] Remove CompanyHistory component from website
+- [x] Update Patrick Kodjoe email and LinkedIn profile (patrick@rynoes.com)
+- [x] Update Ken Ward email and LinkedIn profile (kenward@rynoes.com)
+- [x] Create mission statement synopsis for main page with 9 core values
+- [x] Create dedicated Mission Statement page with full content
+- [x] Add "Mission" link to navigation (routes to /mission-statement)
+- [x] Remove references to facility operations and case studies (stealth mode)

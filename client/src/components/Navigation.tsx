@@ -17,12 +17,13 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "Platform", href: "#platform" },
-    { label: "Retrofitting", href: "#retrofitting" },
-    { label: "Technology", href: "#technology" },
-    { label: "Partners", href: "#partners" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "#home", isRoute: false },
+    { label: "Mission", href: "/mission-statement", isRoute: true },
+    { label: "Platform", href: "#platform", isRoute: false },
+    { label: "Retrofitting", href: "#retrofitting", isRoute: false },
+    { label: "Technology", href: "#technology", isRoute: false },
+    { label: "Partners", href: "#partners", isRoute: false },
+    { label: "Contact", href: "#contact", isRoute: false },
   ];
 
   const scrollToSection = (href: string) => {
@@ -57,15 +58,23 @@ export default function Navigation() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                item.isRoute ? (
+                  <Link key={item.href} href={item.href}>
+                    <button className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+                      {item.label}
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    key={item.href}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                )
+              )}
             </div>
 
             {/* CTA Buttons */}
@@ -132,15 +141,26 @@ export default function Navigation() {
             </div>
 
             <nav className="flex flex-col gap-4 mb-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-left text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-2"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                item.isRoute ? (
+                  <Link key={item.href} href={item.href}>
+                    <button
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-left text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-2 w-full"
+                    >
+                      {item.label}
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    key={item.href}
+                    onClick={() => scrollToSection(item.href)}
+                    className="text-left text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-2"
+                  >
+                    {item.label}
+                  </button>
+                )
+              )}
             </nav>
 
             <div className="mt-auto flex flex-col gap-3">

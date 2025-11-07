@@ -39,8 +39,8 @@ export default function Leadership() {
         "Strategic Planning",
         "Business Development",
       ],
-      linkedin: "#",
-      email: "ken@rynocrypto.com",
+      linkedin: "https://www.linkedin.com/in/ken-ward-238683b0/",
+      email: "kenward@rynoes.com",
     },
     {
       name: "Patrick Kodjoe",
@@ -52,8 +52,8 @@ export default function Leadership() {
         "Business Strategy",
         "Industry Relations",
       ],
-      linkedin: "#",
-      email: "patrick@rynocrypto.com",
+      linkedin: "https://www.linkedin.com/in/patkodjoe/",
+      email: "patrick@rynoes.com",
     },
   ];
 
