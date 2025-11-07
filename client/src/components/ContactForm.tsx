@@ -1,0 +1,365 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
+
+interface FormData {
+  name: string;
+  email: string;
+  company: string;
+  serviceType: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  company?: string;
+  message?: string;
+}
+
+export default function ContactForm() {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    company: "",
+    serviceType: "general",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!formData.company.trim()) {
+      newErrors.company = "Company name is required";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please fix the errors above");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      // Simulate form submission - in production, this would call an API endpoint
+      // For now, we'll just show a success message
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      setSubmitStatus("success");
+      setSubmitMessage(
+        "Thank you for reaching out! We'll get back to you within 24 hours."
+      );
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        serviceType: "general",
+        message: "",
+      });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus("idle");
+        setSubmitMessage("");
+      }, 5000);
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitMessage("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const serviceOptions = [
+    { value: "general", label: "General Inquiry" },
+    { value: "retrofitting", label: "Retrofitting Services" },
+    { value: "mining", label: "Mining Operations" },
+    { value: "partnership", label: "Partnership Opportunity" },
+    { value: "technical", label: "Technical Support" },
+  ];
+
+  return (
+    <section id="contact" className="py-24 bg-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(50, 184, 198, 0.3) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          {/* Contact Information */}
+          <div className="lg:col-span-1">
+            <div className="mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Get in <span className="text-primary">Touch</span>
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Ready to revolutionize your mining operation? Let's discuss how
+                TerraHash Stack can transform your facility.
+              </p>
+            </div>
+
+            {/* Contact Details */}
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">Email</h4>
+                  <a
+                    href="mailto:dev@hashgrid.net"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    dev@hashgrid.net
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">Phone</h4>
+                  <p className="text-muted-foreground">
+                    Available for consultation
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">Location</h4>
+                  <p className="text-muted-foreground">
+                    United States
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Response Time */}
+            <Card className="mt-8 p-4 bg-primary/5 border-primary/20">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Response Time:</span>{" "}
+                We typically respond within 24 hours during business days.
+              </p>
+            </Card>
+          </div>
+
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card className="p-8 bg-card/50 backdrop-blur-sm border-border">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                      errors.name ? "border-red-500" : "border-border"
+                    }`}
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                  )}
+                </div>
+
+                {/* Email Field */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                      errors.email ? "border-red-500" : "border-border"
+                    }`}
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                  )}
+                </div>
+
+                {/* Company Field */}
+                <div>
+                  <label
+                    htmlFor="company"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Company Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Your Mining Operation"
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                      errors.company ? "border-red-500" : "border-border"
+                    }`}
+                  />
+                  {errors.company && (
+                    <p className="mt-1 text-sm text-red-500">{errors.company}</p>
+                  )}
+                </div>
+
+                {/* Service Type Field */}
+                <div>
+                  <label
+                    htmlFor="serviceType"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Service Type
+                  </label>
+                  <select
+                    id="serviceType"
+                    name="serviceType"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-background border border-border transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {serviceOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Message Field */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your mining operation and what you're looking to achieve..."
+                    rows={5}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
+                      errors.message ? "border-red-500" : "border-border"
+                    }`}
+                  />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-500">{errors.message}</p>
+                  )}
+                </div>
+
+                {/* Status Messages */}
+                {submitStatus === "success" && (
+                  <div className="flex items-center gap-3 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <p className="text-sm text-green-500">{submitMessage}</p>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="flex items-center gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+                    <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    <p className="text-sm text-red-500">{submitMessage}</p>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 text-base font-semibold"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+
+                <p className="text-xs text-muted-foreground text-center">
+                  We respect your privacy. Your information will only be used to
+                  respond to your inquiry.
+                </p>
+              </form>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

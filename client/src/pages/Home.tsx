@@ -8,6 +8,8 @@ import Platform from "@/components/Platform";
 import Technology from "@/components/Technology";
 import Retrofitting from "@/components/Retrofitting";
 import Partnerships from "@/components/Partnerships";
+import CallToAction from "@/components/CallToAction";
+import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -23,63 +25,8 @@ export default function Home() {
       <Technology />
       <Retrofitting />
       <Partnerships />
-
-      {/* Contact Section - Placeholder */}
-      <section id="contact" className="py-24 bg-card/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Retrofitting Services
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Transform your existing mining operation with TerraHash Stack technology
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Section - Placeholder */}
-      <section id="technology" className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Technology Stack
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Advanced hardware and software modules for optimal mining performance
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Partners Section - Placeholder */}
-      <section id="partners" className="py-24 bg-card/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Strategic Partners
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Collaborating with industry leaders to deliver exceptional mining solutions
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section - Placeholder */}
-      <section id="contact" className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              Get in Touch
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Ready to revolutionize your mining operation? Let's talk.
-            </p>
-          </div>
-        </div>
-      </section>
-
+      <CallToAction />
+      <ContactForm />
       <Footer />
     </div>
   );
