@@ -27,7 +27,7 @@ export default function About() {
       icon: Users,
       title: "Expert Leadership",
       description:
-        "Led by industry veterans Ken Ward (CEO), Patrick Kodjoe (COO), and Elvis Nuno (CEO Crypto Services) with decades of combined experience.",
+        "Led by industry veterans Elvis Nuno (CEO) and Jacob Dobie (COO) with decades of combined experience in large scale crypto and infrastructure deployments and operations.",
     },
     {
       icon: Award,

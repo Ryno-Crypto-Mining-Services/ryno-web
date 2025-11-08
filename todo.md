@@ -279,3 +279,6 @@
 - [x] Integrate FAQ into Home page (between Partnerships and ContactForm)
 - [x] Add smooth animations for accordion expand/collapse (ChevronDown rotation)
 - [x] Test FAQ responsiveness across devices
+
+## Phase 35: Leadership Section Update
+- [x] Update Expert Leadership section text in About component (Elvis Nuno CEO, Jacob Dobie COO)
