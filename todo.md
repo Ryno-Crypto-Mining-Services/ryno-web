@@ -296,9 +296,17 @@
 - [ ] Test with Google Search Console and AI search engines (deferred - requires account setup)
 
 ## Phase 37: Fix Contact Form Email Integration
-- [ ] Create backend API endpoint for email sending (Node.js/Express)
-- [ ] Implement Mailgun integration with proper authentication
-- [ ] Update ContactForm to call backend endpoint instead of client-side service
-- [ ] Test email delivery with actual Mailgun account
-- [ ] Add error handling and logging for failed submissions
+- [x] Create backend API endpoint for email sending (tRPC router)
+- [x] Implement Mailgun REST API integration with proper authentication
+- [x] Update ContactForm to call backend endpoint instead of client-side service
+- [ ] Test email delivery with actual Mailgun account (failed - switching to SMTP)
+- [x] Add error handling and logging for failed submissions
 - [ ] Verify emails arrive at sales@hashgrid.net
+
+## Phase 38: Email Delivery & Color Scheme Fix
+- [x] Fix color scheme (changed App.tsx defaultTheme from light to dark)
+- [x] Switch Mailgun integration from REST API to SMTP
+- [x] Implement nodemailer for SMTP email delivery
+- [x] Configure SMTP with TLS on port 587
+- [x] Store SMTP credentials securely as environment variables
+- [x] Update email router to use Mailgun SMTP instead of REST API

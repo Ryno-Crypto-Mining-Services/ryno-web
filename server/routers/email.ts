@@ -1,5 +1,6 @@
 import { publicProcedure, router } from "../_core/trpc";
 import { z } from "zod";
+import nodemailer from "nodemailer";
 
 const ContactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -11,56 +12,88 @@ const ContactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof ContactFormSchema>;
 
+// Create Mailgun SMTP transporter
+const createMailgunTransporter = () => {
+  const smtpUser = process.env.MAILGUN_SMTP_USER;
+  const smtpPassword = process.env.MAILGUN_SMTP_PASSWORD;
+
+  if (!smtpUser || !smtpPassword) {
+    console.error("[Email] Missing Mailgun SMTP credentials");
+    return null;
+  }
+
+  return nodemailer.createTransport({
+    host: "smtp.mailgun.org",
+    port: 587,
+    secure: false, // TLS (not SSL)
+    auth: {
+      user: smtpUser,
+      pass: smtpPassword,
+    },
+  });
+};
+
 async function sendMailgunEmail(data: ContactFormData): Promise<boolean> {
   try {
-    const apiKey = process.env.MAILGUN_API_KEY;
-    const apiEndpoint = process.env.MAILGUN_API_ENDPOINT;
+    const transporter = createMailgunTransporter();
+    if (!transporter) {
+      console.error("[Email] Failed to create Mailgun transporter");
+      return false;
+    }
+
     const senderEmail = process.env.MAILGUN_SENDER_EMAIL;
     const receiverEmail = process.env.MAILGUN_RECEIVER_EMAIL;
 
-    if (!apiKey || !apiEndpoint || !senderEmail || !receiverEmail) {
-      console.error("[Email] Missing Mailgun configuration");
+    if (!senderEmail || !receiverEmail) {
+      console.error("[Email] Missing sender or receiver email configuration");
       return false;
     }
 
-    const domain = senderEmail.split("@")[1];
-    const url = `${apiEndpoint}/v3/${domain}/messages`;
+    const mailOptions = {
+      from: `Ryno Crypto Services <${senderEmail}>`,
+      to: receiverEmail,
+      subject: `New Contact Form Submission from ${data.name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #32B8C6; border-bottom: 2px solid #32B8C6; padding-bottom: 10px;">
+            New Contact Form Submission
+          </h2>
+          
+          <div style="margin: 20px 0;">
+            <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+            <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+            <p><strong>Company:</strong> ${escapeHtml(data.company)}</p>
+            <p><strong>Service Type:</strong> ${escapeHtml(data.serviceType)}</p>
+          </div>
+          
+          <div style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #32B8C6; margin: 20px 0;">
+            <p><strong>Message:</strong></p>
+            <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
+          </div>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666;">
+            <p>This email was sent from the Ryno Crypto Services contact form.</p>
+          </div>
+        </div>
+      `,
+      text: `
+New Contact Form Submission
 
-    const formData = new URLSearchParams();
-    formData.append("from", `Ryno Crypto Services <${senderEmail}>`);
-    formData.append("to", receiverEmail);
-    formData.append("subject", `New Contact Form Submission from ${data.name}`);
-    formData.append(
-      "html",
-      `
-      <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-      <p><strong>Company:</strong> ${escapeHtml(data.company)}</p>
-      <p><strong>Service Type:</strong> ${escapeHtml(data.serviceType)}</p>
-      <p><strong>Message:</strong></p>
-      <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
-    `
-    );
+Name: ${data.name}
+Email: ${data.email}
+Company: ${data.company}
+Service Type: ${data.serviceType}
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${Buffer.from(`api:${apiKey}`).toString("base64")}`,
-      },
-      body: formData,
-    });
+Message:
+${data.message}
+      `,
+    };
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("[Email] Mailgun error:", response.status, errorText);
-      return false;
-    }
-
-    console.log("[Email] Message sent successfully via Mailgun");
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[Email] Message sent successfully via Mailgun SMTP:", info.messageId);
     return true;
   } catch (error) {
-    console.error("[Email] Failed to send email:", error);
+    console.error("[Email] Failed to send email via SMTP:", error);
     return false;
   }
 }
