@@ -5,7 +5,7 @@
 
 // Using Node.js built-in fetch (Node 18+)
 
-const API_URL = "http://localhost:3000/api/trpc/email.sendContactForm";
+const API_URL = "http://localhost:3000/api/trpc/email.sendContactForm?batch=1";
 
 const testData = {
   name: "Elvis Nuno",
@@ -28,7 +28,7 @@ async function testContactForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ input: testData }),
+      body: JSON.stringify({ "0": { input: testData } }),
     });
 
     console.log("Response Status:", response.status, response.statusText);

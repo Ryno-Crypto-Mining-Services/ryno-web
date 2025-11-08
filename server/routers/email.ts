@@ -16,11 +16,24 @@ export const emailRouter = router({
       const { name, email, company, serviceType, message } = input;
 
       // Mailgun API credentials from environment variables
-      const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY || "b4afa5eb6b121187d657ccd8fde30990-02300200-b7b6116f";
+      const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
       const MAILGUN_DOMAIN = "sales.rynocrypto.com";
       const MAILGUN_API_URL = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
-      const SENDER_EMAIL = "notifications@sales.rynocrypto.com";
-      const RECEIVER_EMAIL = "sales@hashgrid.net";
+      const SENDER_EMAIL = process.env.MAILGUN_SENDER_EMAIL || "notifications@sales.rynocrypto.com";
+      const RECEIVER_EMAIL = process.env.MAILGUN_RECEIVER_EMAIL || "sales@hashgrid.net";
+
+      // Validate required environment variables
+      if (!MAILGUN_API_KEY) {
+        console.error("[Email] MAILGUN_API_KEY environment variable is not set");
+        throw new Error("Email service is not configured properly");
+      }
+
+      console.log("[Email] Configuration:", {
+        domain: MAILGUN_DOMAIN,
+        sender: SENDER_EMAIL,
+        receiver: RECEIVER_EMAIL,
+        apiKeySet: !!MAILGUN_API_KEY
+      });
 
       try {
         // 1. Send notification email to admin
