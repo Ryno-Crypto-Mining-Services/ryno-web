@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { trackContactFormSubmit } from "@/lib/analytics";
 
 interface FormData {
   name: string;
@@ -36,6 +37,12 @@ export default function ContactForm() {
   const sendContactFormMutation = trpc.email.sendContactForm.useMutation({
     onSuccess: (data) => {
       if (data.success) {
+        // Track successful form submission
+        trackContactFormSubmit({
+          serviceType: formData.serviceType,
+          company: formData.company,
+        });
+        
         setSubmitStatus("success");
         setSubmitMessage(
           "Thank you for reaching out! We will get back to you within 24 hours."
