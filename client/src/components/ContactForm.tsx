@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
+import { sendContactEmail } from "@/lib/emailService";
 
 interface FormData {
   name: string;
@@ -67,7 +68,6 @@ export default function ContactForm() {
       ...prev,
       [name]: value,
     }));
-    // Clear error for this field when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
@@ -89,27 +89,29 @@ export default function ContactForm() {
     setSubmitStatus("idle");
 
     try {
-      // Simulate form submission - in production, this would call an API endpoint
-      // For now, we'll just show a success message
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const result = await sendContactEmail(formData);
 
-      setSubmitStatus("success");
-      setSubmitMessage(
-        "Thank you for reaching out! We'll get back to you within 24 hours."
-      );
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        serviceType: "general",
-        message: "",
-      });
+      if (result.success) {
+        setSubmitStatus("success");
+        setSubmitMessage(
+          "Thank you for reaching out! We will get back to you within 24 hours."
+        );
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          serviceType: "general",
+          message: "",
+        });
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus("idle");
-        setSubmitMessage("");
-      }, 5000);
+        setTimeout(() => {
+          setSubmitStatus("idle");
+          setSubmitMessage("");
+        }, 5000);
+      } else {
+        setSubmitStatus("error");
+        setSubmitMessage(result.error || "Failed to send message. Please try again.");
+      }
     } catch (error) {
       setSubmitStatus("error");
       setSubmitMessage("Failed to send message. Please try again.");
@@ -128,7 +130,6 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="py-24 bg-background relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
@@ -141,7 +142,6 @@ export default function ContactForm() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-          {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -153,7 +153,6 @@ export default function ContactForm() {
               </p>
             </div>
 
-            {/* Contact Details */}
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
@@ -195,7 +194,6 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Response Time */}
             <Card className="mt-8 p-4 bg-primary/5 border-primary/20">
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Response Time:</span>{" "}
@@ -204,11 +202,9 @@ export default function ContactForm() {
             </Card>
           </div>
 
-          {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="p-8 bg-card/50 backdrop-blur-sm border-border">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name Field */}
                 <div>
                   <label
                     htmlFor="name"
@@ -232,7 +228,6 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Email Field */}
                 <div>
                   <label
                     htmlFor="email"
@@ -256,7 +251,6 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Company Field */}
                 <div>
                   <label
                     htmlFor="company"
@@ -280,7 +274,6 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Service Type Field */}
                 <div>
                   <label
                     htmlFor="serviceType"
@@ -303,7 +296,6 @@ export default function ContactForm() {
                   </select>
                 </div>
 
-                {/* Message Field */}
                 <div>
                   <label
                     htmlFor="message"
@@ -327,7 +319,6 @@ export default function ContactForm() {
                   )}
                 </div>
 
-                {/* Status Messages */}
                 {submitStatus === "success" && (
                   <div className="flex items-center gap-3 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -342,7 +333,6 @@ export default function ContactForm() {
                   </div>
                 )}
 
-                {/* Submit Button */}
                 <Button
                   type="submit"
                   disabled={isSubmitting}

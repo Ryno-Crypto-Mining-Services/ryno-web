@@ -1,4 +1,13 @@
-import { FileText, Github, Twitter, Mail, ExternalLink, Cloud, Zap } from "lucide-react";
+import {
+  FileText,
+  Github,
+  Twitter,
+  Mail,
+  ExternalLink,
+  Cloud,
+  Zap,
+  Youtube,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -51,6 +60,12 @@ export default function Footer() {
       label: "Email",
       href: "mailto:dev@hashgrid.net",
       color: "hover:text-primary",
+    },
+    {
+      icon: Youtube,
+      label: "YouTube",
+      href: "https://www.youtube.com/channel/UCQxX-_FZ8NUIFK1MdSse2AQ",
+      color: "hover:text-red-500",
     },
   ];
 

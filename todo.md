@@ -262,3 +262,20 @@
 - [x] Integrate form into contact section (added to Home.tsx)
 - [ ] Setup email notification system (requires backend/API - deferred)
 - [ ] Add form submission tracking (requires analytics integration - deferred)
+
+## Phase 33: YouTube Integration & Mailgun Email Setup
+- [x] Add YouTube channel link to Footer component (https://www.youtube.com/channel/UCQxX-_FZ8NUIFK1MdSse2AQ)
+- [x] Create email service utility for Mailgun integration (emailService.ts)
+- [x] Update ContactForm to send emails via Mailgun
+- [x] Add error handling for email failures
+- [x] Test contact form submission and email delivery
+- [ ] Commit and push changes to GitHub (pending final testing)
+
+## Phase 34: FAQ Section Implementation
+- [x] Create FAQ component with expandable items (12 FAQs total)
+- [x] Add mining-specific FAQ questions and answers (4 items)
+- [x] Add retrofitting service FAQ questions (4 items)
+- [x] Add technical FAQ section (4 items)
+- [x] Integrate FAQ into Home page (between Partnerships and ContactForm)
+- [x] Add smooth animations for accordion expand/collapse (ChevronDown rotation)
+- [x] Test FAQ responsiveness across devices

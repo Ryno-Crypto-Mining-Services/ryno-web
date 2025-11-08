@@ -10,6 +10,7 @@ import Retrofitting from "@/components/Retrofitting";
 import Partnerships from "@/components/Partnerships";
 import CallToAction from "@/components/CallToAction";
 import ContactForm from "@/components/ContactForm";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
       <Retrofitting />
       <Partnerships />
       <CallToAction />
+      <FAQ />
       <ContactForm />
       <Footer />
     </div>
