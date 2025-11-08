@@ -317,4 +317,16 @@
 - [x] Create unit test for contact form email submission (test-email-unit.ts)
 - [x] Test contact form with provided test data (Elvis Nuno, elvis.nuno@pm.me, Test Mining)
 - [x] Verify email sends successfully via Mailgun SMTP (Message ID: d3674855-e82c-3ae0-0346-083f14e496a0)
+- [x] Commit and push working code to GitHub
+
+## Phase 40: Switch to Mailgun REST API
+- [x] Review Mailgun API documentation for sending emails
+- [x] Remove nodemailer SMTP implementation
+- [x] Implement Mailgun REST API using fetch with URLSearchParams
+- [x] Use correct API endpoint: https://api.mailgun.net/v3/sales.rynocrypto.com/messages
+- [x] Implement form-data encoding for API request
+- [x] Add proper error handling and logging
+- [x] Test email delivery in development environment (Message ID: 20251108184029.9750e0ed60d232fb)
+- [ ] Test email delivery in production environment (pending deployment)
+- [x] Create unit test for REST API email sending (test passed successfully)
 - [ ] Commit and push working code to GitHub
