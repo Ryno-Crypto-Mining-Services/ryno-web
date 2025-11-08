@@ -376,3 +376,9 @@
 - [x] Add retrofitting guide download link to Retrofitting section CTA
 - [x] Add retrofitting guide to Footer resources section
 - [x] Update "Schedule Consultation" button to pre-fill contact form with retrofitting service type
+
+## Phase 38: Elvis Resume Link and YouTube Video Embed
+- [x] Add Elvis Nuno's personal resume website link to Leadership component (https://enuno.github.io/DynamicCareerCanvas/)
+- [x] Add icon button for resume link next to LinkedIn and Email buttons
+- [x] Embed YouTube video in Platform Overview section under "TerraHash Stack vs Traditional Mining" heading
+- [x] Make YouTube video responsive with proper aspect ratio

@@ -183,6 +183,21 @@ export default function Platform() {
           <h3 className="text-3xl font-bold text-center mb-8">
             TerraHash Stack vs Traditional Mining
           </h3>
+          
+          {/* YouTube Video Embed */}
+          <div className="mb-12 max-w-4xl mx-auto">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg border border-primary/30"
+                src="https://www.youtube.com/embed/Fhl0eHbhkbY?si=XJOPMcLiDZzTtznU"
+                title="TerraHash Stack Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-6 bg-card/30 rounded-lg border border-border">
               <div className="text-3xl font-bold text-primary mb-2">+40%</div>

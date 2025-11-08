@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, ExternalLink } from "lucide-react";
 
 export default function Leadership() {
   const leaders = [
@@ -15,6 +15,7 @@ export default function Leadership() {
       ],
       linkedin: "https://www.linkedin.com/in/elvis-nuno/",
       email: "dev@hashgrid.net",
+      website: "https://enuno.github.io/DynamicCareerCanvas/",
     },
     {
       name: "Jacob Dobie",
@@ -142,6 +143,17 @@ export default function Leadership() {
                 >
                   <Mail className="w-5 h-5" />
                 </a>
+                {leader.website && (
+                  <a
+                    href={leader.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                    title="Personal Website"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                )}
               </div>
             </Card>
           ))}
