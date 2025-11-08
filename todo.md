@@ -390,3 +390,6 @@
 - [x] Identify root cause of email delivery failure (hardcoded receiver email instead of env variable)
 - [x] Fix email implementation (now uses MAILGUN_RECEIVER_EMAIL env variable)
 - [ ] Verify emails are sent and received successfully (pending user test)
+
+## Phase 40: Remove YouTube Video Embed
+- [x] Remove YouTube video embed from Platform Overview section
