@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain } from "lucide-react";
+import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain, Server } from "lucide-react";
 
 export default function Partnerships() {
   const partners = [
@@ -88,6 +88,22 @@ export default function Partnerships() {
       color: "text-purple-400",
       bgColor: "bg-purple-400/10",
       website: "https://pulumi.com",
+    },
+    {
+      name: "ServerDomes",
+      category: "Immersion Cooling",
+      icon: Server,
+      description:
+        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
+      features: [
+        "Immersion Cooling",
+        "Turnkey Solutions",
+        "Modular Design",
+        "Thermal Management",
+      ],
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+      website: "https://serverdomes.com",
     },
   ];
 

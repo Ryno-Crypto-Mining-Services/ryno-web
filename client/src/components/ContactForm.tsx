@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { trackContactFormSubmit } from "@/lib/analytics";
+import type { ContactFormData } from "@/lib/contactFormUtils";
 
 interface FormData {
   name: string;
@@ -33,6 +34,23 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  // Listen for pre-fill events from other components
+  useEffect(() => {
+    const handlePrefill = (event: CustomEvent<ContactFormData>) => {
+      const { serviceType, message } = event.detail;
+      setFormData((prev) => ({
+        ...prev,
+        ...(serviceType && { serviceType }),
+        ...(message && { message }),
+      }));
+    };
+
+    window.addEventListener("prefillContactForm" as any, handlePrefill);
+    return () => {
+      window.removeEventListener("prefillContactForm" as any, handlePrefill);
+    };
+  }, []);
 
   const sendContactFormMutation = trpc.email.sendContactForm.useMutation({
     onSuccess: (data) => {

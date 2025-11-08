@@ -7,6 +7,7 @@ import {
   Cloud,
   Zap,
   Youtube,
+  Linkedin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -26,6 +27,13 @@ export default function Footer() {
       label: "Litepaper",
       description: "Executive summary and key features overview",
       href: "/terrahash-litepaper.pdf",
+      external: true,
+    },
+    {
+      icon: FileText,
+      label: "Retrofitting Guide",
+      description: "Complete guide to upgrading your mining facility",
+      href: "/TerraHash-Retrofitting-Guide.pdf",
       external: true,
     },
   ];
@@ -66,6 +74,12 @@ export default function Footer() {
       label: "YouTube",
       href: "https://www.youtube.com/channel/UCQxX-_FZ8NUIFK1MdSse2AQ",
       color: "hover:text-red-500",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/ryno-crypto-services-llc/",
+      color: "hover:text-blue-600",
     },
   ];
 

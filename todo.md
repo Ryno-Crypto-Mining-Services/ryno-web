@@ -351,3 +351,28 @@
 - [ ] Test confirmation email delivery (pending browser test)
 - [ ] Verify both admin and user emails are sent
 - [ ] Commit and push changes to GitHub
+
+## Phase 43: UX Enhancements & Partner Integration
+- [ ] Implement auto-fill contact form from "Get Quote" buttons
+- [ ] Auto-scroll to contact form when "Get Quote" is clicked
+- [ ] Pre-select "Retrofitting Service" in service type dropdown
+- [ ] Pre-fill message template with facility details prompt
+- [ ] Create ServerDomes premier partner section
+- [ ] Add ServerDomes logo and branding
+- [ ] Add ServerDomes social media links (YouTube, LinkedIn, website)
+- [ ] Include partnership description text
+- [ ] Add Ryno LinkedIn profile to footer social links
+- [ ] Add Elvis Nuno professional profile/resume button to Leadership section
+- [ ] Copy TerraHash Retrofitting Guide PDF to public folder
+- [ ] Update "Download Retrofitting Guide" button to download PDF
+- [ ] Test all new functionality
+- [ ] Commit and push changes to GitHub
+
+## Phase 37: New Feature Additions
+- [x] Add LinkedIn social media link to Footer component
+- [x] Add Elvis Nuno's LinkedIn profile link (https://www.linkedin.com/in/elvis-nuno/)
+- [x] Add ServerDomes as premier partner in Partnerships section
+- [x] Copy TerraHash Retrofitting Guide PDF to public folder
+- [x] Add retrofitting guide download link to Retrofitting section CTA
+- [x] Add retrofitting guide to Footer resources section
+- [x] Update "Schedule Consultation" button to pre-fill contact form with retrofitting service type

@@ -13,7 +13,7 @@ export default function Leadership() {
         "System Architecture",
         "Technical Leadership",
       ],
-      linkedin: "#",
+      linkedin: "https://www.linkedin.com/in/elvis-nuno/",
       email: "dev@hashgrid.net",
     },
     {

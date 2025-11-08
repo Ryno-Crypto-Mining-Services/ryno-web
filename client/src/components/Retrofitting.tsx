@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { scrollToContactForm, getRetrofittingMessageTemplate } from "@/lib/contactFormUtils";
 import {
   Check,
   X,
@@ -301,7 +302,14 @@ export default function Retrofitting() {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full" variant={tier.recommended ? "default" : "outline"}>
+                <Button 
+                  className="w-full" 
+                  variant={tier.recommended ? "default" : "outline"}
+                  onClick={() => scrollToContactForm({
+                    serviceType: "retrofitting",
+                    message: getRetrofittingMessageTemplate(tier.name)
+                  })}
+                >
                   Get Quote
                 </Button>
               </Card>
@@ -343,11 +351,30 @@ export default function Retrofitting() {
               customized quote for your facility.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
+              <Button
+                size="lg"
+                className="text-lg px-8"
+                onClick={() => scrollToContactForm({
+                  serviceType: "Retrofitting",
+                  message: getRetrofittingMessageTemplate()
+                })}
+              >
                 Schedule Consultation
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                Download Retrofitting Guide
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8"
+                asChild
+              >
+                <a
+                  href="/TerraHash-Retrofitting-Guide.pdf"
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download Retrofitting Guide
+                </a>
               </Button>
             </div>
           </Card>
