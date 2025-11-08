@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
-import { sendContactEmail } from "@/lib/emailService";
+import { trpc } from "@/lib/trpc";
 
 interface FormData {
   name: string;
@@ -16,6 +16,7 @@ interface FormErrors {
   name?: string;
   email?: string;
   company?: string;
+  serviceType?: string;
   message?: string;
 }
 
@@ -24,14 +25,45 @@ export default function ContactForm() {
     name: "",
     email: "",
     company: "",
-    serviceType: "general",
+    serviceType: "mining",
     message: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  const sendContactFormMutation = trpc.email.sendContactForm.useMutation({
+    onSuccess: (data) => {
+      if (data.success) {
+        setSubmitStatus("success");
+        setSubmitMessage(
+          "Thank you for reaching out! We will get back to you within 24 hours."
+        );
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          serviceType: "mining",
+          message: "",
+        });
+        setErrors({});
+
+        setTimeout(() => {
+          setSubmitStatus("idle");
+          setSubmitMessage("");
+        }, 5000);
+      } else {
+        setSubmitStatus("error");
+        setSubmitMessage(data.message || "Failed to send message. Please try again.");
+      }
+    },
+    onError: (error) => {
+      setSubmitStatus("error");
+      setSubmitMessage("Failed to send message. Please try again later.");
+      console.error("Email submission error:", error);
+    },
+  });
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -48,6 +80,10 @@ export default function ContactForm() {
 
     if (!formData.company.trim()) {
       newErrors.company = "Company name is required";
+    }
+
+    if (!formData.serviceType) {
+      newErrors.serviceType = "Please select a service type";
     }
 
     if (!formData.message.trim()) {
@@ -85,48 +121,18 @@ export default function ContactForm() {
       return;
     }
 
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
-
-    try {
-      const result = await sendContactEmail(formData);
-
-      if (result.success) {
-        setSubmitStatus("success");
-        setSubmitMessage(
-          "Thank you for reaching out! We will get back to you within 24 hours."
-        );
-        setFormData({
-          name: "",
-          email: "",
-          company: "",
-          serviceType: "general",
-          message: "",
-        });
-
-        setTimeout(() => {
-          setSubmitStatus("idle");
-          setSubmitMessage("");
-        }, 5000);
-      } else {
-        setSubmitStatus("error");
-        setSubmitMessage(result.error || "Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      setSubmitStatus("error");
-      setSubmitMessage("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    sendContactFormMutation.mutate(formData);
   };
 
   const serviceOptions = [
-    { value: "general", label: "General Inquiry" },
-    { value: "retrofitting", label: "Retrofitting Services" },
     { value: "mining", label: "Mining Operations" },
+    { value: "retrofitting", label: "Retrofitting Services" },
     { value: "partnership", label: "Partnership Opportunity" },
-    { value: "technical", label: "Technical Support" },
+    { value: "consultation", label: "Consultation" },
+    { value: "other", label: "Other" },
   ];
+
+  const isSubmitting = sendContactFormMutation.isPending;
 
   return (
     <section id="contact" className="py-24 bg-background relative overflow-hidden">
@@ -145,7 +151,7 @@ export default function ContactForm() {
           <div className="lg:col-span-1">
             <div className="mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Get in <span className="text-primary">Touch</span>
+                Get in <span className="text-accent">Touch</span>
               </h2>
               <p className="text-lg text-muted-foreground">
                 Ready to revolutionize your mining operation? Let's discuss how
@@ -155,22 +161,22 @@ export default function ContactForm() {
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                <div className="p-3 rounded-lg bg-accent/10 text-accent flex-shrink-0">
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Email</h4>
                   <a
-                    href="mailto:dev@hashgrid.net"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    href="mailto:sales@hashgrid.net"
+                    className="text-muted-foreground hover:text-accent transition-colors"
                   >
-                    dev@hashgrid.net
+                    sales@hashgrid.net
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                <div className="p-3 rounded-lg bg-accent/10 text-accent flex-shrink-0">
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
@@ -182,7 +188,7 @@ export default function ContactForm() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                <div className="p-3 rounded-lg bg-accent/10 text-accent flex-shrink-0">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
@@ -194,7 +200,7 @@ export default function ContactForm() {
               </div>
             </div>
 
-            <Card className="mt-8 p-4 bg-primary/5 border-primary/20">
+            <Card className="mt-8 p-4 bg-accent/5 border-accent/20">
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Response Time:</span>{" "}
                 We typically respond within 24 hours during business days.
@@ -219,7 +225,8 @@ export default function ContactForm() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="John Doe"
-                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 ${
                       errors.name ? "border-red-500" : "border-border"
                     }`}
                   />
@@ -242,7 +249,8 @@ export default function ContactForm() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="john@example.com"
-                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 ${
                       errors.email ? "border-red-500" : "border-border"
                     }`}
                   />
@@ -265,7 +273,8 @@ export default function ContactForm() {
                     value={formData.company}
                     onChange={handleChange}
                     placeholder="Your Mining Operation"
-                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 ${
                       errors.company ? "border-red-500" : "border-border"
                     }`}
                   />
@@ -279,14 +288,17 @@ export default function ContactForm() {
                     htmlFor="serviceType"
                     className="block text-sm font-medium text-foreground mb-2"
                   >
-                    Service Type
+                    Service Type *
                   </label>
                   <select
                     id="serviceType"
                     name="serviceType"
                     value={formData.serviceType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-background border border-border transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 ${
+                      errors.serviceType ? "border-red-500" : "border-border"
+                    }`}
                   >
                     {serviceOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -294,6 +306,9 @@ export default function ContactForm() {
                       </option>
                     ))}
                   </select>
+                  {errors.serviceType && (
+                    <p className="mt-1 text-sm text-red-500">{errors.serviceType}</p>
+                  )}
                 </div>
 
                 <div>
@@ -310,7 +325,8 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder="Tell us about your mining operation and what you're looking to achieve..."
                     rows={5}
-                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-lg bg-background border transition-colors focus:outline-none focus:ring-2 focus:ring-accent resize-none disabled:opacity-50 ${
                       errors.message ? "border-red-500" : "border-border"
                     }`}
                   />
@@ -336,7 +352,7 @@ export default function ContactForm() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 text-base font-semibold"
+                  className="w-full py-3 text-base font-semibold bg-accent hover:bg-accent/90"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
