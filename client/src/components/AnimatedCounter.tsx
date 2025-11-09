@@ -5,6 +5,7 @@ interface AnimatedCounterProps {
   suffix?: string;
   duration?: number;
   className?: string;
+  trigger?: boolean; // External trigger for animation
 }
 
 export function AnimatedCounter({
@@ -12,8 +13,9 @@ export function AnimatedCounter({
   suffix = "",
   duration = 2000,
   className = "",
+  trigger,
 }: AnimatedCounterProps) {
-  const counter = useCountUp({ end, suffix, duration });
+  const counter = useCountUp({ end, suffix, duration, externalTrigger: trigger });
 
   return (
     <span ref={counter.ref} className={className}>

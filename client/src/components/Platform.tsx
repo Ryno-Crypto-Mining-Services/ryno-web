@@ -137,9 +137,10 @@ export default function Platform() {
                     <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3">
-                  <AnimatedCounter end={benefit.value} suffix={benefit.suffix} /> {benefit.title}
-                </h3>
+                <div className="text-xl font-bold mb-3">
+                  <AnimatedCounter end={benefit.value} suffix={benefit.suffix} trigger={benefitsVisible} />
+                  <span> {benefit.title}</span>
+                </div>
                 <AnimatedProgressBar value={benefit.value} className="mb-3" />
                 <p className="text-muted-foreground">{benefit.description}</p>
                 </Card>
