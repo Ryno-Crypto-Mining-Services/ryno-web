@@ -17,8 +17,7 @@ export function AnimatedCounter({
   trigger,
 }: AnimatedCounterProps) {
   const contextTrigger = useAnimationTrigger();
-  // If trigger prop is provided, use it. Otherwise, use context trigger (which is false by default, true when visible)
-  const finalTrigger = trigger !== undefined ? trigger : contextTrigger;
+  const finalTrigger = trigger !== undefined ? trigger : (contextTrigger || undefined);
   const counter = useCountUp({ end, suffix, duration, externalTrigger: finalTrigger });
 
   return (
