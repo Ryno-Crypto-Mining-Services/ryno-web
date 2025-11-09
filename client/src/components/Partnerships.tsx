@@ -13,15 +13,15 @@ export default function Partnerships() {
   const partners = [
     {
       name: "ServerDomes",
-      category: "Immersion Cooling",
+      category: "Edge Data Centers",
       icon: Server,
       description:
-        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
+        "ServerDomes leverages a revolutionary biomimetic dome architecture to deliver hyper-efficient, cost-effective data centers—with up to 40% lower operating costs, 8-12 month rapid build times, and scalable, high-capacity, low-latency fiber WAN networks—providing the optimal infrastructure for hosting TerraHash Stack's core AI management systems.",
       features: [
-        "Immersion Cooling",
-        "Turnkey Solutions",
-        "Modular Design",
-        "Thermal Management",
+        "Accelerated Launch",
+        "Sustainable Operations",
+        "Modular Scalability",
+        "High Capacity, Low Latency Connectivity",
       ],
       color: "text-cyan-500",
       bgColor: "bg-cyan-500/10",
