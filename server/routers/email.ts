@@ -107,13 +107,14 @@ ${message}
           body: adminFormData,
         });
 
+        const adminResponseText = await adminResponse.text();
+        
         if (!adminResponse.ok) {
-          const errorText = await adminResponse.text();
-          console.error("[Email] Admin email error:", adminResponse.status, errorText);
+          console.error("[Email] Admin email error:", adminResponse.status, adminResponseText);
           throw new Error(`Failed to send admin notification: ${adminResponse.status}`);
         }
 
-        const adminResult = JSON.parse(await adminResponse.text());
+        const adminResult = JSON.parse(adminResponseText);
         console.log("[Email] Admin notification sent:", adminResult);
 
         // 2. Send confirmation email to user
@@ -240,13 +241,14 @@ Website: https://ryno.manus.space
           body: userFormData,
         });
 
+        const userResponseText = await userResponse.text();
+        
         if (!userResponse.ok) {
-          const errorText = await userResponse.text();
-          console.error("[Email] User confirmation email error:", userResponse.status, errorText);
+          console.error("[Email] User confirmation email error:", userResponse.status, userResponseText);
           // Don't throw error here - admin email was sent successfully
           console.warn("[Email] Failed to send user confirmation, but admin notification was successful");
         } else {
-          const userResult = JSON.parse(await userResponse.text());
+          const userResult = JSON.parse(userResponseText);
           console.log("[Email] User confirmation sent:", userResult);
         }
 
