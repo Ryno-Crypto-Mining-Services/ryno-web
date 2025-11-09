@@ -421,3 +421,11 @@
 - [x] Add user-friendly error messages for rate limit and CAPTCHA failures
 - [x] Test rate limiting with multiple submissions (ready for user testing)
 - [x] Test CAPTCHA verification flow (ready for user testing)
+
+## Phase 44: Remove Cloudflare Turnstile CAPTCHA
+- [x] Remove Turnstile token validation from email router
+- [x] Remove Turnstile verification imports and logic
+- [x] Remove Turnstile widget from ContactForm component
+- [x] Remove Turnstile script loading
+- [x] Remove turnstileToken from form data interface and state
+- [x] Keep IP-based rate limiting intact
