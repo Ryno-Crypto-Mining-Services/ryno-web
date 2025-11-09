@@ -2,10 +2,8 @@ import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
-import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
-import { ExternalLink, Droplet, Server } from "lucide-react";
-
-export default function Partnerships() {
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";import { ExternalLink, Droplet, Building2 } from "lucide-react";
+import { AnimatedStat } from "@/components/AnimatedStat";export default function Partnerships() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: partnersRef, isVisible: partnersVisible } = useScrollAnimation();
   const parallax = useParallax({ speed: 0.15, direction: "down" });
@@ -14,9 +12,10 @@ export default function Partnerships() {
     {
       name: "ServerDomes",
       category: "Edge Data Centers",
-      icon: Server,
+      icon: Building2,
+      logo: "/serverdomes-logo.png",
       description:
-        "ServerDomes leverages a revolutionary biomimetic dome architecture to deliver hyper-efficient, cost-effective data centers—with up to 40% lower operating costs, 8-12 month rapid build times, and scalable, high-capacity, low-latency fiber WAN networks—providing the optimal infrastructure for hosting TerraHash Stack's core AI management systems.",
+        "ServerDomes redefines next-gen data center performance with its advanced biomimetic dome architecture.\n\n• Leverages nature-inspired passive cooling and airflow, eliminating conventional inefficiencies to achieve 27-40% lower power usage and over 90% reduced water consumption.\n\n• Rapidly deploys modular domes in 8–12 months, scaling from 2MW to 5MW per site with minimal land and streamlining network expansion.\n\n• Boasts a truss-free, flexible interior supporting highly adaptable AI and mining infrastructure, enabling industry-leading uptime and effortless facility maintenance.\n\n• Integrates ultra-bandwidth, low-latency fiber WAN networks for real-time AI management and seamless connectivity between geographically distributed or edge mining nodes.\n\n• Designed for sustainability and ESG, with no refrigerants, a minimized carbon footprint, and restorative environmental strategies—future-proofing TerraHash Stack for rapid AI/DePIN scaling and operational resilience.",
       features: [
         "Accelerated Launch",
         "Sustainable Operations",
@@ -31,8 +30,9 @@ export default function Partnerships() {
       name: "Chilldyne",
       category: "Cooling Solutions",
       icon: Droplet,
+      logo: "/chilldyne-logo.png",
       description:
-        "Chilldyne pioneers next-generation direct-to-chip liquid cooling solutions engineered for scalable high-density AI and blockchain workloads, leveraging patented negative pressure technology to deliver up to 40% energy savings and 700% greater cooling efficiency compared to air-based systems, with a leak-proof, modular architecture that minimizes downtime, eliminates costly HVAC infrastructure, slashes operational carbon footprint, and allows easy commissioning and remote management—proven to future-proof data centers for megawatt-scale deployments while supporting exceptional uptime, serviceability, and sustainability for TerraHash Stack's liquid-cooled mining and AI management infrastructure.",
+        "Chilldyne is a leader in direct-to-chip liquid cooling for next-generation datacenters.\n\n• Delivers up to 40% energy savings and 700% greater cooling efficiency compared to air systems.\n\n• Employs patented negative pressure technology for leak-proof, high-reliability operation.\n\n• Modular architecture minimizes downtime and eliminates the need for costly HVAC infrastructure.\n\n• Dramatically reduces operational carbon footprint and supports remote commissioning/management.\n\n• Future-proofs large-scale mining and AI facilities by sustaining exceptional uptime, serviceability, and sustainability for TerraHash Stack operations.",
       features: [
         "Direct-to-Chip Cooling",
         "95% Efficiency",
@@ -97,9 +97,19 @@ export default function Partnerships() {
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-lg ${partner.bgColor} group-hover:scale-110 transition-transform duration-300`}>
-                  <partner.icon className={`w-8 h-8 ${partner.color} group-hover:rotate-12 transition-transform duration-300`} />
-                </div>
+                {partner.logo ? (
+                  <div className="h-12 flex items-center group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      className="h-10 object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className={`p-3 rounded-lg ${partner.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+                    <partner.icon className={`w-8 h-8 ${partner.color} group-hover:rotate-12 transition-transform duration-300`} />
+                  </div>
+                )}
                 <a
                   href={partner.website}
                   target="_blank"
@@ -116,22 +126,32 @@ export default function Partnerships() {
               <p className={`text-sm font-medium mb-3 ${partner.color}`}>
                 {partner.category}
               </p>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed whitespace-pre-line">
                 {partner.description}
               </p>
 
               {/* Features */}
-              <div className="space-y-2">
+              <div className="space-y-2 mb-4">
                 {partner.features.map((feature, idx) => (
                   <div
                     key={idx}
                     className="flex items-center gap-2 text-xs text-foreground/80"
-                  >
-                    <div className={`w-1.5 h-1.5 rounded-full ${partner.color.replace('text-', 'bg-')}`}></div>
+                  > <div className={`w-1.5 h-1.5 rounded-full ${partner.color.replace('text-', 'bg-')}`}></div>
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
+
+              {/* Learn More Button */}
+              <a
+                href={partner.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors duration-300 group/btn"
+              >
+                Learn More
+                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-300" />
+              </a>
               </Card>
             </motion.div>
           ))}
@@ -158,7 +178,7 @@ export default function Partnerships() {
                 
                 <div className="grid grid-cols-3 gap-4 items-center">
                   <div className="text-sm text-muted-foreground">Operating Costs</div>
-                  <div className="text-center font-bold text-green-500">40% Lower</div>
+                  <AnimatedStat value="40% Lower" className="text-center font-bold text-green-500" />
                   <div className="text-center text-muted-foreground">Baseline</div>
                 </div>
                 
@@ -208,13 +228,13 @@ export default function Partnerships() {
                 
                 <div className="grid grid-cols-3 gap-4 items-center">
                   <div className="text-sm text-muted-foreground">Energy Savings</div>
-                  <div className="text-center font-bold text-green-500">40% Lower</div>
+                  <AnimatedStat value="40% Lower" className="text-center font-bold text-green-500" />
                   <div className="text-center text-muted-foreground">Baseline</div>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
                   <div className="text-sm text-muted-foreground">Efficiency</div>
-                  <div className="text-center font-bold text-green-500">700% Better</div>
+                  <AnimatedStat value="700% Better" className="text-center font-bold text-green-500" />
                   <div className="text-center text-muted-foreground">100%</div>
                 </div>
                 

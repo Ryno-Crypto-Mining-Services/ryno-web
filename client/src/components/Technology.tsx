@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 
 export default function Technology() {
-  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network" | "edge" | "automation">("hardware");
+  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network" | "edge" | "automation" | "depin">("hardware");
 
   const hardwareModules = [
     {
@@ -267,20 +267,20 @@ export default function Technology() {
       color: "text-orange-400",
     },
     {
-      icon: Database,
-      name: "Cloudflare R2 Storage",
-      category: "Object Storage",
+      icon: Server,
+      name: "SUSE Rancher",
+      category: "Kubernetes Management",
       description:
-        "Global object storage for mining data, logs, and analytics with zero egress fees and S3-compatible API.",
+        "Complete Kubernetes management platform with Harvester HCI, RancherOS, Rancher Dashboard, and Longhorn storage for running and managing K8s and K3s hybrid-cloud and edge computing clusters at scale.",
       capabilities: [
-        "S3-compatible API",
-        "Zero egress fees",
-        "Global replication",
-        "Automatic backups",
-        "Cost-effective storage",
+        "Harvester: HCI for edge infrastructure",
+        "RancherOS: Minimal OS for containers",
+        "Rancher Dashboard: Centralized K8s management",
+        "Longhorn: Cloud-native distributed storage",
+        "Multi-cluster orchestration",
       ],
-      link: { name: "Cloudflare R2", url: "https://www.cloudflare.com/developer-platform/products/r2/" },
-      color: "text-blue-400",
+      link: { name: "SUSE Rancher", url: "https://www.rancher.com/" },
+      color: "text-green-400",
     },
     {
       icon: Shield,
@@ -367,11 +367,127 @@ export default function Technology() {
     },
   ];
 
+  const depinModules = [
+    {
+      icon: Cloud,
+      name: "Akash Network ($AKT)",
+      category: "Decentralized Cloud Compute",
+      description:
+        "Decentralized cloud computing marketplace for deploying containerized applications on a distributed network of providers, enabling hybrid-cloud strategy for TerraHash Stack.",
+      capabilities: [
+        "Kubernetes-native deployment",
+        "Cost-effective compute resources",
+        "Censorship-resistant infrastructure",
+        "Global provider network",
+        "Hybrid cloud integration",
+      ],
+      link: { name: "Akash Network", url: "https://akash.network/about/general-information/" },
+      color: "text-red-400",
+    },
+    {
+      icon: Database,
+      name: "Storj ($STORJ)",
+      category: "Decentralized Storage",
+      description:
+        "Distributed cloud storage network providing S3-compatible object storage with enterprise-grade security and performance.",
+      capabilities: [
+        "S3-compatible API",
+        "End-to-end encryption",
+        "Geographic redundancy",
+        "Cost-effective storage",
+        "High availability",
+      ],
+      link: { name: "Storj", url: "https://www.storj.io/" },
+      color: "text-blue-400",
+    },
+    {
+      icon: Database,
+      name: "Filecoin ($FIL)",
+      category: "Decentralized Storage",
+      description:
+        "Peer-to-peer network for storing files with built-in economic incentives to ensure files are stored reliably over time.",
+      capabilities: [
+        "Verifiable storage proofs",
+        "Long-term data persistence",
+        "Cryptographic guarantees",
+        "Decentralized retrieval",
+        "IPFS integration",
+      ],
+      link: { name: "Filecoin", url: "https://filecoin.io/" },
+      color: "text-blue-500",
+    },
+    {
+      icon: Server,
+      name: "Filebase",
+      category: "Multi-Chain Storage",
+      description:
+        "Unified S3-compatible interface for decentralized storage across multiple networks including Storj, Filecoin, and IPFS.",
+      capabilities: [
+        "Multi-network redundancy",
+        "S3-compatible API",
+        "Automatic replication",
+        "Simplified management",
+        "Cost optimization",
+      ],
+      link: { name: "Filebase", url: "https://filebase.com/" },
+      color: "text-cyan-400",
+    },
+    {
+      icon: Activity,
+      name: "Chainlink ($LINK)",
+      category: "Oracle Network",
+      description:
+        "Decentralized oracle network providing reliable pricing feeds and off-chain data for DeFi integration and AI treasury management.",
+      capabilities: [
+        "Price feed oracles",
+        "Verifiable randomness",
+        "Cross-chain interoperability",
+        "Proof of Reserve",
+        "Automation services",
+      ],
+      link: { name: "Chainlink", url: "https://chain.link/" },
+      color: "text-blue-600",
+    },
+    {
+      icon: Brain,
+      name: "The Graph ($GRT)",
+      category: "Indexing Protocol",
+      description:
+        "Decentralized protocol for indexing and querying blockchain data, enabling on-chain analytics for AI treasury management module.",
+      capabilities: [
+        "GraphQL API",
+        "Real-time data indexing",
+        "Subgraph development",
+        "Multi-chain support",
+        "Decentralized queries",
+      ],
+      link: { name: "The Graph", url: "https://thegraph.com/" },
+      color: "text-purple-500",
+    },
+    {
+      icon: Network,
+      name: "Helium LoRAWAN",
+      category: "IoT Connectivity",
+      description:
+        "Decentralized wireless network for IoT devices, providing long-range, low-power connectivity for mining facility sensor data readings.",
+      capabilities: [
+        "Long-range connectivity (10+ km)",
+        "Low power consumption",
+        "Decentralized coverage",
+        "Sensor data collection",
+        "Real-time monitoring",
+      ],
+      link: { name: "Helium", url: "https://www.helium.com/" },
+      color: "text-green-500",
+    },
+  ];
+
   const tabs = [
     { id: "hardware" as const, label: "Hardware Modules", icon: Cpu },
     { id: "software" as const, label: "Software Architecture", icon: Brain },
     { id: "edge" as const, label: "Edge Computing", icon: Cloud },
     { id: "automation" as const, label: "Infrastructure Automation", icon: Workflow },
+    { id: "depin" as const, label: "DePIN", icon: Network },
     { id: "network" as const, label: "Network Infrastructure", icon: Network },
   ];
 
@@ -522,6 +638,62 @@ export default function Technology() {
                         ))}
                       </div>
                     </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* DePIN Tab */}
+        {activeTab === "depin" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {depinModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {module.link && (
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      {module.link.name}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
                   )}
                 </Card>
               ))}
