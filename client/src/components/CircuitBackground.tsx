@@ -1,8 +1,18 @@
 import { useEffect, useState } from "react";
 
+interface Point {
+  x: number;
+  y: number;
+}
+
+interface Line {
+  start: Point;
+  end: Point;
+}
+
 interface Pulse {
   id: number;
-  pathId: string;
+  lineIndex: number;
   progress: number;
   speed: number;
 }
@@ -10,65 +20,146 @@ interface Pulse {
 export function CircuitBackground() {
   const [pulses, setPulses] = useState<Pulse[]>([]);
 
-  // Circuit paths - complex diagonal and curved patterns
-  const paths = [
-    // Diagonal paths
-    "M 0 20 L 30 50 L 60 20 L 100 50",
-    "M 0 80 L 40 50 L 70 80 L 100 60",
-    "M 20 0 L 50 40 L 80 10 L 100 30",
-    "M 80 0 L 50 30 L 30 60 L 0 40",
+  // Define connection points for circuit board
+  const points: Point[] = [
+    // Top row
+    { x: 10, y: 15 },
+    { x: 25, y: 15 },
+    { x: 40, y: 15 },
+    { x: 55, y: 15 },
+    { x: 70, y: 15 },
+    { x: 85, y: 15 },
     
-    // Horizontal with bends
-    "M 0 30 L 25 30 L 35 40 L 65 40 L 75 30 L 100 30",
-    "M 0 70 L 20 70 L 30 60 L 70 60 L 80 70 L 100 70",
+    // Middle-top row
+    { x: 15, y: 35 },
+    { x: 30, y: 35 },
+    { x: 45, y: 35 },
+    { x: 60, y: 35 },
+    { x: 75, y: 35 },
+    { x: 90, y: 35 },
     
-    // Vertical with bends
-    "M 40 0 L 40 25 L 50 35 L 50 65 L 40 75 L 40 100",
-    "M 70 0 L 70 20 L 60 30 L 60 70 L 70 80 L 70 100",
+    // Center row
+    { x: 10, y: 50 },
+    { x: 25, y: 50 },
+    { x: 40, y: 50 },
+    { x: 55, y: 50 },
+    { x: 70, y: 50 },
+    { x: 85, y: 50 },
     
-    // Complex curves
-    "M 0 50 Q 25 20, 50 50 T 100 50",
-    "M 50 0 Q 20 25, 50 50 T 50 100",
+    // Middle-bottom row
+    { x: 15, y: 65 },
+    { x: 30, y: 65 },
+    { x: 45, y: 65 },
+    { x: 60, y: 65 },
+    { x: 75, y: 65 },
+    { x: 90, y: 65 },
+    
+    // Bottom row
+    { x: 10, y: 85 },
+    { x: 25, y: 85 },
+    { x: 40, y: 85 },
+    { x: 55, y: 85 },
+    { x: 70, y: 85 },
+    { x: 85, y: 85 },
+  ];
+
+  // Define straight lines connecting points (geometric circuit traces)
+  const lines: Line[] = [
+    // Horizontal lines
+    { start: points[0], end: points[1] },
+    { start: points[1], end: points[2] },
+    { start: points[2], end: points[3] },
+    { start: points[3], end: points[4] },
+    { start: points[4], end: points[5] },
+    
+    { start: points[6], end: points[7] },
+    { start: points[7], end: points[8] },
+    { start: points[8], end: points[9] },
+    { start: points[9], end: points[10] },
+    { start: points[10], end: points[11] },
+    
+    { start: points[12], end: points[13] },
+    { start: points[13], end: points[14] },
+    { start: points[14], end: points[15] },
+    { start: points[15], end: points[16] },
+    { start: points[16], end: points[17] },
+    
+    { start: points[18], end: points[19] },
+    { start: points[19], end: points[20] },
+    { start: points[20], end: points[21] },
+    { start: points[21], end: points[22] },
+    { start: points[22], end: points[23] },
+    
+    { start: points[24], end: points[25] },
+    { start: points[25], end: points[26] },
+    { start: points[26], end: points[27] },
+    { start: points[27], end: points[28] },
+    { start: points[28], end: points[29] },
+    
+    // Vertical lines
+    { start: points[0], end: points[12] },
+    { start: points[1], end: points[13] },
+    { start: points[2], end: points[14] },
+    { start: points[3], end: points[15] },
+    { start: points[4], end: points[16] },
+    { start: points[5], end: points[17] },
+    
+    // Diagonal connections
+    { start: points[1], end: points[7] },
+    { start: points[3], end: points[9] },
+    { start: points[13], end: points[19] },
+    { start: points[15], end: points[21] },
+    { start: points[25], end: points[19] },
+    { start: points[27], end: points[21] },
   ];
 
   useEffect(() => {
-    // Initialize pulses
-    const initialPulses: Pulse[] = paths.flatMap((_, pathIndex) =>
-      Array.from({ length: 2 }, (__, pulseIndex) => ({
-        id: pathIndex * 2 + pulseIndex,
-        pathId: `path-${pathIndex}`,
-        progress: (pulseIndex * 50 + Math.random() * 20) % 100,
-        speed: 0.15 + Math.random() * 0.25,
-      }))
-    );
+    // Initialize pulses on random lines
+    const initialPulses: Pulse[] = Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      lineIndex: Math.floor(Math.random() * lines.length),
+      progress: Math.random(),
+      speed: 0.003 + Math.random() * 0.005,
+    }));
     setPulses(initialPulses);
 
     // Animate pulses
     const interval = setInterval(() => {
       setPulses((prev) =>
-        prev.map((pulse) => ({
-          ...pulse,
-          progress: (pulse.progress + pulse.speed) % 100,
-        }))
+        prev.map((pulse) => {
+          const newProgress = pulse.progress + pulse.speed;
+          // Reset pulse to new random line when it completes
+          if (newProgress >= 1) {
+            return {
+              ...pulse,
+              lineIndex: Math.floor(Math.random() * lines.length),
+              progress: 0,
+              speed: 0.003 + Math.random() * 0.005,
+            };
+          }
+          return {
+            ...pulse,
+            progress: newProgress,
+          };
+        })
       );
-    }, 50);
+    }, 16); // ~60fps
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <svg
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full opacity-40"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
-        {/* Glow filter for circuit traces */}
-        <filter id="circuit-glow">
-          <feGaussianBlur stdDeviation="0.5" result="coloredBlur" />
+        {/* Glow filter for connection points */}
+        <filter id="point-glow">
+          <feGaussianBlur stdDeviation="0.8" result="coloredBlur" />
           <feMerge>
-            <feMergeNode in="coloredBlur" />
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
@@ -76,144 +167,90 @@ export function CircuitBackground() {
 
         {/* Strong glow for pulses */}
         <filter id="pulse-glow">
-          <feGaussianBlur stdDeviation="1" result="coloredBlur" />
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
           <feMerge>
-            <feMergeNode in="coloredBlur" />
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
 
-        {/* Gradient for pulses */}
-        <radialGradient id="pulseGradient">
-          <stop offset="0%" stopColor="rgba(50, 184, 198, 1)" />
-          <stop offset="50%" stopColor="rgba(50, 184, 198, 0.6)" />
-          <stop offset="100%" stopColor="rgba(50, 184, 198, 0)" />
-        </radialGradient>
-
-        {/* Define paths for animation */}
-        {paths.map((d, i) => (
-          <path key={i} id={`path-${i}`} d={d} fill="none" />
-        ))}
+        {/* Gradient for pulses (electrical effect) */}
+        <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="rgba(34, 211, 238, 0)" />
+          <stop offset="50%" stopColor="rgba(34, 211, 238, 1)" />
+          <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+        </linearGradient>
       </defs>
 
-      {/* Background gradient */}
-      <rect width="100" height="100" fill="url(#bg-gradient)" opacity="0.3" />
-      <defs>
-        <radialGradient id="bg-gradient">
-          <stop offset="0%" stopColor="rgba(50, 184, 198, 0.1)" />
-          <stop offset="100%" stopColor="rgba(0, 0, 0, 0)" />
-        </radialGradient>
-      </defs>
+      {/* Dark background to improve text readability */}
+      <rect width="100" height="100" fill="rgba(0, 0, 0, 0.7)" />
 
-      {/* Circuit traces - multiple layers for depth */}
-      <g opacity="0.15">
-        {paths.map((d, i) => (
-          <path
-            key={`trace-bg-${i}`}
-            d={d}
-            stroke="rgba(50, 184, 198, 0.3)"
-            strokeWidth="0.3"
-            fill="none"
+      {/* Circuit lines - straight geometric traces */}
+      <g opacity="0.3">
+        {lines.map((line, i) => (
+          <line
+            key={`line-${i}`}
+            x1={line.start.x}
+            y1={line.start.y}
+            x2={line.end.x}
+            y2={line.end.y}
+            stroke="rgba(34, 211, 238, 0.6)"
+            strokeWidth="0.2"
+            strokeLinecap="square"
           />
         ))}
       </g>
 
-      <g opacity="0.25" filter="url(#circuit-glow)">
-        {paths.map((d, i) => (
-          <path
-            key={`trace-${i}`}
-            d={d}
-            stroke="rgba(50, 184, 198, 0.6)"
-            strokeWidth="0.15"
-            fill="none"
+      {/* Connection points (nodes) */}
+      <g filter="url(#point-glow)">
+        {points.map((point, i) => (
+          <circle
+            key={`point-${i}`}
+            cx={point.x}
+            cy={point.y}
+            r="0.5"
+            fill="rgba(34, 211, 238, 0.8)"
           />
         ))}
       </g>
 
-      {/* Connection nodes at path intersections */}
-      <g filter="url(#circuit-glow)">
-        {[
-          [30, 50], [60, 20], [40, 50], [70, 80],
-          [50, 40], [80, 10], [50, 30], [30, 60],
-          [25, 30], [35, 40], [65, 40], [75, 30],
-          [20, 70], [30, 60], [70, 60], [80, 70],
-          [40, 25], [50, 35], [50, 65], [40, 75],
-          [70, 20], [60, 30], [60, 70], [70, 80],
-          [25, 20], [50, 50], [75, 80],
-        ].map(([x, y], i) => (
-          <g key={`node-${i}`}>
-            {/* Outer glow */}
-            <circle
-              cx={x}
-              cy={y}
-              r="0.8"
-              fill="rgba(50, 184, 198, 0.2)"
-              opacity="0.6"
-            >
-              <animate
-                attributeName="r"
-                values="0.8;1.2;0.8"
-                dur={`${3 + (i % 3)}s`}
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="opacity"
-                values="0.6;0.3;0.6"
-                dur={`${3 + (i % 3)}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-            {/* Core node */}
-            <circle
-              cx={x}
-              cy={y}
-              r="0.4"
-              fill="rgba(50, 184, 198, 0.9)"
+      {/* Animated electrical pulses traveling point-to-point */}
+      {pulses.map((pulse) => {
+        const line = lines[pulse.lineIndex];
+        if (!line) return null;
+
+        // Calculate current position along the line
+        const x = line.start.x + (line.end.x - line.start.x) * pulse.progress;
+        const y = line.start.y + (line.end.y - line.start.y) * pulse.progress;
+
+        // Calculate angle for pulse orientation
+        const angle = Math.atan2(line.end.y - line.start.y, line.end.x - line.start.x) * (180 / Math.PI);
+
+        return (
+          <g key={pulse.id} transform={`translate(${x}, ${y}) rotate(${angle})`}>
+            {/* Pulse glow */}
+            <ellipse
+              cx="0"
+              cy="0"
+              rx="2"
+              ry="0.8"
+              fill="url(#pulseGradient)"
+              filter="url(#pulse-glow)"
+              opacity={Math.sin(pulse.progress * Math.PI)}
+            />
+            {/* Pulse core */}
+            <ellipse
+              cx="0"
+              cy="0"
+              rx="1"
+              ry="0.4"
+              fill="rgba(34, 211, 238, 1)"
+              opacity={Math.sin(pulse.progress * Math.PI)}
             />
           </g>
-        ))}
-      </g>
-
-      {/* Animated pulses traveling along paths */}
-      {pulses.map((pulse) => (
-        <circle
-          key={pulse.id}
-          r="0.6"
-          fill="url(#pulseGradient)"
-          filter="url(#pulse-glow)"
-        >
-          <animateMotion
-            dur="0s"
-            repeatCount="1"
-            fill="freeze"
-          >
-            <mpath href={`#${pulse.pathId}`} />
-            <set attributeName="startOffset" to={`${pulse.progress}%`} />
-          </animateMotion>
-          {/* Position pulse along path using transform */}
-          <animate
-            attributeName="opacity"
-            values="0;1;1;0"
-            keyTimes="0;0.1;0.9;1"
-            dur="3s"
-            repeatCount="indefinite"
-          />
-        </circle>
-      ))}
-
-      {/* Additional animated pulses using CSS */}
-      <style>
-        {`
-          @keyframes pulse-travel {
-            0% { offset-distance: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { offset-distance: 100%; opacity: 0; }
-          }
-        `}
-      </style>
+        );
+      })}
     </svg>
   );
 }

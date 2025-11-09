@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useInView } from "@/hooks/useInView";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useParallax } from "@/hooks/useParallax";
@@ -8,15 +8,57 @@ import { CircuitBackground } from "@/components/CircuitBackground";
 import { AnimatedProgressBar } from "@/components/AnimatedProgressBar";
 
 function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: string; suffix?: string }) {
-  const counter = useCountUp({ end: value, duration: 2000, suffix });
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (hasAnimated) return;
+
+    // Delay animation slightly for better UX
+    const timeout = setTimeout(() => {
+      setHasAnimated(true);
+      let startTime: number | null = null;
+      let animationFrame: number;
+
+      const animate = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / 2000, 1);
+
+        // Easing function for smooth animation (ease-out quart)
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = value * easeOutQuart;
+
+        setCount(current);
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          setCount(value);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+
+      return () => {
+        if (animationFrame) {
+          cancelAnimationFrame(animationFrame);
+        }
+      };
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [value, hasAnimated]);
+
+  const displayValue = `${Math.floor(count)}${suffix}`;
 
   return (
     <div
-      ref={counter.ref}
+      ref={ref}
       className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
     >
       <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-        {counter.value}
+        {displayValue}
       </div>
       <AnimatedProgressBar value={value} className="mb-2" />
       <div className="text-sm text-muted-foreground">{label}</div>
