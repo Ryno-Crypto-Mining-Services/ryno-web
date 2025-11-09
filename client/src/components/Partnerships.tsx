@@ -32,11 +32,11 @@ export default function Partnerships() {
       category: "Cooling Solutions",
       icon: Droplet,
       description:
-        "Direct-to-chip liquid cooling technology provider. Delivers 95%+ cooling efficiency with dramatically reduced energy consumption compared to traditional air cooling systems.",
+        "Chilldyne pioneers next-generation direct-to-chip liquid cooling solutions engineered for scalable high-density AI and blockchain workloads, leveraging patented negative pressure technology to deliver up to 40% energy savings and 700% greater cooling efficiency compared to air-based systems, with a leak-proof, modular architecture that minimizes downtime, eliminates costly HVAC infrastructure, slashes operational carbon footprint, and allows easy commissioning and remote management—proven to future-proof data centers for megawatt-scale deployments while supporting exceptional uptime, serviceability, and sustainability for TerraHash Stack's liquid-cooled mining and AI management infrastructure.",
       features: [
         "Direct-to-Chip Cooling",
         "95% Efficiency",
-        "Heat Recovery",
+        "100% Leak-Proof",
         "Modular Design",
       ],
       color: "text-blue-500",
