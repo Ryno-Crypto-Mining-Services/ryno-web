@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedProgressBar } from "@/components/AnimatedProgressBar";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import {
   Zap,
@@ -139,6 +140,7 @@ export default function Platform() {
                 <h3 className="text-xl font-bold mb-3">
                   <AnimatedCounter end={benefit.value} suffix={benefit.suffix} /> {benefit.title}
                 </h3>
+                <AnimatedProgressBar value={benefit.value} className="mb-3" />
                 <p className="text-muted-foreground">{benefit.description}</p>
                 </Card>
               </motion.div>

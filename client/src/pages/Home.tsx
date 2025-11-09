@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
 import LogoShowcase from "@/components/LogoShowcase";
 import About from "@/components/About";
 import MissionStatement from "@/components/MissionStatement";
@@ -27,8 +28,10 @@ export default function Home() {
   // Use APP_LOGO (as image src) and APP_TITLE if needed
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+    <>
+      <ScrollProgressIndicator />
+      <div className="min-h-screen bg-background text-foreground">
+        <Navigation />
       <Hero />
       <LogoShowcase />
       <About />
@@ -42,6 +45,7 @@ export default function Home() {
       <FAQ />
       <ContactForm />
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

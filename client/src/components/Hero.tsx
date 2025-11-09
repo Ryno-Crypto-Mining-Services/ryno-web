@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useParallax } from "@/hooks/useParallax";
+import { CircuitBackground } from "@/components/CircuitBackground";
+import { AnimatedProgressBar } from "@/components/AnimatedProgressBar";
 
 function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: string; suffix?: string }) {
   const counter = useCountUp({ end: value, duration: 2000, suffix });
@@ -16,6 +18,7 @@ function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: st
       <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
         {counter.value}
       </div>
+      <AnimatedProgressBar value={value} className="mb-2" />
       <div className="text-sm text-muted-foreground">{label}</div>
     </div>
   );
@@ -52,33 +55,8 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden" style={parallax}>
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5"></div>
         
-        {/* Animated Grid */}
-        <div className="absolute inset-0 opacity-20">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(50, 184, 198, 0.1) 1px, transparent 1px),
-                               linear-gradient(to bottom, rgba(50, 184, 198, 0.1) 1px, transparent 1px)`,
-              backgroundSize: "50px 50px",
-            }}
-          ></div>
-        </div>
-
-        {/* Floating Particles */}
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-primary rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 3}s`,
-              }}
-            ></div>
-          ))}
-        </div>
+        {/* Circuit Board Pattern with Electrical Pulses */}
+        <CircuitBackground />
       </div>
 
       {/* Content */}

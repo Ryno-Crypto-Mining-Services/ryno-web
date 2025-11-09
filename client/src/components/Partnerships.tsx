@@ -159,13 +159,18 @@ export default function Partnerships() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
           {partners.map((partner, index) => (
-            <motion.div key={index} variants={staggerItem}>
-              <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all group"
+            <motion.div 
+              key={index} 
+              variants={staggerItem}
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 group"
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-lg ${partner.bgColor}`}>
-                  <partner.icon className={`w-8 h-8 ${partner.color}`} />
+                <div className={`p-3 rounded-lg ${partner.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+                  <partner.icon className={`w-8 h-8 ${partner.color} group-hover:rotate-12 transition-transform duration-300`} />
                 </div>
                 <a
                   href={partner.website}
