@@ -73,6 +73,7 @@ function HowItWorks() {
                 <img
                   src={steps[0].image}
                   alt={steps[0].alt}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -102,6 +103,7 @@ function HowItWorks() {
                 <img
                   src={steps[2].image}
                   alt={steps[2].alt}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -131,6 +133,7 @@ function HowItWorks() {
                 <img
                   src={steps[1].image}
                   alt={steps[1].alt}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -164,6 +167,7 @@ function HowItWorks() {
                   <img
                     src={step.image}
                     alt={step.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>

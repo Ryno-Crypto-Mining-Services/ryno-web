@@ -1,5 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import {
   Zap,
   Thermometer,
@@ -10,6 +13,9 @@ import {
 } from "lucide-react";
 
 export default function Platform() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollAnimation();
+
   const benefits = [
     {
       icon: Zap,
@@ -78,7 +84,13 @@ export default function Platform() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <motion.div
+          ref={headerRef}
+          initial="hidden"
+          animate={headerVisible ? "visible" : "hidden"}
+          variants={fadeInUp}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
             Platform Overview
           </div>
@@ -90,16 +102,20 @@ export default function Platform() {
             hardware with proprietary AI optimization for unmatched efficiency
             and sustainability.
           </p>
-        </div>
+        </motion.div>
 
         {/* Key Value Propositions */}
         <div className="max-w-6xl mx-auto mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            ref={benefitsRef}
+            initial="hidden"
+            animate={benefitsVisible ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {benefits.map((benefit, index) => (
-              <Card
-                key={index}
-                className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group"
-              >
+              <motion.div key={index} variants={staggerItem}>
+                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
                 <div className="mb-4">
                   <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors inline-block">
                     <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
@@ -107,9 +123,10 @@ export default function Platform() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
                 <p className="text-muted-foreground">{benefit.description}</p>
-              </Card>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Key Features Highlight */}

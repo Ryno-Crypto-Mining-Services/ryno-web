@@ -1,7 +1,13 @@
 import { Card } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain, Server } from "lucide-react";
 
 export default function Partnerships() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: partnersRef, isVisible: partnersVisible } = useScrollAnimation();
+
   const partners = [
     {
       name: "Braiins",
@@ -122,7 +128,13 @@ export default function Partnerships() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <motion.div
+          ref={headerRef}
+          initial="hidden"
+          animate={headerVisible ? "visible" : "hidden"}
+          variants={fadeInUp}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
             Technology Partnerships
           </div>
@@ -134,14 +146,19 @@ export default function Partnerships() {
             technologies to deliver unmatched performance, security, and reliability for
             bitcoin mining operations.
           </p>
-        </div>
+        </motion.div>
 
         {/* Partners Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <motion.div
+          ref={partnersRef}
+          initial="hidden"
+          animate={partnersVisible ? "visible" : "hidden"}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        >
           {partners.map((partner, index) => (
-            <Card
-              key={index}
-              className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all group"
+            <motion.div key={index} variants={staggerItem}>
+              <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all group"
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
@@ -180,9 +197,10 @@ export default function Partnerships() {
                   </div>
                 ))}
               </div>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Integration Ecosystem */}
         <div className="max-w-4xl mx-auto mt-20">

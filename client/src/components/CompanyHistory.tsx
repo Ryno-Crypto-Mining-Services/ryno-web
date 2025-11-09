@@ -190,6 +190,7 @@ export default function CompanyHistory() {
             <img
               src="/market-growth.png"
               alt="Ryno Mining Market Growth"
+              loading="lazy"
               className="w-full h-auto rounded-lg"
             />
           </Card>
