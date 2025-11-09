@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
-import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain, Server } from "lucide-react";
+import { ExternalLink, Droplet, Server } from "lucide-react";
 
 export default function Partnerships() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -12,15 +12,20 @@ export default function Partnerships() {
 
   const partners = [
     {
-      name: "Braiins",
-      category: "Firmware & Pool",
-      icon: Cpu,
+      name: "ServerDomes",
+      category: "Immersion Cooling",
+      icon: Server,
       description:
-        "Open-source firmware (BraiinsOS+) and mining pool provider. Powers our ASIC control boards with transparent, auditable firmware that maximizes hashrate efficiency and eliminates proprietary vendor lock-in.",
-      features: ["BraiinsOS+ Firmware", "Stratum V2 Protocol", "Auto-tuning", "Pool Services"],
-      color: "text-orange-500",
-      bgColor: "bg-orange-500/10",
-      website: "https://braiins.com",
+        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
+      features: [
+        "Immersion Cooling",
+        "Turnkey Solutions",
+        "Modular Design",
+        "Thermal Management",
+      ],
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+      website: "https://serverdomes.com",
     },
     {
       name: "Chilldyne",
@@ -37,81 +42,6 @@ export default function Partnerships() {
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
       website: "https://chilldyne.com",
-    },
-    {
-      name: "Tailscale",
-      category: "Network Infrastructure",
-      icon: Shield,
-      description:
-        "Zero-trust network platform built on WireGuard. Provides secure, encrypted mesh networking for distributed mining operations with seamless device connectivity and access control.",
-      features: [
-        "Zero-Trust Security",
-        "WireGuard VPN",
-        "Mesh Networking",
-        "Access Control",
-      ],
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
-      website: "https://tailscale.com",
-    },
-    {
-      name: "Cloudflare",
-      category: "Edge & Security",
-      icon: Cloud,
-      description:
-        "Global edge network and security platform. Protects mining operations with DDoS mitigation, provides edge computing capabilities, and ensures reliable connectivity for distributed infrastructure.",
-      features: ["DDoS Protection", "Edge Computing", "DNS Services", "Load Balancing"],
-      color: "text-orange-400",
-      bgColor: "bg-orange-400/10",
-      website: "https://cloudflare.com",
-    },
-    {
-      name: "Pinecone",
-      category: "Vector Database",
-      icon: Database,
-      description:
-        "High-performance vector database for AI/ML workloads. Powers our autonomous AI agents with fast semantic search and similarity matching for intelligent mining optimization and anomaly detection.",
-      features: [
-        "Vector Search",
-        "Real-time Indexing",
-        "AI/ML Integration",
-        "Scalable Performance",
-      ],
-      color: "text-green-500",
-      bgColor: "bg-green-500/10",
-      website: "https://pinecone.io",
-    },
-    {
-      name: "Pulumi",
-      category: "Infrastructure as Code",
-      icon: Brain,
-      description:
-        "Modern infrastructure as code platform. Enables programmatic deployment and management of mining infrastructure across cloud and on-premise environments with full automation and version control.",
-      features: [
-        "Infrastructure as Code",
-        "Multi-Cloud Support",
-        "Automation",
-        "Version Control",
-      ],
-      color: "text-purple-400",
-      bgColor: "bg-purple-400/10",
-      website: "https://pulumi.com",
-    },
-    {
-      name: "ServerDomes",
-      category: "Immersion Cooling",
-      icon: Server,
-      description:
-        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
-      features: [
-        "Immersion Cooling",
-        "Turnkey Solutions",
-        "Modular Design",
-        "Thermal Management",
-      ],
-      color: "text-cyan-500",
-      bgColor: "bg-cyan-500/10",
-      website: "https://serverdomes.com",
     },
   ];
 
@@ -138,15 +68,13 @@ export default function Partnerships() {
           className="max-w-3xl mx-auto text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
-            Technology Partnerships
+            Strategic Partnerships
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Built on <span className="text-primary">Best-in-Class</span> Technology
+            Cooling <span className="text-primary">Innovation</span> Partners
           </h2>
           <p className="text-xl text-muted-foreground">
-            TerraHash Stack integrates industry-leading open-source and enterprise
-            technologies to deliver unmatched performance, security, and reliability for
-            bitcoin mining operations.
+            TerraHash Stack partners with industry-leading cooling technology providers to deliver unmatched thermal efficiency and operational performance for bitcoin mining operations.
           </p>
         </motion.div>
 
@@ -156,7 +84,7 @@ export default function Partnerships() {
           initial="hidden"
           animate={partnersVisible ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
         >
           {partners.map((partner, index) => (
             <motion.div 
@@ -213,22 +141,13 @@ export default function Partnerships() {
         <div className="max-w-4xl mx-auto mt-20">
           <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/30">
             <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
-              Integrated <span className="text-primary">Ecosystem</span>
+              Cooling <span className="text-primary">Excellence</span>
             </h3>
             <p className="text-lg text-foreground/90 leading-relaxed mb-6">
-              Our technology partnerships aren't just vendor relationships—they're deeply
-              integrated components of the TerraHash Stack platform. Each partner was
-              selected for their commitment to{" "}
-              <strong>open standards, security, and operational excellence</strong>.
+              Our cooling partnerships represent the cutting edge of thermal management technology for high-density bitcoin mining. ServerDomes provides turnkey immersion cooling infrastructure, while Chilldyne delivers revolutionary direct-to-chip liquid cooling solutions.
             </p>
             <p className="text-lg text-foreground/90 leading-relaxed">
-              From Braiins' open-source firmware to Tailscale's zero-trust networking,
-              from Chilldyne's revolutionary cooling to Cloudflare's global edge
-              infrastructure—every technology choice reinforces our core values of{" "}
-              <strong>
-                transparency, autonomy, efficiency, and community stewardship
-              </strong>
-              .
+              Together, these partnerships enable TerraHash Stack to achieve <strong>95%+ cooling efficiency</strong>, dramatically reduce energy consumption, and extend equipment lifespan by up to <strong>40%</strong>—all while maintaining optimal operating temperatures for maximum hashrate performance.
             </p>
           </Card>
         </div>

@@ -13,11 +13,14 @@ import {
   Database,
   Lock,
   Gauge,
+  Cloud,
+  Workflow,
+  ExternalLink,
 } from "lucide-react";
 import { useState } from "react";
 
 export default function Technology() {
-  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network">("hardware");
+  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network" | "edge" | "automation">("hardware");
 
   const hardwareModules = [
     {
@@ -84,6 +87,26 @@ export default function Technology() {
 
   const softwareModules = [
     {
+      icon: Cpu,
+      name: "Braiins Mining Software",
+      category: "ASIC Firmware & Management",
+      description:
+        "Open-source firmware and management tools providing complete control over mining hardware with transparency and efficiency.",
+      features: [
+        "BraiinsOS - Open-source ASIC firmware",
+        "Braiins Farm Monitor - Fleet management",
+        "Braiins Farm Proxy - Stratum proxy",
+        "Auto-tuning optimization",
+        "Stratum V2 protocol support",
+      ],
+      links: [
+        { name: "BraiinsOS", url: "https://braiins.com/os-firmware" },
+        { name: "Farm Monitor", url: "https://academy.braiins.com/en/farm-monitor/about/" },
+        { name: "Farm Proxy", url: "https://academy.braiins.com/en/farm-proxy/about/" },
+      ],
+      color: "text-orange-400",
+    },
+    {
       icon: Brain,
       name: "Autonomous AI Agents",
       category: "Operations Management",
@@ -142,6 +165,24 @@ export default function Technology() {
         "Adaptive cooling control",
       ],
       color: "text-pink-400",
+    },
+    {
+      icon: Database,
+      name: "Pinecone Vector Database",
+      category: "AI/ML Infrastructure",
+      description:
+        "High-performance vector database powering AI agents with fast semantic search and similarity matching for intelligent optimization.",
+      features: [
+        "Vector similarity search",
+        "Real-time indexing",
+        "Semantic query processing",
+        "Anomaly detection support",
+        "Scalable performance",
+      ],
+      links: [
+        { name: "Pinecone.io", url: "https://pinecone.io" },
+      ],
+      color: "text-emerald-400",
     },
   ];
 
@@ -208,9 +249,129 @@ export default function Technology() {
     },
   ];
 
+  const edgeModules = [
+    {
+      icon: Cloud,
+      name: "Cloudflare Workers",
+      category: "Serverless Computing",
+      description:
+        "Deploy serverless functions at the edge for ultra-low latency processing and real-time mining operations management.",
+      capabilities: [
+        "Sub-millisecond response times",
+        "Global edge deployment",
+        "Automatic scaling",
+        "Zero cold starts",
+        "Built-in security",
+      ],
+      link: { name: "Cloudflare Workers", url: "https://workers.cloudflare.com" },
+      color: "text-orange-400",
+    },
+    {
+      icon: Database,
+      name: "Cloudflare R2 Storage",
+      category: "Object Storage",
+      description:
+        "Global object storage for mining data, logs, and analytics with zero egress fees and S3-compatible API.",
+      capabilities: [
+        "S3-compatible API",
+        "Zero egress fees",
+        "Global replication",
+        "Automatic backups",
+        "Cost-effective storage",
+      ],
+      link: { name: "Cloudflare R2", url: "https://www.cloudflare.com/developer-platform/products/r2/" },
+      color: "text-blue-400",
+    },
+    {
+      icon: Shield,
+      name: "Cloudflare API Shield",
+      category: "API Security",
+      description:
+        "Comprehensive API security with schema validation, rate limiting, and threat protection for mining infrastructure.",
+      capabilities: [
+        "Schema validation",
+        "Rate limiting",
+        "JWT authentication",
+        "mTLS support",
+        "Threat intelligence",
+      ],
+      link: { name: "API Shield", url: "https://www.cloudflare.com/application-services/solutions/api-security/" },
+      color: "text-purple-400",
+    },
+    {
+      icon: Shield,
+      name: "Cloudflare DDoS Protection",
+      category: "Network Security",
+      description:
+        "Enterprise-grade DDoS protection ensuring mining operations remain online during attacks with automatic mitigation.",
+      capabilities: [
+        "Automatic DDoS mitigation",
+        "Network-layer protection",
+        "Application-layer defense",
+        "Real-time analytics",
+        "Zero configuration",
+      ],
+      link: { name: "DDoS Protection", url: "https://www.cloudflare.com/ddos/" },
+      color: "text-red-400",
+    },
+    {
+      icon: Zap,
+      name: "Cloudflare Web3 Services",
+      category: "Blockchain Infrastructure",
+      description:
+        "Web3 gateway and infrastructure services for blockchain interactions, IPFS hosting, and decentralized applications.",
+      capabilities: [
+        "Ethereum gateway",
+        "IPFS hosting",
+        "Web3 APIs",
+        "ENS resolution",
+        "Blockchain analytics",
+      ],
+      link: { name: "Web3 Services", url: "https://www.cloudflare.com/application-services/products/web3/" },
+      color: "text-cyan-400",
+    },
+  ];
+
+  const automationModules = [
+    {
+      icon: Workflow,
+      name: "Pulumi Infrastructure as Code",
+      category: "Infrastructure Automation",
+      description:
+        "Modern infrastructure as code platform enabling programmatic deployment and management of mining infrastructure with full automation.",
+      capabilities: [
+        "Multi-cloud support",
+        "TypeScript/Python SDKs",
+        "State management",
+        "Policy as code",
+        "GitOps workflows",
+      ],
+      link: { name: "Pulumi", url: "https://pulumi.com" },
+      color: "text-purple-400",
+    },
+    {
+      icon: Activity,
+      name: "Kestra Workflow Orchestration",
+      category: "Process Automation",
+      description:
+        "Open-source workflow orchestration platform for automating complex mining operations, data pipelines, and maintenance tasks.",
+      capabilities: [
+        "Visual workflow builder",
+        "Event-driven automation",
+        "Scheduling & triggers",
+        "Plugin ecosystem",
+        "Real-time monitoring",
+      ],
+      link: { name: "Kestra", url: "https://kestra.io" },
+      color: "text-green-400",
+    },
+  ];
+
   const tabs = [
     { id: "hardware" as const, label: "Hardware Modules", icon: Cpu },
     { id: "software" as const, label: "Software Architecture", icon: Brain },
+    { id: "edge" as const, label: "Edge Computing", icon: Cloud },
+    { id: "automation" as const, label: "Infrastructure Automation", icon: Workflow },
     { id: "network" as const, label: "Network Infrastructure", icon: Network },
   ];
 
@@ -343,6 +504,25 @@ export default function Technology() {
                       ))}
                     </ul>
                   </div>
+                  {/* External Links */}
+                  {'links' in module && module.links && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <div className="flex flex-wrap gap-2">
+                        {module.links.map((link: any, i: number) => (
+                          <a
+                            key={i}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            {link.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </Card>
               ))}
             </div>
@@ -387,6 +567,120 @@ export default function Technology() {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Edge Computing Tab */}
+        {activeTab === "edge" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {edgeModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* External Link */}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      {module.link.name}
+                    </a>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Infrastructure Automation Tab */}
+        {activeTab === "automation" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {automationModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* External Link */}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      {module.link.name}
+                    </a>
                   </div>
                 </Card>
               ))}
