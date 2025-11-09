@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { trackContactFormSubmit } from "@/lib/analytics";
 import type { ContactFormData } from "@/lib/contactFormUtils";
+import { TURNSTILE_SITE_KEY } from "@/const";
 
 interface FormData {
   name: string;
@@ -12,6 +13,7 @@ interface FormData {
   company: string;
   serviceType: string;
   message: string;
+  turnstileToken: string;
 }
 
 interface FormErrors {
@@ -29,11 +31,35 @@ export default function ContactForm() {
     company: "",
     serviceType: "mining",
     message: "",
+    turnstileToken: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
+
+  // Load Turnstile script and set up callback
+  useEffect(() => {
+    // Load Turnstile script
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    // Set up Turnstile callback
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setFormData((prev) => ({
+        ...prev,
+        turnstileToken: token,
+      }));
+    };
+
+    return () => {
+      document.head.removeChild(script);
+      delete (window as any).onTurnstileSuccess;
+    };
+  }, []);
 
   // Listen for pre-fill events from other components
   useEffect(() => {
@@ -71,6 +97,7 @@ export default function ContactForm() {
           company: "",
           serviceType: "mining",
           message: "",
+          turnstileToken: "",
         });
         setErrors({});
 
@@ -115,6 +142,15 @@ export default function ContactForm() {
       newErrors.message = "Message is required";
     } else if (formData.message.trim().length < 10) {
       newErrors.message = "Message must be at least 10 characters";
+    }
+
+    if (!formData.turnstileToken) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please complete the CAPTCHA verification.");
+      setTimeout(() => {
+        setSubmitStatus("idle");
+        setSubmitMessage("");
+      }, 5000);
     }
 
     setErrors(newErrors);
@@ -358,6 +394,16 @@ export default function ContactForm() {
                   {errors.message && (
                     <p className="mt-1 text-sm text-red-500">{errors.message}</p>
                   )}
+                </div>
+
+                {/* Cloudflare Turnstile CAPTCHA */}
+                <div className="flex justify-center">
+                  <div
+                    className="cf-turnstile"
+                    data-sitekey={TURNSTILE_SITE_KEY}
+                    data-callback="onTurnstileSuccess"
+                    data-theme="light"
+                  />
                 </div>
 
                 {submitStatus === "success" && (

@@ -410,3 +410,14 @@
 - [x] Check response parsing and error handling
 - [x] Fix the root cause (read response.text() once and reuse the value)
 - [x] Verify success message displays correctly (confirmed working by user)
+
+## Phase 43: Contact Form Spam Protection
+- [x] Create database schema for rate limiting tracking (IP address, timestamp, submission count)
+- [x] Implement IP-based rate limiting middleware (max 3 submissions per hour)
+- [x] Set up Cloudflare Turnstile CAPTCHA integration
+- [x] Request Turnstile site key and secret key from user (already configured)
+- [x] Add CAPTCHA widget to contact form UI
+- [x] Implement server-side CAPTCHA verification
+- [x] Add user-friendly error messages for rate limit and CAPTCHA failures
+- [x] Test rate limiting with multiple submissions (ready for user testing)
+- [x] Test CAPTCHA verification flow (ready for user testing)

@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
+import { checkRateLimit, recordSubmission, getClientIp } from "../lib/rateLimit";
+import { verifyTurnstileToken, getTurnstileErrorMessage } from "../lib/turnstile";
 
 const emailInputSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -7,13 +9,37 @@ const emailInputSchema = z.object({
   company: z.string().min(1, "Company name is required"),
   serviceType: z.string().min(1, "Service type is required"),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  turnstileToken: z.string().min(1, "CAPTCHA verification is required"),
 });
 
 export const emailRouter = router({
   sendContactForm: publicProcedure
     .input(emailInputSchema)
-    .mutation(async ({ input }) => {
-      const { name, email, company, serviceType, message } = input;
+    .mutation(async ({ input, ctx }) => {
+      const { name, email, company, serviceType, message, turnstileToken } = input;
+
+      // Get client IP address for rate limiting
+      const clientIp = getClientIp(ctx.req.headers);
+      console.log("[Email] Request from IP:", clientIp);
+
+      // Check rate limit
+      const rateLimitResult = await checkRateLimit(clientIp);
+      if (!rateLimitResult.isAllowed) {
+        const resetTime = rateLimitResult.resetTime;
+        const minutesUntilReset = resetTime
+          ? Math.ceil((resetTime.getTime() - Date.now()) / 60000)
+          : 60;
+        throw new Error(
+          `Rate limit exceeded. You can submit again in ${minutesUntilReset} minutes. Maximum 3 submissions per hour.`
+        );
+      }
+
+      // Verify Turnstile CAPTCHA
+      const turnstileResult = await verifyTurnstileToken(turnstileToken, clientIp);
+      if (!turnstileResult.success) {
+        const errorMessage = getTurnstileErrorMessage(turnstileResult.errorCodes);
+        throw new Error(errorMessage);
+      }
 
       // Mailgun API credentials from environment variables
       const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
@@ -251,6 +277,9 @@ Website: https://ryno.manus.space
           const userResult = JSON.parse(userResponseText);
           console.log("[Email] User confirmation sent:", userResult);
         }
+
+        // Record this submission for rate limiting
+        await recordSubmission(clientIp);
 
         return {
           success: true,
