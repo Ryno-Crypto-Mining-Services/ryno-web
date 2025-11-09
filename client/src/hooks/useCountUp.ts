@@ -1,33 +1,44 @@
 import { useEffect, useState } from "react";
+import { useScrollAnimation } from "./useScrollAnimation";
 
 interface UseCountUpOptions {
   end: number;
-  duration?: number;
   start?: number;
+  duration?: number;
+  decimals?: number;
   suffix?: string;
 }
 
+/**
+ * Hook to animate a number counting up when it enters the viewport
+ */
 export function useCountUp({
   end,
-  duration = 2000,
   start = 0,
+  duration = 2000,
+  decimals = 0,
   suffix = "",
 }: UseCountUpOptions) {
+  const { ref, isVisible } = useScrollAnimation(0.3);
   const [count, setCount] = useState(start);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
+    if (!isVisible || hasAnimated) return;
+
+    setHasAnimated(true);
     let startTime: number | null = null;
     let animationFrame: number;
 
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
 
-      // Easing function (ease-out cubic)
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentCount = start + (end - start) * easeOut;
+      // Easing function for smooth animation (ease-out quart)
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = start + (end - start) * easeOutQuart;
 
-      setCount(currentCount);
+      setCount(current);
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
@@ -43,7 +54,16 @@ export function useCountUp({
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [end, duration, start]);
+  }, [isVisible, hasAnimated, start, end, duration]);
 
-  return `${Math.round(count)}${suffix}`;
+  const formattedCount = decimals > 0 
+    ? count.toFixed(decimals) 
+    : Math.floor(count).toString();
+
+  return {
+    ref,
+    value: `${formattedCount}${suffix}`,
+    count: decimals > 0 ? parseFloat(count.toFixed(decimals)) : Math.floor(count),
+    isVisible,
+  };
 }

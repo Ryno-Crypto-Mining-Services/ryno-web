@@ -3,18 +3,18 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { useCountUp } from "@/hooks/useCountUp";
+import { useParallax } from "@/hooks/useParallax";
 
 function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: string; suffix?: string }) {
-  const { ref, isInView } = useInView({ threshold: 0.3 });
-  const count = useCountUp({ end: isInView ? value : 0, duration: 2000, suffix });
+  const counter = useCountUp({ end: value, duration: 2000, suffix });
 
   return (
     <div
-      ref={ref}
+      ref={counter.ref}
       className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
     >
       <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-        {count}
+        {counter.value}
       </div>
       <div className="text-sm text-muted-foreground">{label}</div>
     </div>
@@ -23,6 +23,7 @@ function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: st
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
+  const parallax = useParallax({ speed: 0.3, direction: "down" });
 
   useEffect(() => {
     setIsVisible(true);
@@ -48,7 +49,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" style={parallax}>
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5"></div>
         
         {/* Animated Grid */}

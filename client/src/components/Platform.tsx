@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useParallax } from "@/hooks/useParallax";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import {
   Zap,
@@ -15,46 +17,59 @@ import {
 export default function Platform() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollAnimation();
+  const parallax = useParallax({ speed: 0.2, direction: "up" });
 
   const benefits = [
     {
       icon: Zap,
-      title: "65% OpEx Reduction",
+      value: 65,
+      suffix: "%",
+      title: "OpEx Reduction",
       description:
         "AI-powered autonomous operations dramatically reduce operational expenses through intelligent optimization and predictive maintenance.",
       color: "text-yellow-400",
     },
     {
       icon: Thermometer,
-      title: "95% Cooling Efficiency",
+      value: 95,
+      suffix: "%",
+      title: "Cooling Efficiency",
       description:
         "Chilldyne direct-to-chip liquid cooling removes heat at the source with industry-leading efficiency and heat recovery capabilities.",
       color: "text-blue-400",
     },
     {
       icon: TrendingUp,
-      title: "40% Lifespan Extension",
+      value: 40,
+      suffix: "%",
+      title: "Lifespan Extension",
       description:
         "Advanced cooling and monitoring extend equipment lifespan significantly, maximizing return on hardware investment.",
       color: "text-green-400",
     },
     {
       icon: Shield,
-      title: "69% Uptime Improvement",
+      value: 69,
+      suffix: "%",
+      title: "Uptime Improvement",
       description:
         "Autonomous AI agents detect and resolve issues before they cause downtime, ensuring maximum operational availability.",
       color: "text-purple-400",
     },
     {
       icon: Cpu,
-      title: "30% Hash Rate Increase",
+      value: 30,
+      suffix: "%",
+      title: "Hash Rate Increase",
       description:
         "Per-chip optimization with Braiins BCB-100 control boards unlocks additional performance from every ASIC.",
       color: "text-cyan-400",
     },
     {
       icon: Droplets,
-      title: "50% Energy Reduction",
+      value: 50,
+      suffix: "%",
+      title: "Energy Reduction",
       description:
         "Renewable energy integration and efficiency optimizations cut energy consumption in half compared to traditional operations.",
       color: "text-emerald-400",
@@ -71,7 +86,7 @@ export default function Platform() {
   return (
     <section id="platform" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5" style={parallax}>
         <div
           className="absolute top-0 left-0 w-full h-full"
           style={{
@@ -121,7 +136,9 @@ export default function Platform() {
                     <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
+                <h3 className="text-xl font-bold mb-3">
+                  <AnimatedCounter end={benefit.value} suffix={benefit.suffix} /> {benefit.title}
+                </h3>
                 <p className="text-muted-foreground">{benefit.description}</p>
                 </Card>
               </motion.div>

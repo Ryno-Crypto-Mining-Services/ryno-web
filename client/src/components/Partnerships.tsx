@@ -1,12 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useParallax } from "@/hooks/useParallax";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain, Server } from "lucide-react";
 
 export default function Partnerships() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: partnersRef, isVisible: partnersVisible } = useScrollAnimation();
+  const parallax = useParallax({ speed: 0.15, direction: "down" });
 
   const partners = [
     {
@@ -116,7 +118,7 @@ export default function Partnerships() {
   return (
     <section id="partners" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5" style={parallax}>
         <div
           className="absolute inset-0"
           style={{
