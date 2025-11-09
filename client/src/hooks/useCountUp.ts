@@ -7,7 +7,7 @@ interface UseCountUpOptions {
   duration?: number;
   decimals?: number;
   suffix?: string;
-  externalTrigger?: boolean; // Use external trigger instead of scroll detection
+  externalTrigger?: boolean | null; // Use external trigger instead of scroll detection. null = use internal observer
 }
 
 /**
@@ -24,11 +24,12 @@ export function useCountUp({
   const { ref, isVisible } = useScrollAnimation(0.3);
   const [count, setCount] = useState(start);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const shouldAnimate = externalTrigger !== undefined ? externalTrigger : isVisible;
+  // Use external trigger if provided (not null/undefined), otherwise use internal scroll detection
+  const shouldAnimate = (externalTrigger !== null && externalTrigger !== undefined) ? externalTrigger : isVisible;
 
   // Reset hasAnimated when using external trigger and it becomes false
   useEffect(() => {
-    if (externalTrigger !== undefined && !externalTrigger && hasAnimated) {
+    if ((externalTrigger !== null && externalTrigger !== undefined) && !externalTrigger && hasAnimated) {
       setHasAnimated(false);
       setCount(start);
     }
