@@ -1,27 +1,22 @@
 import { useCountUp } from "@/hooks/useCountUp";
-import { useAnimationTrigger } from "@/components/AnimatedCard";
 
 interface AnimatedCounterProps {
   end: number;
   suffix?: string;
   duration?: number;
   className?: string;
-  trigger?: boolean; // External trigger for animation
 }
 
 export function AnimatedCounter({
   end,
   suffix = "",
   duration = 2000,
-  className,
-  trigger,
+  className = "",
 }: AnimatedCounterProps) {
-  const contextTrigger = useAnimationTrigger();
-  const finalTrigger = trigger !== undefined ? trigger : (contextTrigger || undefined);
-  const counter = useCountUp({ end, suffix, duration, externalTrigger: finalTrigger });
+  const counter = useCountUp({ end, suffix, duration });
 
   return (
-    <span ref={counter.ref} className={`inline-block ${className}`}>
+    <span ref={counter.ref} className={className}>
       {counter.value}
     </span>
   );

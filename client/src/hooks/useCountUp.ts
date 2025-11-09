@@ -7,7 +7,6 @@ interface UseCountUpOptions {
   duration?: number;
   decimals?: number;
   suffix?: string;
-  externalTrigger?: boolean; // Use external trigger instead of scroll detection
 }
 
 /**
@@ -19,23 +18,13 @@ export function useCountUp({
   duration = 2000,
   decimals = 0,
   suffix = "",
-  externalTrigger,
 }: UseCountUpOptions) {
   const { ref, isVisible } = useScrollAnimation(0.3);
   const [count, setCount] = useState(start);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const shouldAnimate = externalTrigger !== undefined ? externalTrigger : isVisible;
-
-  // Reset hasAnimated when using external trigger and it becomes false
-  useEffect(() => {
-    if (externalTrigger !== undefined && !externalTrigger && hasAnimated) {
-      setHasAnimated(false);
-      setCount(start);
-    }
-  }, [externalTrigger, hasAnimated, start]);
 
   useEffect(() => {
-    if (!shouldAnimate || hasAnimated) return;
+    if (!isVisible || hasAnimated) return;
 
     setHasAnimated(true);
     let startTime: number | null = null;
@@ -65,7 +54,7 @@ export function useCountUp({
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [shouldAnimate, hasAnimated, start, end, duration]);
+  }, [isVisible, hasAnimated, start, end, duration]);
 
   const formattedCount = decimals > 0 
     ? count.toFixed(decimals) 
