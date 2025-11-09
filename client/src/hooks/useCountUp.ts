@@ -22,9 +22,17 @@ export function useCountUp({
   externalTrigger,
 }: UseCountUpOptions) {
   const { ref, isVisible } = useScrollAnimation(0.3);
-  const shouldAnimate = externalTrigger !== undefined ? externalTrigger : isVisible;
   const [count, setCount] = useState(start);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const shouldAnimate = externalTrigger !== undefined ? externalTrigger : isVisible;
+
+  // Reset hasAnimated when using external trigger and it becomes false
+  useEffect(() => {
+    if (externalTrigger !== undefined && !externalTrigger && hasAnimated) {
+      setHasAnimated(false);
+      setCount(start);
+    }
+  }, [externalTrigger, hasAnimated, start]);
 
   useEffect(() => {
     if (!shouldAnimate || hasAnimated) return;

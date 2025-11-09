@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedCard } from "@/components/AnimatedCard";
 import { AnimatedProgressBar } from "@/components/AnimatedProgressBar";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import {
@@ -131,19 +132,20 @@ export default function Platform() {
           >
             {benefits.map((benefit, index) => (
               <motion.div key={index} variants={staggerItem}>
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
-                <div className="mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors inline-block">
-                    <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
+                <AnimatedCard>
+                  <Card className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+                  <div className="mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors inline-block">
+                      <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
+                    </div>
                   </div>
-                </div>
-                <div className="text-xl font-bold mb-3">
-                  <AnimatedCounter end={benefit.value} suffix={benefit.suffix} trigger={benefitsVisible} />
-                  <span> {benefit.title}</span>
-                </div>
-                <AnimatedProgressBar value={benefit.value} className="mb-3" />
-                <p className="text-muted-foreground">{benefit.description}</p>
-                </Card>
+                  <h3 className="text-xl font-bold mb-3">
+                    <AnimatedCounter end={benefit.value} suffix={benefit.suffix} />{" "}{benefit.title}
+                  </h3>
+                  <AnimatedProgressBar value={benefit.value} className="mb-3" />
+                  <p className="text-muted-foreground">{benefit.description}</p>
+                  </Card>
+                </AnimatedCard>
               </motion.div>
             ))}
           </motion.div>
