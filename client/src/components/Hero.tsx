@@ -55,7 +55,12 @@ function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: st
   return (
     <div
       ref={ref}
-      className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
+      className="bg-card/50 border border-border rounded-lg p-6 hover:border-primary/50 transition-all duration-300 hover:scale-105"
+      style={{
+        // Safari optimization: Minimal backdrop blur for better performance
+        backdropFilter: 'blur(2px)',
+        WebkitBackdropFilter: 'blur(2px)',
+      }}
     >
       <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
         {displayValue}

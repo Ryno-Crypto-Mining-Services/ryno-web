@@ -123,8 +123,22 @@ export function CircuitBackground() {
     }));
     setPulses(initialPulses);
 
-    // Animate pulses
-    const interval = setInterval(() => {
+    // Safari optimization: Frame rate limiting to 30 FPS for better performance
+    const frameDelay = 1000 / 30; // Target 30 FPS
+    let lastTime = performance.now();
+    let animationId: number;
+
+    const animate = () => {
+      const now = performance.now();
+      
+      // Skip frame if not enough time has passed
+      if (now - lastTime < frameDelay) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      
+      lastTime = now;
+      
       setPulses((prev) =>
         prev.map((pulse) => {
           const newProgress = pulse.progress + pulse.speed;
@@ -143,9 +157,17 @@ export function CircuitBackground() {
           };
         })
       );
-    }, 16); // ~60fps
+      
+      animationId = requestAnimationFrame(animate);
+    };
 
-    return () => clearInterval(interval);
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
 
   return (
@@ -154,22 +176,27 @@ export function CircuitBackground() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
+      style={{
+        // Safari optimizations: Force GPU acceleration
+        transform: 'translateZ(0)',
+        willChange: 'transform',
+        WebkitTransform: 'translateZ(0)',
+      }}
     >
       <defs>
-        {/* Glow filter for connection points */}
+        {/* Safari optimization: Reduced blur for better performance */}
         <filter id="point-glow">
-          <feGaussianBlur stdDeviation="0.8" result="coloredBlur" />
+          <feGaussianBlur stdDeviation="0.5" result="coloredBlur" />
           <feMerge>
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
 
-        {/* Strong glow for pulses */}
+        {/* Safari optimization: Reduced blur for pulse glow */}
         <filter id="pulse-glow">
-          <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
+          <feGaussianBlur stdDeviation="1" result="coloredBlur" />
           <feMerge>
-            <feMergeNode in="coloredBlur" />
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
