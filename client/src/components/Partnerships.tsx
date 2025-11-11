@@ -13,15 +13,15 @@ export default function Partnerships() {
   const partners = [
     {
       name: "ServerDomes",
-      category: "Immersion Cooling",
+      category: "Edge Data Centers",
       icon: Server,
       description:
-        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
+        "ServerDomes leverages a revolutionary biomimetic dome architecture to deliver hyper-efficient, cost-effective data centers—with up to 40% lower operating costs, 8-12 month rapid build times, and scalable, high-capacity, low-latency fiber WAN networks—providing the optimal infrastructure for hosting TerraHash Stack's core AI management systems.",
       features: [
-        "Immersion Cooling",
-        "Turnkey Solutions",
-        "Modular Design",
-        "Thermal Management",
+        "Accelerated Launch",
+        "Sustainable Operations",
+        "Modular Scalability",
+        "High Capacity, Low Latency Connectivity",
       ],
       color: "text-cyan-500",
       bgColor: "bg-cyan-500/10",
@@ -32,11 +32,11 @@ export default function Partnerships() {
       category: "Cooling Solutions",
       icon: Droplet,
       description:
-        "Direct-to-chip liquid cooling technology provider. Delivers 95%+ cooling efficiency with dramatically reduced energy consumption compared to traditional air cooling systems.",
+        "Chilldyne pioneers next-generation direct-to-chip liquid cooling solutions engineered for scalable high-density AI and blockchain workloads, leveraging patented negative pressure technology to deliver up to 40% energy savings and 700% greater cooling efficiency compared to air-based systems, with a leak-proof, modular architecture that minimizes downtime, eliminates costly HVAC infrastructure, slashes operational carbon footprint, and allows easy commissioning and remote management—proven to future-proof data centers for megawatt-scale deployments while supporting exceptional uptime, serviceability, and sustainability for TerraHash Stack's liquid-cooled mining and AI management infrastructure.",
       features: [
         "Direct-to-Chip Cooling",
         "95% Efficiency",
-        "Heat Recovery",
+        "100% Leak-Proof",
         "Modular Design",
       ],
       color: "text-blue-500",
@@ -71,10 +71,10 @@ export default function Partnerships() {
             Strategic Partnerships
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Cooling <span className="text-primary">Innovation</span> Partners
+            Strategic <span className="text-primary">Infrastructure</span> Partners
           </h2>
           <p className="text-xl text-muted-foreground">
-            TerraHash Stack partners with industry-leading cooling technology providers to deliver unmatched thermal efficiency and operational performance for bitcoin mining operations.
+            TerraHash Stack partners with industry-leading infrastructure and cooling technology providers to deliver next-generation edge data centers and thermal management solutions for high-density bitcoin mining and AI operations.
           </p>
         </motion.div>
 
@@ -137,17 +137,126 @@ export default function Partnerships() {
           ))}
         </motion.div>
 
+        {/* Comparison Tables */}
+        <div className="max-w-6xl mx-auto mt-20">
+          <h3 className="text-3xl font-bold text-center mb-12">
+            Why <span className="text-primary">Our Partners</span> Lead the Industry
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* ServerDomes Comparison */}
+            <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
+              <h4 className="text-xl font-bold mb-6 text-center">
+                ServerDomes vs Traditional Data Centers
+              </h4>
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4 pb-3 border-b border-border font-semibold text-sm">
+                  <div className="text-muted-foreground">Metric</div>
+                  <div className="text-center text-primary">ServerDomes</div>
+                  <div className="text-center text-muted-foreground">Traditional</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Operating Costs</div>
+                  <div className="text-center font-bold text-green-500">40% Lower</div>
+                  <div className="text-center text-muted-foreground">Baseline</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Build Time</div>
+                  <div className="text-center font-bold text-green-500">8-12 months</div>
+                  <div className="text-center text-muted-foreground">24-36 months</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Architecture</div>
+                  <div className="text-center font-bold text-primary">Biomimetic</div>
+                  <div className="text-center text-muted-foreground">Conventional</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Scalability</div>
+                  <div className="text-center font-bold text-green-500">Modular</div>
+                  <div className="text-center text-muted-foreground">Fixed</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Network</div>
+                  <div className="text-center font-bold text-primary">High-Cap Fiber</div>
+                  <div className="text-center text-muted-foreground">Standard</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Sustainability</div>
+                  <div className="text-center font-bold text-green-500">Optimized</div>
+                  <div className="text-center text-muted-foreground">Variable</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Chilldyne Comparison */}
+            <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
+              <h4 className="text-xl font-bold mb-6 text-center">
+                Chilldyne vs Air Cooling Systems
+              </h4>
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4 pb-3 border-b border-border font-semibold text-sm">
+                  <div className="text-muted-foreground">Metric</div>
+                  <div className="text-center text-primary">Chilldyne</div>
+                  <div className="text-center text-muted-foreground">Air Cooling</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Energy Savings</div>
+                  <div className="text-center font-bold text-green-500">40% Lower</div>
+                  <div className="text-center text-muted-foreground">Baseline</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Efficiency</div>
+                  <div className="text-center font-bold text-green-500">700% Better</div>
+                  <div className="text-center text-muted-foreground">100%</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Technology</div>
+                  <div className="text-center font-bold text-primary">Direct-to-Chip</div>
+                  <div className="text-center text-muted-foreground">Ambient Air</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Leak Protection</div>
+                  <div className="text-center font-bold text-green-500">100% Sealed</div>
+                  <div className="text-center text-muted-foreground">N/A</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">HVAC Required</div>
+                  <div className="text-center font-bold text-green-500">None</div>
+                  <div className="text-center text-muted-foreground">Extensive</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Carbon Footprint</div>
+                  <div className="text-center font-bold text-green-500">Minimal</div>
+                  <div className="text-center text-muted-foreground">High</div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+
         {/* Integration Ecosystem */}
         <div className="max-w-4xl mx-auto mt-20">
           <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/30">
             <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
-              Cooling <span className="text-primary">Excellence</span>
+              Infrastructure <span className="text-primary">Excellence</span>
             </h3>
             <p className="text-lg text-foreground/90 leading-relaxed mb-6">
-              Our cooling partnerships represent the cutting edge of thermal management technology for high-density bitcoin mining. ServerDomes provides turnkey immersion cooling infrastructure, while Chilldyne delivers revolutionary direct-to-chip liquid cooling solutions.
+              Our strategic partnerships combine next-generation edge data center infrastructure with revolutionary cooling technology. ServerDomes delivers biomimetic dome architecture with 40% lower operating costs and 8-12 month build times, while Chilldyne provides patented negative pressure liquid cooling with 700% greater efficiency than air-based systems.
             </p>
             <p className="text-lg text-foreground/90 leading-relaxed">
-              Together, these partnerships enable TerraHash Stack to achieve <strong>95%+ cooling efficiency</strong>, dramatically reduce energy consumption, and extend equipment lifespan by up to <strong>40%</strong>—all while maintaining optimal operating temperatures for maximum hashrate performance.
+              Together, these partnerships enable TerraHash Stack to achieve <strong>95%+ cooling efficiency</strong>, <strong>100% leak-proof operations</strong>, dramatically reduced energy consumption, and megawatt-scale deployment capabilities—all while maintaining optimal operating temperatures for maximum hashrate performance and AI management system reliability.
             </p>
           </Card>
         </div>
