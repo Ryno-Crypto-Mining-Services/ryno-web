@@ -13,11 +13,14 @@ import {
   Database,
   Lock,
   Gauge,
+  Cloud,
+  Workflow,
+  ExternalLink,
 } from "lucide-react";
 import { useState } from "react";
 
 export default function Technology() {
-  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network">("hardware");
+  const [activeTab, setActiveTab] = useState<"hardware" | "software" | "network" | "edge" | "automation" | "depin">("hardware");
 
   const hardwareModules = [
     {
@@ -84,6 +87,26 @@ export default function Technology() {
 
   const softwareModules = [
     {
+      icon: Cpu,
+      name: "Braiins Mining Software",
+      category: "ASIC Firmware & Management",
+      description:
+        "Open-source firmware and management tools providing complete control over mining hardware with transparency and efficiency.",
+      features: [
+        "BraiinsOS - Open-source ASIC firmware",
+        "Braiins Farm Monitor - Fleet management",
+        "Braiins Farm Proxy - Stratum proxy",
+        "Auto-tuning optimization",
+        "Stratum V2 protocol support",
+      ],
+      links: [
+        { name: "BraiinsOS", url: "https://braiins.com/os-firmware" },
+        { name: "Farm Monitor", url: "https://academy.braiins.com/en/farm-monitor/about/" },
+        { name: "Farm Proxy", url: "https://academy.braiins.com/en/farm-proxy/about/" },
+      ],
+      color: "text-orange-400",
+    },
+    {
       icon: Brain,
       name: "Autonomous AI Agents",
       category: "Operations Management",
@@ -142,6 +165,24 @@ export default function Technology() {
         "Adaptive cooling control",
       ],
       color: "text-pink-400",
+    },
+    {
+      icon: Database,
+      name: "Pinecone Vector Database",
+      category: "AI/ML Infrastructure",
+      description:
+        "High-performance vector database powering AI agents with fast semantic search and similarity matching for intelligent optimization.",
+      features: [
+        "Vector similarity search",
+        "Real-time indexing",
+        "Semantic query processing",
+        "Anomaly detection support",
+        "Scalable performance",
+      ],
+      links: [
+        { name: "Pinecone.io", url: "https://pinecone.io" },
+      ],
+      color: "text-emerald-400",
     },
   ];
 
@@ -208,9 +249,245 @@ export default function Technology() {
     },
   ];
 
+  const edgeModules = [
+    {
+      icon: Cloud,
+      name: "Cloudflare Workers",
+      category: "Serverless Computing",
+      description:
+        "Deploy serverless functions at the edge for ultra-low latency processing and real-time mining operations management.",
+      capabilities: [
+        "Sub-millisecond response times",
+        "Global edge deployment",
+        "Automatic scaling",
+        "Zero cold starts",
+        "Built-in security",
+      ],
+      link: { name: "Cloudflare Workers", url: "https://workers.cloudflare.com" },
+      color: "text-orange-400",
+    },
+    {
+      icon: Server,
+      name: "SUSE Rancher",
+      category: "Kubernetes Management",
+      description:
+        "Complete Kubernetes management platform with Harvester HCI, RancherOS, Rancher Dashboard, and Longhorn storage for running and managing K8s and K3s hybrid-cloud and edge computing clusters at scale.",
+      capabilities: [
+        "Harvester: HCI for edge infrastructure",
+        "RancherOS: Minimal OS for containers",
+        "Rancher Dashboard: Centralized K8s management",
+        "Longhorn: Cloud-native distributed storage",
+        "Multi-cluster orchestration",
+      ],
+      link: { name: "SUSE Rancher", url: "https://www.rancher.com/" },
+      color: "text-green-400",
+    },
+    {
+      icon: Shield,
+      name: "Cloudflare API Shield",
+      category: "API Security",
+      description:
+        "Comprehensive API security with schema validation, rate limiting, and threat protection for mining infrastructure.",
+      capabilities: [
+        "Schema validation",
+        "Rate limiting",
+        "JWT authentication",
+        "mTLS support",
+        "Threat intelligence",
+      ],
+      link: { name: "API Shield", url: "https://www.cloudflare.com/application-services/solutions/api-security/" },
+      color: "text-purple-400",
+    },
+    {
+      icon: Shield,
+      name: "Cloudflare DDoS Protection",
+      category: "Network Security",
+      description:
+        "Enterprise-grade DDoS protection ensuring mining operations remain online during attacks with automatic mitigation.",
+      capabilities: [
+        "Automatic DDoS mitigation",
+        "Network-layer protection",
+        "Application-layer defense",
+        "Real-time analytics",
+        "Zero configuration",
+      ],
+      link: { name: "DDoS Protection", url: "https://www.cloudflare.com/ddos/" },
+      color: "text-red-400",
+    },
+    {
+      icon: Zap,
+      name: "Cloudflare Web3 Services",
+      category: "Blockchain Infrastructure",
+      description:
+        "Web3 gateway and infrastructure services for blockchain interactions, IPFS hosting, and decentralized applications.",
+      capabilities: [
+        "Ethereum gateway",
+        "IPFS hosting",
+        "Web3 APIs",
+        "ENS resolution",
+        "Blockchain analytics",
+      ],
+      link: { name: "Web3 Services", url: "https://www.cloudflare.com/application-services/products/web3/" },
+      color: "text-cyan-400",
+    },
+  ];
+
+  const automationModules = [
+    {
+      icon: Workflow,
+      name: "Pulumi Infrastructure as Code",
+      category: "Infrastructure Automation",
+      description:
+        "Modern infrastructure as code platform enabling programmatic deployment and management of mining infrastructure with full automation.",
+      capabilities: [
+        "Multi-cloud support",
+        "TypeScript/Python SDKs",
+        "State management",
+        "Policy as code",
+        "GitOps workflows",
+      ],
+      link: { name: "Pulumi", url: "https://pulumi.com" },
+      color: "text-purple-400",
+    },
+    {
+      icon: Activity,
+      name: "Kestra Workflow Orchestration",
+      category: "Process Automation",
+      description:
+        "Open-source workflow orchestration platform for automating complex mining operations, data pipelines, and maintenance tasks.",
+      capabilities: [
+        "Visual workflow builder",
+        "Event-driven automation",
+        "Scheduling & triggers",
+        "Plugin ecosystem",
+        "Real-time monitoring",
+      ],
+      link: { name: "Kestra", url: "https://kestra.io" },
+      color: "text-green-400",
+    },
+  ];
+
+  const depinModules = [
+    {
+      icon: Cloud,
+      name: "Akash Network ($AKT)",
+      category: "Decentralized Cloud Compute",
+      description:
+        "Decentralized cloud computing marketplace for deploying containerized applications on a distributed network of providers, enabling hybrid-cloud strategy for TerraHash Stack.",
+      capabilities: [
+        "Kubernetes-native deployment",
+        "Cost-effective compute resources",
+        "Censorship-resistant infrastructure",
+        "Global provider network",
+        "Hybrid cloud integration",
+      ],
+      link: { name: "Akash Network", url: "https://akash.network/about/general-information/" },
+      color: "text-red-400",
+    },
+    {
+      icon: Database,
+      name: "Storj ($STORJ)",
+      category: "Decentralized Storage",
+      description:
+        "Distributed cloud storage network providing S3-compatible object storage with enterprise-grade security and performance.",
+      capabilities: [
+        "S3-compatible API",
+        "End-to-end encryption",
+        "Geographic redundancy",
+        "Cost-effective storage",
+        "High availability",
+      ],
+      link: { name: "Storj", url: "https://www.storj.io/" },
+      color: "text-blue-400",
+    },
+    {
+      icon: Database,
+      name: "Filecoin ($FIL)",
+      category: "Decentralized Storage",
+      description:
+        "Peer-to-peer network for storing files with built-in economic incentives to ensure files are stored reliably over time.",
+      capabilities: [
+        "Verifiable storage proofs",
+        "Long-term data persistence",
+        "Cryptographic guarantees",
+        "Decentralized retrieval",
+        "IPFS integration",
+      ],
+      link: { name: "Filecoin", url: "https://filecoin.io/" },
+      color: "text-blue-500",
+    },
+    {
+      icon: Server,
+      name: "Filebase",
+      category: "Multi-Chain Storage",
+      description:
+        "Unified S3-compatible interface for decentralized storage across multiple networks including Storj, Filecoin, and IPFS.",
+      capabilities: [
+        "Multi-network redundancy",
+        "S3-compatible API",
+        "Automatic replication",
+        "Simplified management",
+        "Cost optimization",
+      ],
+      link: { name: "Filebase", url: "https://filebase.com/" },
+      color: "text-cyan-400",
+    },
+    {
+      icon: Activity,
+      name: "Chainlink ($LINK)",
+      category: "Oracle Network",
+      description:
+        "Decentralized oracle network providing reliable pricing feeds and off-chain data for DeFi integration and AI treasury management.",
+      capabilities: [
+        "Price feed oracles",
+        "Verifiable randomness",
+        "Cross-chain interoperability",
+        "Proof of Reserve",
+        "Automation services",
+      ],
+      link: { name: "Chainlink", url: "https://chain.link/" },
+      color: "text-blue-600",
+    },
+    {
+      icon: Brain,
+      name: "The Graph ($GRT)",
+      category: "Indexing Protocol",
+      description:
+        "Decentralized protocol for indexing and querying blockchain data, enabling on-chain analytics for AI treasury management module.",
+      capabilities: [
+        "GraphQL API",
+        "Real-time data indexing",
+        "Subgraph development",
+        "Multi-chain support",
+        "Decentralized queries",
+      ],
+      link: { name: "The Graph", url: "https://thegraph.com/" },
+      color: "text-purple-500",
+    },
+    {
+      icon: Network,
+      name: "Helium LoRAWAN",
+      category: "IoT Connectivity",
+      description:
+        "Decentralized wireless network for IoT devices, providing long-range, low-power connectivity for mining facility sensor data readings.",
+      capabilities: [
+        "Long-range connectivity (10+ km)",
+        "Low power consumption",
+        "Decentralized coverage",
+        "Sensor data collection",
+        "Real-time monitoring",
+      ],
+      link: { name: "Helium", url: "https://www.helium.com/" },
+      color: "text-green-500",
+    },
+  ];
+
   const tabs = [
     { id: "hardware" as const, label: "Hardware Modules", icon: Cpu },
     { id: "software" as const, label: "Software Architecture", icon: Brain },
+    { id: "edge" as const, label: "Edge Computing", icon: Cloud },
+    { id: "automation" as const, label: "Infrastructure Automation", icon: Workflow },
+    { id: "depin" as const, label: "DePIN", icon: Network },
     { id: "network" as const, label: "Network Infrastructure", icon: Network },
   ];
 
@@ -343,6 +620,81 @@ export default function Technology() {
                       ))}
                     </ul>
                   </div>
+                  {/* External Links */}
+                  {'links' in module && module.links && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <div className="flex flex-wrap gap-2">
+                        {module.links.map((link: any, i: number) => (
+                          <a
+                            key={i}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            {link.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* DePIN Tab */}
+        {activeTab === "depin" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {depinModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {module.link && (
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      {module.link.name}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </Card>
               ))}
             </div>
@@ -387,6 +739,120 @@ export default function Technology() {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Edge Computing Tab */}
+        {activeTab === "edge" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {edgeModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* External Link */}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      {module.link.name}
+                    </a>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Infrastructure Automation Tab */}
+        {activeTab === "automation" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {automationModules.map((module, index) => (
+                <Card
+                  key={index}
+                  className="p-6 bg-card/50 backdrop-blur-sm border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <module.icon className={`w-6 h-6 ${module.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs text-muted-foreground mb-1">
+                        {module.category}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{module.name}</h3>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {module.description}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="text-sm font-semibold text-foreground/90">
+                      Capabilities:
+                    </div>
+                    <ul className="space-y-1">
+                      {module.capabilities.map((capability, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted-foreground flex items-start gap-2"
+                        >
+                          <span className="text-primary mt-1">•</span>
+                          <span>{capability}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* External Link */}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <a
+                      href={module.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      {module.link.name}
+                    </a>
                   </div>
                 </Card>
               ))}

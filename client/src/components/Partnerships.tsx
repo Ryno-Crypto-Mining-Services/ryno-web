@@ -2,116 +2,46 @@ import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
-import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
-import { ExternalLink, Cpu, Droplet, Shield, Cloud, Database, Brain, Server } from "lucide-react";
-
-export default function Partnerships() {
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";import { ExternalLink, Droplet, Building2 } from "lucide-react";
+import { AnimatedStat } from "@/components/AnimatedStat";export default function Partnerships() {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: partnersRef, isVisible: partnersVisible } = useScrollAnimation();
   const parallax = useParallax({ speed: 0.15, direction: "down" });
 
   const partners = [
     {
-      name: "Braiins",
-      category: "Firmware & Pool",
-      icon: Cpu,
+      name: "ServerDomes",
+      category: "Edge Data Centers",
+      icon: Building2,
+      logo: "/serverdomes-logo.png",
       description:
-        "Open-source firmware (BraiinsOS+) and mining pool provider. Powers our ASIC control boards with transparent, auditable firmware that maximizes hashrate efficiency and eliminates proprietary vendor lock-in.",
-      features: ["BraiinsOS+ Firmware", "Stratum V2 Protocol", "Auto-tuning", "Pool Services"],
-      color: "text-orange-500",
-      bgColor: "bg-orange-500/10",
-      website: "https://braiins.com",
+        "ServerDomes redefines next-gen data center performance with its advanced biomimetic dome architecture.\n\n• Leverages nature-inspired passive cooling and airflow, eliminating conventional inefficiencies to achieve 27-40% lower power usage and over 90% reduced water consumption.\n\n• Rapidly deploys modular domes in 8–12 months, scaling from 2MW to 5MW per site with minimal land and streamlining network expansion.\n\n• Boasts a truss-free, flexible interior supporting highly adaptable AI and mining infrastructure, enabling industry-leading uptime and effortless facility maintenance.\n\n• Integrates ultra-bandwidth, low-latency fiber WAN networks for real-time AI management and seamless connectivity between geographically distributed or edge mining nodes.\n\n• Designed for sustainability and ESG, with no refrigerants, a minimized carbon footprint, and restorative environmental strategies—future-proofing TerraHash Stack for rapid AI/DePIN scaling and operational resilience.",
+      features: [
+        "Accelerated Launch",
+        "Sustainable Operations",
+        "Modular Scalability",
+        "High Capacity, Low Latency Connectivity",
+      ],
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+      website: "https://serverdomes.com",
     },
     {
       name: "Chilldyne",
       category: "Cooling Solutions",
       icon: Droplet,
+      logo: "/chilldyne-logo.png",
       description:
-        "Direct-to-chip liquid cooling technology provider. Delivers 95%+ cooling efficiency with dramatically reduced energy consumption compared to traditional air cooling systems.",
+        "Chilldyne is a leader in direct-to-chip liquid cooling for next-generation datacenters.\n\n• Delivers up to 40% energy savings and 700% greater cooling efficiency compared to air systems.\n\n• Employs patented negative pressure technology for leak-proof, high-reliability operation.\n\n• Modular architecture minimizes downtime and eliminates the need for costly HVAC infrastructure.\n\n• Dramatically reduces operational carbon footprint and supports remote commissioning/management.\n\n• Future-proofs large-scale mining and AI facilities by sustaining exceptional uptime, serviceability, and sustainability for TerraHash Stack operations.",
       features: [
         "Direct-to-Chip Cooling",
         "95% Efficiency",
-        "Heat Recovery",
+        "100% Leak-Proof",
         "Modular Design",
       ],
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
       website: "https://chilldyne.com",
-    },
-    {
-      name: "Tailscale",
-      category: "Network Infrastructure",
-      icon: Shield,
-      description:
-        "Zero-trust network platform built on WireGuard. Provides secure, encrypted mesh networking for distributed mining operations with seamless device connectivity and access control.",
-      features: [
-        "Zero-Trust Security",
-        "WireGuard VPN",
-        "Mesh Networking",
-        "Access Control",
-      ],
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
-      website: "https://tailscale.com",
-    },
-    {
-      name: "Cloudflare",
-      category: "Edge & Security",
-      icon: Cloud,
-      description:
-        "Global edge network and security platform. Protects mining operations with DDoS mitigation, provides edge computing capabilities, and ensures reliable connectivity for distributed infrastructure.",
-      features: ["DDoS Protection", "Edge Computing", "DNS Services", "Load Balancing"],
-      color: "text-orange-400",
-      bgColor: "bg-orange-400/10",
-      website: "https://cloudflare.com",
-    },
-    {
-      name: "Pinecone",
-      category: "Vector Database",
-      icon: Database,
-      description:
-        "High-performance vector database for AI/ML workloads. Powers our autonomous AI agents with fast semantic search and similarity matching for intelligent mining optimization and anomaly detection.",
-      features: [
-        "Vector Search",
-        "Real-time Indexing",
-        "AI/ML Integration",
-        "Scalable Performance",
-      ],
-      color: "text-green-500",
-      bgColor: "bg-green-500/10",
-      website: "https://pinecone.io",
-    },
-    {
-      name: "Pulumi",
-      category: "Infrastructure as Code",
-      icon: Brain,
-      description:
-        "Modern infrastructure as code platform. Enables programmatic deployment and management of mining infrastructure across cloud and on-premise environments with full automation and version control.",
-      features: [
-        "Infrastructure as Code",
-        "Multi-Cloud Support",
-        "Automation",
-        "Version Control",
-      ],
-      color: "text-purple-400",
-      bgColor: "bg-purple-400/10",
-      website: "https://pulumi.com",
-    },
-    {
-      name: "ServerDomes",
-      category: "Immersion Cooling",
-      icon: Server,
-      description:
-        "Premier immersion cooling infrastructure provider. Delivers turnkey immersion cooling solutions with pre-engineered containers, advanced thermal management, and modular scalability for high-density mining operations.",
-      features: [
-        "Immersion Cooling",
-        "Turnkey Solutions",
-        "Modular Design",
-        "Thermal Management",
-      ],
-      color: "text-cyan-500",
-      bgColor: "bg-cyan-500/10",
-      website: "https://serverdomes.com",
     },
   ];
 
@@ -138,15 +68,13 @@ export default function Partnerships() {
           className="max-w-3xl mx-auto text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
-            Technology Partnerships
+            Strategic Partnerships
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Built on <span className="text-primary">Best-in-Class</span> Technology
+            Strategic <span className="text-primary">Infrastructure</span> Partners
           </h2>
           <p className="text-xl text-muted-foreground">
-            TerraHash Stack integrates industry-leading open-source and enterprise
-            technologies to deliver unmatched performance, security, and reliability for
-            bitcoin mining operations.
+            TerraHash Stack partners with industry-leading infrastructure and cooling technology providers to deliver next-generation edge data centers and thermal management solutions for high-density bitcoin mining and AI operations.
           </p>
         </motion.div>
 
@@ -156,7 +84,7 @@ export default function Partnerships() {
           initial="hidden"
           animate={partnersVisible ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
         >
           {partners.map((partner, index) => (
             <motion.div 
@@ -169,9 +97,19 @@ export default function Partnerships() {
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-lg ${partner.bgColor} group-hover:scale-110 transition-transform duration-300`}>
-                  <partner.icon className={`w-8 h-8 ${partner.color} group-hover:rotate-12 transition-transform duration-300`} />
-                </div>
+                {partner.logo ? (
+                  <div className="h-12 flex items-center group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      className="h-10 object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className={`p-3 rounded-lg ${partner.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+                    <partner.icon className={`w-8 h-8 ${partner.color} group-hover:rotate-12 transition-transform duration-300`} />
+                  </div>
+                )}
                 <a
                   href={partner.website}
                   target="_blank"
@@ -188,47 +126,157 @@ export default function Partnerships() {
               <p className={`text-sm font-medium mb-3 ${partner.color}`}>
                 {partner.category}
               </p>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed whitespace-pre-line">
                 {partner.description}
               </p>
 
               {/* Features */}
-              <div className="space-y-2">
+              <div className="space-y-2 mb-4">
                 {partner.features.map((feature, idx) => (
                   <div
                     key={idx}
                     className="flex items-center gap-2 text-xs text-foreground/80"
-                  >
-                    <div className={`w-1.5 h-1.5 rounded-full ${partner.color.replace('text-', 'bg-')}`}></div>
+                  > <div className={`w-1.5 h-1.5 rounded-full ${partner.color.replace('text-', 'bg-')}`}></div>
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
+
+              {/* Learn More Button */}
+              <a
+                href={partner.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary font-medium text-sm transition-colors duration-300 group/btn"
+              >
+                Learn More
+                <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-300" />
+              </a>
               </Card>
             </motion.div>
           ))}
         </motion.div>
 
+        {/* Comparison Tables */}
+        <div className="max-w-6xl mx-auto mt-20">
+          <h3 className="text-3xl font-bold text-center mb-12">
+            Why <span className="text-primary">Our Partners</span> Lead the Industry
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* ServerDomes Comparison */}
+            <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
+              <h4 className="text-xl font-bold mb-6 text-center">
+                ServerDomes vs Traditional Data Centers
+              </h4>
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4 pb-3 border-b border-border font-semibold text-sm">
+                  <div className="text-muted-foreground">Metric</div>
+                  <div className="text-center text-primary">ServerDomes</div>
+                  <div className="text-center text-muted-foreground">Traditional</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Operating Costs</div>
+                  <AnimatedStat value="40% Lower" className="text-center font-bold text-green-500" />
+                  <div className="text-center text-muted-foreground">Baseline</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Build Time</div>
+                  <div className="text-center font-bold text-green-500">8-12 months</div>
+                  <div className="text-center text-muted-foreground">24-36 months</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Architecture</div>
+                  <div className="text-center font-bold text-primary">Biomimetic</div>
+                  <div className="text-center text-muted-foreground">Conventional</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Scalability</div>
+                  <div className="text-center font-bold text-green-500">Modular</div>
+                  <div className="text-center text-muted-foreground">Fixed</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Network</div>
+                  <div className="text-center font-bold text-primary">High-Cap Fiber</div>
+                  <div className="text-center text-muted-foreground">Standard</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Sustainability</div>
+                  <div className="text-center font-bold text-green-500">Optimized</div>
+                  <div className="text-center text-muted-foreground">Variable</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Chilldyne Comparison */}
+            <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
+              <h4 className="text-xl font-bold mb-6 text-center">
+                Chilldyne vs Air Cooling Systems
+              </h4>
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-4 pb-3 border-b border-border font-semibold text-sm">
+                  <div className="text-muted-foreground">Metric</div>
+                  <div className="text-center text-primary">Chilldyne</div>
+                  <div className="text-center text-muted-foreground">Air Cooling</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Energy Savings</div>
+                  <AnimatedStat value="40% Lower" className="text-center font-bold text-green-500" />
+                  <div className="text-center text-muted-foreground">Baseline</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Efficiency</div>
+                  <AnimatedStat value="700% Better" className="text-center font-bold text-green-500" />
+                  <div className="text-center text-muted-foreground">100%</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">Technology</div>
+                  <div className="text-center font-bold text-primary">Direct-to-Chip</div>
+                  <div className="text-center text-muted-foreground">Ambient Air</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Leak Protection</div>
+                  <div className="text-center font-bold text-green-500">100% Sealed</div>
+                  <div className="text-center text-muted-foreground">N/A</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-sm text-muted-foreground">HVAC Required</div>
+                  <div className="text-center font-bold text-green-500">None</div>
+                  <div className="text-center text-muted-foreground">Extensive</div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 items-center bg-primary/5 -mx-2 px-2 py-2 rounded">
+                  <div className="text-sm text-muted-foreground">Carbon Footprint</div>
+                  <div className="text-center font-bold text-green-500">Minimal</div>
+                  <div className="text-center text-muted-foreground">High</div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+
         {/* Integration Ecosystem */}
         <div className="max-w-4xl mx-auto mt-20">
           <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/30">
             <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
-              Integrated <span className="text-primary">Ecosystem</span>
+              Infrastructure <span className="text-primary">Excellence</span>
             </h3>
             <p className="text-lg text-foreground/90 leading-relaxed mb-6">
-              Our technology partnerships aren't just vendor relationships—they're deeply
-              integrated components of the TerraHash Stack platform. Each partner was
-              selected for their commitment to{" "}
-              <strong>open standards, security, and operational excellence</strong>.
+              Our strategic partnerships combine next-generation edge data center infrastructure with revolutionary cooling technology. ServerDomes delivers biomimetic dome architecture with 40% lower operating costs and 8-12 month build times, while Chilldyne provides patented negative pressure liquid cooling with 700% greater efficiency than air-based systems.
             </p>
             <p className="text-lg text-foreground/90 leading-relaxed">
-              From Braiins' open-source firmware to Tailscale's zero-trust networking,
-              from Chilldyne's revolutionary cooling to Cloudflare's global edge
-              infrastructure—every technology choice reinforces our core values of{" "}
-              <strong>
-                transparency, autonomy, efficiency, and community stewardship
-              </strong>
-              .
+              Together, these partnerships enable TerraHash Stack to achieve <strong>95%+ cooling efficiency</strong>, <strong>100% leak-proof operations</strong>, dramatically reduced energy consumption, and megawatt-scale deployment capabilities—all while maintaining optimal operating temperatures for maximum hashrate performance and AI management system reliability.
             </p>
           </Card>
         </div>

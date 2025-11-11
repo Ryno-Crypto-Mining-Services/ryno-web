@@ -1,3 +1,4 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import { ScrollProgressIndicator } from "@/components/ScrollProgressIndicator";
@@ -19,6 +20,8 @@ import Footer from "@/components/Footer";
  * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
  */
 export default function Home() {
+  const { user, loading, error, isAuthenticated, logout } = useAuth();
+
   // If theme is switchable in App.tsx, we can implement theme toggling like this:
   // const { theme, toggleTheme } = useTheme();
 
