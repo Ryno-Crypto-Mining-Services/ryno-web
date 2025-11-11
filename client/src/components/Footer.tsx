@@ -88,6 +88,7 @@ export default function Footer() {
     { label: "About", href: "#about" },
     { label: "Platform", href: "#platform" },
     { label: "Technology", href: "#technology" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "#contact" },
   ];
 

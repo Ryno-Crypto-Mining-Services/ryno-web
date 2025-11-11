@@ -23,6 +23,7 @@ export default function Navigation() {
     { label: "Retrofitting", href: "#retrofitting", isRoute: false },
     { label: "Technology", href: "#technology", isRoute: false },
     { label: "Partners", href: "#partners", isRoute: false },
+    { label: "Blog", href: "/blog", isRoute: true },
     { label: "Contact", href: "#contact", isRoute: false },
   ];
 
@@ -51,7 +52,7 @@ export default function Navigation() {
                 <img 
                   src="/ryno-logo.png" 
                   alt="Ryno Crypto Services" 
-                  className="h-16 md:h-20 w-auto hover:opacity-80 transition-opacity cursor-pointer"
+                  className="h-16 md:h-20 w-auto cursor-pointer transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(50,184,198,0.5)]"
                 />
               </Link>
             </div>
