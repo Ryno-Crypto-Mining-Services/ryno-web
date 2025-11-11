@@ -79,28 +79,7 @@ export default function CallToAction() {
             </div>
           </div>
 
-          {/* Trust Badges */}
-          <div className="mt-16 pt-16 border-t border-border">
-            <p className="text-center text-muted-foreground mb-8">
-              Trusted by mining operators worldwide
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                <p className="text-sm text-muted-foreground">Active Miners</p>
-              </div>
-              <div className="w-px h-12 bg-border"></div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">50MW+</div>
-                <p className="text-sm text-muted-foreground">Total Hashrate</p>
-              </div>
-              <div className="w-px h-12 bg-border"></div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">99.9%</div>
-                <p className="text-sm text-muted-foreground">Uptime SLA</p>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>

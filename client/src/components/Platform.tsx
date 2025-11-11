@@ -138,7 +138,7 @@ export default function Platform() {
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-3">
-                  <AnimatedCounter end={benefit.value} suffix={benefit.suffix} /> {benefit.title}
+                  {benefit.value}{benefit.suffix} {benefit.title}
                 </h3>
                 <AnimatedProgressBar value={benefit.value} className="mb-3" />
                 <p className="text-muted-foreground">{benefit.description}</p>

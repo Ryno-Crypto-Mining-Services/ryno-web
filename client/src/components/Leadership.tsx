@@ -13,7 +13,7 @@ export default function Leadership() {
         "System Architecture",
         "Technical Leadership",
       ],
-      linkedin: "https://www.linkedin.com/in/elvis-nuno/",
+      linkedin: "https://www.linkedin.com/in/elvis-nuno-5635914/",
       email: "dev@hashgrid.net",
       website: "https://enuno.github.io/DynamicCareerCanvas/",
     },
