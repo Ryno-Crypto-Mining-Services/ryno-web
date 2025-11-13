@@ -616,3 +616,8 @@
 - [x] Create sample blog posts for demonstration (6 articles with full content)
 - [x] Test responsive design on mobile and desktop
 - [ ] Save checkpoint and push to GitHub
+
+## Phase 67: Update Blog Authors to Elvis Nuno
+- [x] Update all blog post authors to "Elvis Nuno" in Blog.tsx (3 posts updated)
+- [x] Update all blog post authors to "Elvis Nuno" in BlogPost.tsx (3 posts updated)
+- [ ] Save checkpoint
