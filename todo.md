@@ -623,4 +623,13 @@
 - [x] Add article to Blog.tsx and BlogPost.tsx data arrays (ID: 7, featured)
 - [x] Include original Nostr link attribution at bottom
 - [x] Test article display on blog page and detail page
+- [x] Save checkpoint
+
+## Phase 68: Markdown to HTML Conversion & Author Updates
+- [x] Install react-markdown library for proper markdown rendering (react-markdown 10.1.0, remark-gfm 4.0.1)
+- [x] Update BlogPost component to use react-markdown instead of manual parsing
+- [x] Test markdown rendering with tables, lists, bold, links
+- [x] Update all blog post authors to "Elvis Nuno" in Blog.tsx (7 posts updated)
+- [x] Update all blog post authors to "Elvis Nuno" in BlogPost.tsx (7 posts updated)
+- [x] Verify changes on blog page and individual post pages
 - [ ] Save checkpoint

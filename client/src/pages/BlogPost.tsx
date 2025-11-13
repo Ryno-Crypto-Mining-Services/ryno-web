@@ -3,6 +3,8 @@ import { Calendar, Tag, ArrowLeft, Share2, Twitter, Linkedin, Mail, ArrowRight }
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Blog post type definition
 interface BlogPost {
@@ -140,7 +142,7 @@ TerraHash Stack stands with miners who build for the long term.
     `,
     category: "TerraHash Updates",
     date: "2024-11-10",
-    author: "Ryno Crypto Services",
+    author: "Elvis Nuno",
     image: "/terrahash-logo.png",
     tags: ["Retrofitting", "Efficiency", "ROI", "Liquid Cooling"],
   },
@@ -241,7 +243,7 @@ As mining difficulty increases and margins tighten, efficient cooling isn't opti
     `,
     category: "Technology",
     date: "2024-10-28",
-    author: "Jacob Dobie",
+    author: "Elvis Nuno",
     image: "/chilldyne-logo.png",
     tags: ["Cooling", "Hardware", "Efficiency"],
   },
@@ -332,7 +334,7 @@ Ready to transform your mining operation? [Download our retrofitting guide](#) o
     `,
     category: "Mining Industry",
     date: "2024-10-25",
-    author: "Ken Ward",
+    author: "Elvis Nuno",
     image: "/ryno-logo.png",
     tags: ["Retrofitting", "Operations", "ROI"],
   },
@@ -386,7 +388,7 @@ As bitcoin mining becomes more competitive, infrastructure efficiency becomes a 
     `,
     category: "Technology",
     date: "2024-10-20",
-    author: "Patrick Kodjoe",
+    author: "Elvis Nuno",
     image: "/serverdomes-logo.png",
     tags: ["Infrastructure", "Data Centers", "Sustainability"],
   },
@@ -661,37 +663,10 @@ export default function BlogPost() {
           </div>
 
           {/* Article Content */}
-          <div className="prose prose-invert max-w-none">
-            {post.content.split('\n').map((paragraph, index) => {
-              if (paragraph.startsWith('# ')) {
-                return <h1 key={index} className="text-3xl font-bold mt-8 mb-4">{paragraph.replace('# ', '')}</h1>;
-              } else if (paragraph.startsWith('## ')) {
-                return <h2 key={index} className="text-2xl font-bold mt-6 mb-3">{paragraph.replace('## ', '')}</h2>;
-              } else if (paragraph.startsWith('### ')) {
-                return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{paragraph.replace('### ', '')}</h3>;
-              } else if (paragraph.startsWith('- ')) {
-                return <li key={index} className="ml-6 mb-2">{paragraph.replace('- ', '')}</li>;
-              } else if (paragraph.includes('[') && paragraph.includes('](')) {
-                // Simple link parsing
-                const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-                const parts = paragraph.split(linkRegex);
-                return (
-                  <p key={index} className="mb-4 text-foreground/80 leading-relaxed">
-                    {parts.map((part, i) => {
-                      if (i % 3 === 1) {
-                        return <a key={i} href={parts[i + 1]} className="text-primary hover:underline">{part}</a>;
-                      } else if (i % 3 === 2) {
-                        return null;
-                      }
-                      return part;
-                    })}
-                  </p>
-                );
-              } else if (paragraph.trim()) {
-                return <p key={index} className="mb-4 text-foreground/80 leading-relaxed">{paragraph}</p>;
-              }
-              return null;
-            })}
+          <div className="prose prose-invert max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-4 prose-h2:text-2xl prose-h2:mt-6 prose-h2:mb-3 prose-h3:text-xl prose-h3:mt-4 prose-h3:mb-2 prose-p:mb-4 prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-primary prose-a:hover:underline prose-ul:ml-6 prose-ul:mb-4 prose-li:mb-2 prose-strong:text-foreground prose-strong:font-bold prose-table:w-full prose-table:border-collapse prose-th:border prose-th:border-border prose-th:bg-card prose-th:px-4 prose-th:py-2 prose-th:text-left prose-td:border prose-td:border-border prose-td:px-4 prose-td:py-2">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.content}
+            </ReactMarkdown>
           </div>
 
           {/* Tags */}
