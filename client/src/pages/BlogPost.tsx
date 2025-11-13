@@ -3,8 +3,6 @@ import { Calendar, Tag, ArrowLeft, Share2, Twitter, Linkedin, Mail, ArrowRight }
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 // Blog post type definition
 interface BlogPost {
@@ -21,131 +19,6 @@ interface BlogPost {
 
 // Sample blog posts data (same as Blog.tsx)
 const blogPosts: BlogPost[] = [
-  {
-    id: "7",
-    title: "Transform Your Mining Operation From Surviving to Thriving With TerraHash Stack",
-    excerpt: "Post-halving, miners are surrendering 67% of rewards to energy. TerraHash Stack retrofit cuts J/TH 35% and hits 99% uptime. ROI in 15-24 months with fixed pricing and 20% efficiency guarantee.",
-    content: `
-# ⚡️ From 18.5 J/TH to 12.5 J/TH
-
-## The Retrofit Imperative for Bitcoin Mining Survival
-
-**TL;DR:** Post-halving, miners are surrendering **67% of rewards** to energy. TerraHash Stack retrofit cuts J/TH **35%** and hits **99% uptime**. ROI in **15-24 months**. Fixed pricing with **20% efficiency guarantee**.
-
-## Your Miner Isn't Inefficient. It's Air Cooled.
-
-The Red Queen Race for Bitcoin miners is accelerating. Post-halving reality: energy costs consume **67% of block rewards**. Running air-cooled infrastructure? You're looking at **88-92% uptime** and **5-15% thermal throttling**. That's barely profitable—or losing money—as network difficulty surges.
-
-**Who this is for:** 5-50 MW sites battling thermal throttling and inconsistent uptime.
-
-Ryno Crypto Mining Services (RCMS) built the answer: **TerraHash Stack (THS)**—an integrated retrofitting platform delivering a proven **35% efficiency improvement** over traditional air-cooled operations. Built on open source stewardship and autonomous operations.
-
-## The Four Pillars That Flip the Script
-
-### 1️⃣ Chilldyne: Vacuum Cooling, Leak Risk Near-Zero
-
-- Direct-to-chip liquid cooling at **25 to -4 inHg vacuum**—virtually eliminates coolant leak risk
-- **+20-25% safe overclocking** with thermal headroom
-- **50+ month ASIC lifespan** (vs. 30-36 months air-cooled)
-- **November 2025**: Chilldyne acquired by **Daikin Applied**—manufacturing scalability secured for multi-GW growth
-
-### 2️⃣ BraiinsOS+: Per-Chip Autotune for 8-15% Better J/TH
-
-- Open-source firmware with **per-chip autotuning**
-- **8-15% J/TH efficiency gain** over stock firmware
-- Full control, no vendor lock-in
-
-### 3️⃣ AI Ops: 95% Automated Actions. MTTR <30m
-
-- AI agents + edge computing = **95% automated decision-making**
-- **80-85% predictive maintenance accuracy**—most fixes happen **before** trouble starts
-- **MTTR <30 minutes** for critical incidents
-- Labor: **0.25 FTE/MW** vs. **0.5-1.0 FTE** industry standard
-
-### 4️⃣ Treasury: Turn Volatility Into a Feature, Not a Bug
-
-- **Non-custodial** automated treasury management
-- Uses on-chain indicators (Hash Ribbons) to time BTC accumulation vs. stablecoin allocation
-- **30-60% higher long-term profitability** vs. 100% immediate liquidation strategy
-- Survive bear markets, capitalize on bull runs
-
-## What Retrofitting Actually Delivers
-
-| **Metric** | **Before (Air-Cooled)** | **After (TerraHash Stack)** |
-|------------|------------------------|-----------------------------|
-| **Efficiency** | 18.5 J/TH | **12.0-15.0 J/TH** |
-| **Uptime** | 88-92% | **99%+** |
-| **Cost/BTC** | Baseline | **-30-45%** |
-| **ASIC Lifespan** | 30-36 months | **50+ months** |
-| **Labor** | 0.5-1.0 FTE/MW | **0.25 FTE/MW** |
-| **Payback** | — | **15-24 months** |
-
-## Retrofitting-as-a-Service: Fixed Price, Performance Guarantee
-
-Ryno Crypto Mining Services transforms underperforming air-cooled facilities into **institutional-grade, AI-managed operations** through our **Retrofitting-as-a-Service** offering.
-
-### Our Targets:
-
-- **Efficiency:** Legacy **18.5 J/TH** → **12.0-15.0 J/TH**
-- **Cost:** **30-45% reduction** in total cost per BTC mined
-- **Reliability:** **99%+ uptime** within 90 days of completion
-- **ROI:** **15-24 month payback** on investment
-
-### Investment Range:
-
-**$496K - $674K per MW**, depending on baseline infrastructure.
-
-### Performance Guarantee:
-
-Minimum **20% J/TH efficiency improvement** or we make it right.
-
-## Who Needs This Right Now
-
-✅ **5 MW container facility** suffering from seasonal throttling
-
-✅ **Multi-site institutional portfolio** needing fleet standardization
-
-✅ **Distressed asset acquirers** transforming inherited operations
-
-✅ **Energy producers** using mining as demand response
-
-Whether you're a regional operator or institutional mining company, our **fixed-price transformation** includes:
-
-- Comprehensive facility assessment (7-10 business days)
-- Complete retrofit design with CAD layouts and BOMs
-- Phased deployment maintaining **70-85% uptime** during transition
-- 24/7 NOC support with tiered SLAs (Platinum: **99.5%**, Gold: **99%**, Silver: **98%**)
-
-## The Market Window Is Closing
-
-**Survival = Efficiency.** Modernize your operations now to position for profitability in all market cycles.
-
-**Stop donating block rewards to heat.**
-
-**Upgrade. Automate. Thrive.**
-
-TerraHash Stack stands with miners who build for the long term.
-
-## 📞 Next Steps
-
-**Reply "RETROFIT"** for the 9-point site-readiness checklist.
-
-**Comment "MODEL"** to get the ROI spreadsheet (15-24 mo payback).
-
-**DM for consultation:** Initial assessment in 7-10 business days.
-
----
-
-**Original article published on Nostr:** [View on Njump](https://njump.me/naddr1qvzqqqr4gupzqum0utqckhsxf6xy4xhaktk9uufgskgwnem4umur36rng05xs4t5qq2k6cjxd4mrz4tzwfx8x4fsde0nq7tv2guycy72y5s)
-
-**Assumptions & Methodology:** Efficiency improvements based on performance averaging S19/S21 Pro hardware at 0.06-0.08 $/kWh, ambient 15-25°C. Heat recovery and treasury returns vary by market conditions. Performance guarantees subject to baseline assessment and contractual SLA.
-    `,
-    category: "TerraHash Updates",
-    date: "2024-11-10",
-    author: "Elvis Nuno",
-    image: "/terrahash-logo.png",
-    tags: ["Retrofitting", "Efficiency", "ROI", "Liquid Cooling"],
-  },
   {
     id: "1",
     title: "Introducing TerraHash Stack: The Future of Bitcoin Mining Infrastructure",
@@ -243,7 +116,7 @@ As mining difficulty increases and margins tighten, efficient cooling isn't opti
     `,
     category: "Technology",
     date: "2024-10-28",
-    author: "Elvis Nuno",
+    author: "Jacob Dobie",
     image: "/chilldyne-logo.png",
     tags: ["Cooling", "Hardware", "Efficiency"],
   },
@@ -334,7 +207,7 @@ Ready to transform your mining operation? [Download our retrofitting guide](#) o
     `,
     category: "Mining Industry",
     date: "2024-10-25",
-    author: "Elvis Nuno",
+    author: "Ken Ward",
     image: "/ryno-logo.png",
     tags: ["Retrofitting", "Operations", "ROI"],
   },
@@ -388,7 +261,7 @@ As bitcoin mining becomes more competitive, infrastructure efficiency becomes a 
     `,
     category: "Technology",
     date: "2024-10-20",
-    author: "Elvis Nuno",
+    author: "Patrick Kodjoe",
     image: "/serverdomes-logo.png",
     tags: ["Infrastructure", "Data Centers", "Sustainability"],
   },
@@ -663,10 +536,37 @@ export default function BlogPost() {
           </div>
 
           {/* Article Content */}
-          <div className="prose prose-invert max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-4 prose-h2:text-2xl prose-h2:mt-6 prose-h2:mb-3 prose-h3:text-xl prose-h3:mt-4 prose-h3:mb-2 prose-p:mb-4 prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-primary prose-a:hover:underline prose-ul:ml-6 prose-ul:mb-4 prose-li:mb-2 prose-strong:text-foreground prose-strong:font-bold prose-table:w-full prose-table:border-collapse prose-th:border prose-th:border-border prose-th:bg-card prose-th:px-4 prose-th:py-2 prose-th:text-left prose-td:border prose-td:border-border prose-td:px-4 prose-td:py-2">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
+          <div className="prose prose-invert max-w-none">
+            {post.content.split('\n').map((paragraph, index) => {
+              if (paragraph.startsWith('# ')) {
+                return <h1 key={index} className="text-3xl font-bold mt-8 mb-4">{paragraph.replace('# ', '')}</h1>;
+              } else if (paragraph.startsWith('## ')) {
+                return <h2 key={index} className="text-2xl font-bold mt-6 mb-3">{paragraph.replace('## ', '')}</h2>;
+              } else if (paragraph.startsWith('### ')) {
+                return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{paragraph.replace('### ', '')}</h3>;
+              } else if (paragraph.startsWith('- ')) {
+                return <li key={index} className="ml-6 mb-2">{paragraph.replace('- ', '')}</li>;
+              } else if (paragraph.includes('[') && paragraph.includes('](')) {
+                // Simple link parsing
+                const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+                const parts = paragraph.split(linkRegex);
+                return (
+                  <p key={index} className="mb-4 text-foreground/80 leading-relaxed">
+                    {parts.map((part, i) => {
+                      if (i % 3 === 1) {
+                        return <a key={i} href={parts[i + 1]} className="text-primary hover:underline">{part}</a>;
+                      } else if (i % 3 === 2) {
+                        return null;
+                      }
+                      return part;
+                    })}
+                  </p>
+                );
+              } else if (paragraph.trim()) {
+                return <p key={index} className="mb-4 text-foreground/80 leading-relaxed">{paragraph}</p>;
+              }
+              return null;
+            })}
           </div>
 
           {/* Tags */}
