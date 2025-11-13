@@ -20,6 +20,131 @@ interface BlogPost {
 // Sample blog posts data (same as Blog.tsx)
 const blogPosts: BlogPost[] = [
   {
+    id: "7",
+    title: "Transform Your Mining Operation From Surviving to Thriving With TerraHash Stack",
+    excerpt: "Post-halving, miners are surrendering 67% of rewards to energy. TerraHash Stack retrofit cuts J/TH 35% and hits 99% uptime. ROI in 15-24 months with fixed pricing and 20% efficiency guarantee.",
+    content: `
+# ⚡️ From 18.5 J/TH to 12.5 J/TH
+
+## The Retrofit Imperative for Bitcoin Mining Survival
+
+**TL;DR:** Post-halving, miners are surrendering **67% of rewards** to energy. TerraHash Stack retrofit cuts J/TH **35%** and hits **99% uptime**. ROI in **15-24 months**. Fixed pricing with **20% efficiency guarantee**.
+
+## Your Miner Isn't Inefficient. It's Air Cooled.
+
+The Red Queen Race for Bitcoin miners is accelerating. Post-halving reality: energy costs consume **67% of block rewards**. Running air-cooled infrastructure? You're looking at **88-92% uptime** and **5-15% thermal throttling**. That's barely profitable—or losing money—as network difficulty surges.
+
+**Who this is for:** 5-50 MW sites battling thermal throttling and inconsistent uptime.
+
+Ryno Crypto Mining Services (RCMS) built the answer: **TerraHash Stack (THS)**—an integrated retrofitting platform delivering a proven **35% efficiency improvement** over traditional air-cooled operations. Built on open source stewardship and autonomous operations.
+
+## The Four Pillars That Flip the Script
+
+### 1️⃣ Chilldyne: Vacuum Cooling, Leak Risk Near-Zero
+
+- Direct-to-chip liquid cooling at **25 to -4 inHg vacuum**—virtually eliminates coolant leak risk
+- **+20-25% safe overclocking** with thermal headroom
+- **50+ month ASIC lifespan** (vs. 30-36 months air-cooled)
+- **November 2025**: Chilldyne acquired by **Daikin Applied**—manufacturing scalability secured for multi-GW growth
+
+### 2️⃣ BraiinsOS+: Per-Chip Autotune for 8-15% Better J/TH
+
+- Open-source firmware with **per-chip autotuning**
+- **8-15% J/TH efficiency gain** over stock firmware
+- Full control, no vendor lock-in
+
+### 3️⃣ AI Ops: 95% Automated Actions. MTTR <30m
+
+- AI agents + edge computing = **95% automated decision-making**
+- **80-85% predictive maintenance accuracy**—most fixes happen **before** trouble starts
+- **MTTR <30 minutes** for critical incidents
+- Labor: **0.25 FTE/MW** vs. **0.5-1.0 FTE** industry standard
+
+### 4️⃣ Treasury: Turn Volatility Into a Feature, Not a Bug
+
+- **Non-custodial** automated treasury management
+- Uses on-chain indicators (Hash Ribbons) to time BTC accumulation vs. stablecoin allocation
+- **30-60% higher long-term profitability** vs. 100% immediate liquidation strategy
+- Survive bear markets, capitalize on bull runs
+
+## What Retrofitting Actually Delivers
+
+| **Metric** | **Before (Air-Cooled)** | **After (TerraHash Stack)** |
+|------------|------------------------|-----------------------------|
+| **Efficiency** | 18.5 J/TH | **12.0-15.0 J/TH** |
+| **Uptime** | 88-92% | **99%+** |
+| **Cost/BTC** | Baseline | **-30-45%** |
+| **ASIC Lifespan** | 30-36 months | **50+ months** |
+| **Labor** | 0.5-1.0 FTE/MW | **0.25 FTE/MW** |
+| **Payback** | — | **15-24 months** |
+
+## Retrofitting-as-a-Service: Fixed Price, Performance Guarantee
+
+Ryno Crypto Mining Services transforms underperforming air-cooled facilities into **institutional-grade, AI-managed operations** through our **Retrofitting-as-a-Service** offering.
+
+### Our Targets:
+
+- **Efficiency:** Legacy **18.5 J/TH** → **12.0-15.0 J/TH**
+- **Cost:** **30-45% reduction** in total cost per BTC mined
+- **Reliability:** **99%+ uptime** within 90 days of completion
+- **ROI:** **15-24 month payback** on investment
+
+### Investment Range:
+
+**$496K - $674K per MW**, depending on baseline infrastructure.
+
+### Performance Guarantee:
+
+Minimum **20% J/TH efficiency improvement** or we make it right.
+
+## Who Needs This Right Now
+
+✅ **5 MW container facility** suffering from seasonal throttling
+
+✅ **Multi-site institutional portfolio** needing fleet standardization
+
+✅ **Distressed asset acquirers** transforming inherited operations
+
+✅ **Energy producers** using mining as demand response
+
+Whether you're a regional operator or institutional mining company, our **fixed-price transformation** includes:
+
+- Comprehensive facility assessment (7-10 business days)
+- Complete retrofit design with CAD layouts and BOMs
+- Phased deployment maintaining **70-85% uptime** during transition
+- 24/7 NOC support with tiered SLAs (Platinum: **99.5%**, Gold: **99%**, Silver: **98%**)
+
+## The Market Window Is Closing
+
+**Survival = Efficiency.** Modernize your operations now to position for profitability in all market cycles.
+
+**Stop donating block rewards to heat.**
+
+**Upgrade. Automate. Thrive.**
+
+TerraHash Stack stands with miners who build for the long term.
+
+## 📞 Next Steps
+
+**Reply "RETROFIT"** for the 9-point site-readiness checklist.
+
+**Comment "MODEL"** to get the ROI spreadsheet (15-24 mo payback).
+
+**DM for consultation:** Initial assessment in 7-10 business days.
+
+---
+
+**Original article published on Nostr:** [View on Njump](https://njump.me/naddr1qvzqqqr4gupzqum0utqckhsxf6xy4xhaktk9uufgskgwnem4umur36rng05xs4t5qq2k6cjxd4mrz4tzwfx8x4fsde0nq7tv2guycy72y5s)
+
+**Assumptions & Methodology:** Efficiency improvements based on performance averaging S19/S21 Pro hardware at 0.06-0.08 $/kWh, ambient 15-25°C. Heat recovery and treasury returns vary by market conditions. Performance guarantees subject to baseline assessment and contractual SLA.
+    `,
+    category: "TerraHash Updates",
+    date: "2024-11-10",
+    author: "Ryno Crypto Services",
+    image: "/terrahash-logo.png",
+    tags: ["Retrofitting", "Efficiency", "ROI", "Liquid Cooling"],
+  },
+  {
     id: "1",
     title: "Introducing TerraHash Stack: The Future of Bitcoin Mining Infrastructure",
     excerpt: "Discover how TerraHash Stack is revolutionizing bitcoin mining with open-source technology, AI-powered optimization, and direct-to-chip cooling for unprecedented efficiency.",

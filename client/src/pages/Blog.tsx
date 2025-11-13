@@ -22,6 +22,18 @@ interface BlogPost {
 // Sample blog posts data
 const blogPosts: BlogPost[] = [
   {
+    id: "7",
+    title: "Transform Your Mining Operation From Surviving to Thriving With TerraHash Stack",
+    excerpt: "Post-halving, miners are surrendering 67% of rewards to energy. TerraHash Stack retrofit cuts J/TH 35% and hits 99% uptime. ROI in 15-24 months with fixed pricing and 20% efficiency guarantee.",
+    content: "",
+    category: "TerraHash Updates",
+    date: "2024-11-10",
+    author: "Ryno Crypto Services",
+    image: "/terrahash-logo.png",
+    featured: true,
+    tags: ["Retrofitting", "Efficiency", "ROI", "Liquid Cooling"],
+  },
+  {
     id: "1",
     title: "Introducing TerraHash Stack: The Future of Bitcoin Mining Infrastructure",
     excerpt: "Discover how TerraHash Stack is revolutionizing bitcoin mining with open-source technology, AI-powered optimization, and direct-to-chip cooling for unprecedented efficiency.",

@@ -615,4 +615,12 @@
 - [x] Add blog link to footer
 - [x] Create sample blog posts for demonstration (6 articles with full content)
 - [x] Test responsive design on mobile and desktop
-- [ ] Save checkpoint and push to GitHub
+- [x] Save checkpoint and push to GitHub
+
+## Phase 67: Import Nostr Article to Blog
+- [x] Read full article content from saved markdown file
+- [x] Format article content for blog post structure
+- [x] Add article to Blog.tsx and BlogPost.tsx data arrays (ID: 7, featured)
+- [x] Include original Nostr link attribution at bottom
+- [x] Test article display on blog page and detail page
+- [ ] Save checkpoint
