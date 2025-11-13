@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Calendar, Tag, ArrowRight, Search } from "lucide-react";
+import { Calendar, Tag, ArrowRight, Search, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
@@ -116,7 +115,26 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+        <nav className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/">
+              <img
+                src="/ryno-logo.png"
+                alt="Ryno Crypto Services"
+                className="h-12 w-auto hover:opacity-80 transition-opacity cursor-pointer"
+              />
+            </Link>
+            <Link href="/">
+              <Button variant="outline" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        </nav>
+      </header>
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4">

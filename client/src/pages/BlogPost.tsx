@@ -1,6 +1,5 @@
 import { useRoute, Link } from "wouter";
 import { Calendar, Tag, ArrowLeft, Share2, Twitter, Linkedin, Mail, ArrowRight } from "lucide-react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
@@ -403,7 +402,26 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <Navigation />
+        {/* Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+          <nav className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Link href="/">
+                <img
+                  src="/ryno-logo.png"
+                  alt="Ryno Crypto Services"
+                  className="h-12 w-auto hover:opacity-80 transition-opacity cursor-pointer"
+                />
+              </Link>
+              <Link href="/">
+                <Button variant="outline" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </nav>
+        </header>
         <div className="container mx-auto max-w-4xl px-4 pt-32 pb-16 text-center">
           <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
           <p className="text-foreground/70 mb-8">
@@ -446,7 +464,26 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+        <nav className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/">
+              <img
+                src="/ryno-logo.png"
+                alt="Ryno Crypto Services"
+                className="h-12 w-auto hover:opacity-80 transition-opacity cursor-pointer"
+              />
+            </Link>
+            <Link href="/">
+              <Button variant="outline" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
+        </nav>
+      </header>
 
       {/* Article Header */}
       <article className="pt-32 pb-16">
