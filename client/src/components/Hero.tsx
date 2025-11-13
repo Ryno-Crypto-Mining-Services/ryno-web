@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useInView } from "@/hooks/useInView";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useParallax } from "@/hooks/useParallax";
-import { CircuitBackground } from "@/components/CircuitBackground";
+import CircuitBackground from "@/components/CircuitBackground";
 import { AnimatedProgressBar } from "@/components/AnimatedProgressBar";
 
 function AnimatedStat({ value, label, suffix = "%" }: { value: number; label: string; suffix?: string }) {
