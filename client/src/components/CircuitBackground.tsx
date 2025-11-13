@@ -5,9 +5,9 @@ interface CircuitBackgroundProps {
 }
 
 /**
- * CircuitBackground - Animated SVG circuit board pattern
- * Based on CodePen circuit animation, adapted for deep blue theme
- * with optimized colors for white/light blue text readability
+ * CircuitBackground - High-performance animated circuit board pattern
+ * Optimized for Chrome, Firefox, and Safari with minimal DOM operations
+ * Uses CSS animations and GPU acceleration for smooth performance
  */
 export default function CircuitBackground({ className = '' }: CircuitBackgroundProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -20,16 +20,14 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
     const svg = svgRef.current;
     const container = containerRef.current;
 
-    // Deep blue color scheme optimized for text readability
+    // Optimized settings for performance
     const settings = {
-      size: 20, // Grid cell size
-      wireMaxLen: 40, // Max wire length
-      stroke: '#3b82f6', // Medium blue wire color (visible but not overpowering)
-      bg: '#0a1628', // Deep blue background
-      pathBg: '#1e3a8a', // Darker blue for path background
-      pathBloomLength: 10, // Animation bloom length
-      bloomSpeed: 50, // Animation speed (seconds)
-      straightness: 2, // Line straightness (higher = straighter)
+      size: 30, // Larger cells = fewer elements
+      wireMaxLen: 25, // Shorter wires = less complexity
+      stroke: '#3b82f6',
+      bg: '#0a1628',
+      pathBg: '#1e3a8a',
+      straightness: 3, // More straight lines = simpler paths
     };
 
     const { width, height } = container.getBoundingClientRect();
@@ -48,70 +46,13 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
       }
     }
 
-    // Helper functions
     const getRandomInt = (min: number, max: number) => {
       return floor(random() * (max - min + 1)) + min;
     };
 
-    const createCircle = (x: number, y: number, r: number) => {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', `${x}`);
-      circle.setAttribute('cy', `${y}`);
-      circle.setAttribute('r', `${r}`);
-      circle.setAttribute('fill', settings.stroke);
-      circle.setAttribute('opacity', '0.6');
-      return circle;
-    };
-
-    const createLine = (x1: number, y1: number, x2: number, y2: number) => {
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', `${x1}`);
-      line.setAttribute('y1', `${y1}`);
-      line.setAttribute('x2', `${x2}`);
-      line.setAttribute('y2', `${y2}`);
-      line.setAttribute('stroke', settings.stroke);
-      line.setAttribute('stroke-width', '2');
-      line.setAttribute('stroke-linecap', 'round');
-      line.setAttribute('opacity', '0.4');
-      return line;
-    };
-
-    const createPath = (d: string) => {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', d);
-      path.setAttribute('stroke', settings.pathBg);
-      path.setAttribute('stroke-width', '3');
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke-linecap', 'round');
-      path.setAttribute('opacity', '0.3');
-      return path;
-    };
-
-    const createAnimatedPath = (d: string, length: number) => {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', d);
-      path.setAttribute('stroke', settings.stroke);
-      path.setAttribute('stroke-width', '3');
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke-linecap', 'round');
-      path.setAttribute('stroke-dasharray', `${settings.pathBloomLength} ${length}`);
-      path.setAttribute('stroke-dashoffset', `${length}`);
-      path.setAttribute('opacity', '0.8');
-      
-      const animation = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-      animation.setAttribute('attributeName', 'stroke-dashoffset');
-      animation.setAttribute('from', `${length}`);
-      animation.setAttribute('to', '0');
-      animation.setAttribute('dur', `${settings.bloomSpeed}s`);
-      animation.setAttribute('repeatCount', 'indefinite');
-      
-      path.appendChild(animation);
-      return path;
-    };
-
-    // Generate wires
+    // Generate wires - reduced count for performance
     const wires: Array<Array<[number, number]>> = [];
-    const wireCount = floor((cols * rows) / 15);
+    const wireCount = floor((cols * rows) / 25); // Reduced density
 
     for (let i = 0; i < wireCount; i++) {
       const startRow = getRandomInt(0, rows - 1);
@@ -129,7 +70,6 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
       for (let j = 0; j < wireLen; j++) {
         const directions: Array<[number, number]> = [];
         
-        // Add possible directions based on straightness
         for (let k = 0; k < settings.straightness; k++) {
           if (currentRow > 0 && grid[currentRow - 1][currentCol] === 0) {
             directions.push([-1, 0]);
@@ -162,17 +102,40 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
       }
     }
 
-    // Draw wires
+    // Batch DOM operations - create all paths at once
+    const fragment = document.createDocumentFragment();
+    const circleGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    circleGroup.setAttribute('opacity', '0.6');
+    
+    const staticPathGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    staticPathGroup.setAttribute('opacity', '0.4');
+    staticPathGroup.setAttribute('stroke', settings.stroke);
+    staticPathGroup.setAttribute('stroke-width', '2');
+    staticPathGroup.setAttribute('fill', 'none');
+    staticPathGroup.setAttribute('stroke-linecap', 'round');
+
+    const bgPathGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    bgPathGroup.setAttribute('opacity', '0.25');
+    bgPathGroup.setAttribute('stroke', settings.pathBg);
+    bgPathGroup.setAttribute('stroke-width', '3');
+    bgPathGroup.setAttribute('fill', 'none');
+    bgPathGroup.setAttribute('stroke-linecap', 'round');
+
+    const animatedPathGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    animatedPathGroup.setAttribute('class', 'animated-paths');
+
+    // Draw wires efficiently
     wires.forEach((wire, wireIndex) => {
       let pathD = '';
+      const circles: Array<[number, number]> = [];
       
       wire.forEach(([row, col], index) => {
         const x = col * settings.size + settings.size / 2;
         const y = row * settings.size + settings.size / 2;
 
-        // Add connection points (circles)
-        if (index === 0 || index === wire.length - 1 || random() < 0.3) {
-          svg.appendChild(createCircle(x, y, 3));
+        // Collect circle positions
+        if (index === 0 || index === wire.length - 1 || random() < 0.2) {
+          circles.push([x, y]);
         }
 
         // Build path
@@ -181,29 +144,56 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
         } else {
           pathD += ` L ${x} ${y}`;
         }
-
-        // Add lines between points
-        if (index > 0) {
-          const [prevRow, prevCol] = wire[index - 1];
-          const prevX = prevCol * settings.size + settings.size / 2;
-          const prevY = prevRow * settings.size + settings.size / 2;
-          svg.appendChild(createLine(prevX, prevY, x, y));
-        }
       });
 
-      // Add background path
+      // Add circles to group
+      circles.forEach(([x, y]) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', `${x}`);
+        circle.setAttribute('cy', `${y}`);
+        circle.setAttribute('r', '2.5');
+        circle.setAttribute('fill', settings.stroke);
+        circleGroup.appendChild(circle);
+      });
+
+      // Add static path
       if (pathD) {
-        svg.appendChild(createPath(pathD));
-        
-        // Add animated path for some wires (every 3rd wire)
-        if (wireIndex % 3 === 0) {
+        const staticPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        staticPath.setAttribute('d', pathD);
+        staticPathGroup.appendChild(staticPath);
+
+        // Add background path
+        const bgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        bgPath.setAttribute('d', pathD);
+        bgPathGroup.appendChild(bgPath);
+
+        // Add animated path for fewer wires (every 4th for performance)
+        if (wireIndex % 4 === 0) {
           const pathLength = wire.length * settings.size;
-          svg.appendChild(createAnimatedPath(pathD, pathLength));
+          const animPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          animPath.setAttribute('d', pathD);
+          animPath.setAttribute('stroke', settings.stroke);
+          animPath.setAttribute('stroke-width', '3');
+          animPath.setAttribute('fill', 'none');
+          animPath.setAttribute('stroke-linecap', 'round');
+          animPath.setAttribute('stroke-dasharray', `10 ${pathLength}`);
+          animPath.setAttribute('opacity', '0.8');
+          // Use CSS class for animation instead of SVG animate
+          animPath.setAttribute('class', `flow-animation flow-${wireIndex % 3}`);
+          animPath.style.strokeDashoffset = `${pathLength}`;
+          animatedPathGroup.appendChild(animPath);
         }
       }
     });
 
-    // Cleanup on unmount
+    // Append all groups at once (single reflow)
+    fragment.appendChild(bgPathGroup);
+    fragment.appendChild(staticPathGroup);
+    fragment.appendChild(circleGroup);
+    fragment.appendChild(animatedPathGroup);
+    svg.appendChild(fragment);
+
+    // Cleanup
     return () => {
       while (svg.firstChild) {
         svg.removeChild(svg.firstChild);
@@ -212,8 +202,12 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
   }, []);
 
   return (
-    <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`} style={{ backgroundColor: '#0a1628' }}>
-      {/* Dark overlay for enhanced text readability */}
+    <div 
+      ref={containerRef} 
+      className={`absolute inset-0 overflow-hidden ${className}`} 
+      style={{ backgroundColor: '#0a1628' }}
+    >
+      {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-black/40" />
       
       {/* SVG Circuit Animation */}
@@ -222,7 +216,63 @@ export default function CircuitBackground({ className = '' }: CircuitBackgroundP
         className="w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
+        style={{
+          // GPU acceleration hints
+          transform: 'translateZ(0)',
+          willChange: 'transform',
+          WebkitTransform: 'translateZ(0)',
+        }}
       />
+
+      {/* CSS Animations - More performant than SVG animate */}
+      <style>{`
+        .flow-animation {
+          animation-duration: 40s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+        
+        .flow-0 {
+          animation-name: flow-dash-0;
+        }
+        
+        .flow-1 {
+          animation-name: flow-dash-1;
+          animation-delay: 13.3s;
+        }
+        
+        .flow-2 {
+          animation-name: flow-dash-2;
+          animation-delay: 26.6s;
+        }
+        
+        @keyframes flow-dash-0 {
+          from {
+            stroke-dashoffset: var(--path-length, 1000);
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        
+        @keyframes flow-dash-1 {
+          from {
+            stroke-dashoffset: var(--path-length, 1000);
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        
+        @keyframes flow-dash-2 {
+          from {
+            stroke-dashoffset: var(--path-length, 1000);
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }
