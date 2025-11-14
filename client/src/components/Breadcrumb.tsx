@@ -11,7 +11,7 @@ interface BreadcrumbProps {
   className?: string;
 }
 
-export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
+export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
   return (
     <nav aria-label="Breadcrumb" className={`flex items-center gap-2 text-sm ${className}`}>
       {items.map((item, index) => {

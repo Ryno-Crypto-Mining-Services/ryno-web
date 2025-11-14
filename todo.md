@@ -685,4 +685,4 @@
 - [x] Test blog listing and individual post pages
 - [ ] Deploy Sanity Studio (requires local machine - interactive CLI)
 - [x] Document Sanity setup and usage in SANITY.md
-- [ ] Commit all changes and push to GitHub
+- [x] Commit all changes and push to GitHub (commit fe9edfb)
