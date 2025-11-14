@@ -645,4 +645,14 @@
 - [x] Add simple back to home button to Blog page (fixed header with logo + back button)
 - [x] Update BlogPost page navigation to match (both main and 404 views)
 - [x] Test navigation links work correctly (dev server running, no errors)
+- [x] Save checkpoint
+
+## Phase 71: Git Commit, Breadcrumbs & Reading Time
+- [ ] Check git status and commit all current changes with clear messages
+- [ ] Create breadcrumb navigation component (Home > Blog > Article Title)
+- [ ] Implement reading time calculation utility (words per minute)
+- [ ] Add reading time display to blog post cards on listing page
+- [ ] Add breadcrumb navigation to blog post pages
+- [ ] Add reading time display to blog post header
+- [ ] Test breadcrumbs and reading time functionality
 - [ ] Save checkpoint
