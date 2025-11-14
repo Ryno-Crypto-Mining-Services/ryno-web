@@ -1,0 +1,26 @@
+{
+  "name": "ryno-crypto-blog-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for Ryno Crypto Services Blog",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/vision": "^4.15.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^4.15.0"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^4.0.0",
+    "eslint": "^8.6.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  }
+}

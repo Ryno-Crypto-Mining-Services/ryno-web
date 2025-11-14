@@ -32,11 +32,26 @@ export function formatReadingTime(minutes: number): string {
 
 /**
  * Calculate and format reading time in one step
- * @param text - The text content to analyze
+ * @param content - The text content or Sanity Portable Text blocks to analyze
  * @param wordsPerMinute - Average reading speed (default: 200 wpm)
- * @returns Formatted reading time string
+ * @returns Reading time in minutes
  */
-export function getReadingTime(text: string, wordsPerMinute: number = 200): string {
-  const minutes = calculateReadingTime(text, wordsPerMinute);
-  return formatReadingTime(minutes);
+export function getReadingTime(content: string | any[], wordsPerMinute: number = 200): number {
+  // Handle Sanity Portable Text blocks
+  if (Array.isArray(content)) {
+    let text = '';
+    for (const block of content) {
+      if (block._type === 'block' && block.children) {
+        for (const child of block.children) {
+          if (child.text) {
+            text += child.text + ' ';
+          }
+        }
+      }
+    }
+    return calculateReadingTime(text, wordsPerMinute);
+  }
+  
+  // Handle plain text
+  return calculateReadingTime(content, wordsPerMinute);
 }
