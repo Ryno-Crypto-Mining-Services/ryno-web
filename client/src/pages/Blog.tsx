@@ -4,7 +4,9 @@ import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getReadingTime } from "@/lib/readingTime";
-import { client, POSTS_QUERY, urlFor, type SanityPost } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity";
+import { trpc } from "@/lib/trpc";
+import type { SanityPost } from "@shared/types";
 import { APP_LOGO } from "@/const";
 
 export default function Blog() {
@@ -13,19 +15,19 @@ export default function Blog() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // Fetch posts via tRPC (server-side proxy)
+  const { data: postsData, isLoading } = trpc.blog.getAllPosts.useQuery();
+
   useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const data = await client.fetch<SanityPost[]>(POSTS_QUERY);
-        setPosts(data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      } finally {
-        setLoading(false);
-      }
+    if (postsData) {
+      setPosts(postsData);
+      setLoading(false);
     }
-    fetchPosts();
-  }, []);
+  }, [postsData]);
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading]);
 
   // Get unique categories
   const categories = ["All", ...Array.from(new Set(posts.map(post => post.category.title)))];

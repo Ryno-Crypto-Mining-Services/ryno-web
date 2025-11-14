@@ -5,7 +5,9 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { getReadingTime } from "@/lib/readingTime";
-import { client, POST_BY_SLUG_QUERY, POSTS_QUERY, urlFor, type SanityPost } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity";
+import { trpc } from "@/lib/trpc";
+import type { SanityPost } from "@shared/types";
 import { PortableText } from "@/components/PortableText";
 import { APP_LOGO } from "@/const";
 
@@ -17,31 +19,34 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch post via tRPC (server-side proxy)
+  const { data: postData, isLoading: postLoading } = trpc.blog.getPostBySlug.useQuery(
+    { slug: postSlug || '' },
+    { enabled: !!postSlug }
+  );
+
+  // Fetch all posts for related articles
+  const { data: allPosts } = trpc.blog.getAllPosts.useQuery();
+
   useEffect(() => {
-    async function fetchPost() {
-      if (!postSlug) return;
-      
-      try {
-        // Fetch the post
-        const postData = await client.fetch<SanityPost>(POST_BY_SLUG_QUERY, { slug: postSlug });
-        setPost(postData);
-        
-        // Fetch all posts for related articles
-        if (postData) {
-          const allPosts = await client.fetch<SanityPost[]>(POSTS_QUERY);
-          const related = allPosts
-            .filter(p => p._id !== postData._id && p.category.title === postData.category.title)
-            .slice(0, 3);
-          setRelatedPosts(related);
-        }
-      } catch (error) {
-        console.error('Error fetching post:', error);
-      } finally {
-        setLoading(false);
-      }
+    if (postData) {
+      setPost(postData);
+      setLoading(false);
     }
-    fetchPost();
-  }, [postSlug]);
+  }, [postData]);
+
+  useEffect(() => {
+    if (postData && allPosts) {
+      const related = allPosts
+        .filter(p => p._id !== postData._id && p.category.title === postData.category.title)
+        .slice(0, 3);
+      setRelatedPosts(related);
+    }
+  }, [postData, allPosts]);
+
+  useEffect(() => {
+    setLoading(postLoading);
+  }, [postLoading]);
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
