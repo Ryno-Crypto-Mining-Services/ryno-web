@@ -1,7 +1,9 @@
 import { useRoute, Link } from "wouter";
-import { Calendar, Tag, ArrowLeft, Share2, Twitter, Linkedin, Mail, ArrowRight } from "lucide-react";
+import { Calendar, Tag, ArrowLeft, Share2, Twitter, Linkedin, Mail, ArrowRight, Clock } from "lucide-react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import Breadcrumb from "@/components/Breadcrumb";
+import { getReadingTime } from "@/lib/readingTime";
 
 // Blog post type definition
 interface BlogPost {
@@ -488,15 +490,17 @@ export default function BlogPost() {
       {/* Article Header */}
       <article className="pt-32 pb-16">
         <div className="container mx-auto max-w-4xl px-4">
-          {/* Back Button */}
-          <Link href="/blog">
-            <Button variant="outline" className="mb-8">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Button>
-          </Link>
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb 
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Blog", href: "/blog" },
+              { label: post.title }
+            ]}
+            className="mb-8"
+          />
 
-          {/* Category and Date */}
+          {/* Category, Date, and Reading Time */}
           <div className="flex items-center gap-4 text-sm text-foreground/60 mb-6">
             <span className="flex items-center gap-1">
               <Tag className="w-4 h-4" />
@@ -509,6 +513,10 @@ export default function BlogPost() {
                 day: "numeric",
                 year: "numeric",
               })}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              {getReadingTime(post.content)}
             </span>
           </div>
 

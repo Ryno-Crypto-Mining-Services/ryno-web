@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Calendar, Tag, ArrowRight, Search, ArrowLeft } from "lucide-react";
+import { Calendar, Tag, ArrowRight, Search, ArrowLeft, Clock } from "lucide-react";
 import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { getReadingTime } from "@/lib/readingTime";
 
 // Blog post type definition
 interface BlogPost {
@@ -200,7 +201,7 @@ export default function Blog() {
                       />
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center gap-4 text-sm text-foreground/60 mb-3">
+                      <div className="flex items-center gap-4 text-sm text-foreground/60 mb-4">
                         <span className="flex items-center gap-1">
                           <Tag className="w-4 h-4" />
                           {post.category}
@@ -212,6 +213,10 @@ export default function Blog() {
                             day: "numeric",
                             year: "numeric",
                           })}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {getReadingTime(post.excerpt + post.content)}
                         </span>
                       </div>
                       <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
@@ -263,6 +268,10 @@ export default function Blog() {
                             month: "short",
                             day: "numeric",
                           })}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {getReadingTime(post.excerpt + post.content)}
                         </span>
                       </div>
                       <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
