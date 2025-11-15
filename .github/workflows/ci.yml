@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: TypeScript check
+        run: pnpm check
+      
+      - name: Build project
+        run: pnpm build
+        env:
+          # Use placeholder values for build-time env vars
+          SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID || 'mo8rs3o1' }}
+          SANITY_DATASET: ${{ secrets.SANITY_DATASET || 'production' }}
+          VITE_APP_TITLE: "Ryno Crypto Services & TerraHash Stack"
+      
+      - name: Build success notification
+        if: success()
+        run: echo "✅ Build successful! Code is ready for manual deployment via Manus Dashboard."
+      
+      - name: Build failure notification
+        if: failure()
+        run: echo "❌ Build failed. Please fix errors before deploying."

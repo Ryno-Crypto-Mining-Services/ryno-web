@@ -1,0 +1,177 @@
+# AI Agent Instructions for Ryno TerraHash Website
+
+## Critical: Always Pull First
+Before making any code changes, ALWAYS run:
+```bash
+git pull origin main
+```
+
+## Project Overview
+- **Stack**: React 19 + Tailwind 4 + tRPC + Drizzle ORM + PostgreSQL
+- **CMS**: Sanity Studio for blog content
+- **Deployment**: Manus platform (manual publish via dashboard)
+- **Repository**: https://github.com/Ryno-Crypto-Mining-Services/ryno-web
+
+## Development Workflow
+
+### 1. Start Every Session
+```bash
+cd ~/ryno-terrahash-website
+git pull origin main
+pnpm install  # If dependencies changed
+pnpm dev      # Start dev server
+```
+
+### 2. Before Committing
+```bash
+pnpm check    # TypeScript validation
+pnpm build    # Test production build
+```
+
+### 3. Commit Convention
+Use conventional commits:
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation
+- `style:` Formatting
+- `refactor:` Code restructuring
+- `test:` Tests
+- `chore:` Maintenance
+
+### 4. Deployment
+- Code changes go to GitHub
+- Manual publish via Manus Dashboard
+- Production URL: https://rynocripto-rwmgyyvp.manus.space
+
+## File Structure
+
+### Frontend (Client)
+- `client/src/pages/` - Page components
+- `client/src/components/` - Reusable components
+- `client/src/lib/` - Utilities and helpers
+- `client/src/contexts/` - React contexts
+
+### Backend (Server)
+- `server/routers/` - tRPC API routes
+- `server/lib/` - Server utilities
+- `server/db/` - Database schema and migrations
+
+### Shared
+- `shared/types.ts` - Shared TypeScript types
+- `shared/const.ts` - Shared constants
+
+### Sanity CMS
+- `studio/` - Sanity Studio configuration
+- `studio/schemas/` - Content schemas
+
+## Code Style
+
+### React Components
+- Use functional components with hooks
+- Prefer `const` over `let`
+- Use TypeScript for all new code
+- Extract reusable logic into custom hooks
+
+### Styling
+- Use Tailwind utility classes
+- Use shadcn/ui components from `@/components/ui/*`
+- Follow existing color scheme (blues, oranges, dark backgrounds)
+- Mobile-first responsive design
+
+### API Routes (tRPC)
+- Define procedures in `server/routers/`
+- Use Zod for input validation
+- Handle errors gracefully
+- Return typed responses
+
+## Common Tasks
+
+### Adding a New Page
+1. Create component in `client/src/pages/YourPage.tsx`
+2. Add route in `client/src/App.tsx`
+3. Update navigation if needed
+
+### Adding a Blog Feature
+1. Check if server-side proxy exists in `server/routers/blog.ts`
+2. Use tRPC hooks in components: `trpc.blog.*.useQuery()`
+3. Never call Sanity directly from browser (CSP restrictions)
+
+### Database Changes
+1. Update schema in `server/db/schema.ts`
+2. Generate migration: `pnpm db:push`
+3. Test locally before committing
+
+### Adding Environment Variables
+1. Add to `.env.example` (without values)
+2. Document in `README.md`
+3. Set actual values in Manus Dashboard → Settings → Secrets
+
+## Multi-Agent Coordination
+
+### Check todo.md
+Before starting work, check `todo.md` to see:
+- What other agents are working on (marked `[WIP]`)
+- What tasks are available
+- Mark your task as `[WIP]` when starting
+
+### Avoid Conflicts
+- Don't edit files another agent is actively working on
+- Coordinate on shared files (App.tsx, index.css, routers.ts)
+- Pull frequently to stay in sync
+
+### File Ownership
+**Primary Owner (Manus):**
+- Blog-related pages and components
+- Sanity integration
+- Blog tRPC router
+
+**Available for Other Agents:**
+- Homepage, About, Contact pages
+- Shared components
+- New features not related to blog
+
+## Testing Checklist
+- [ ] TypeScript compiles (`pnpm check`)
+- [ ] Dev server runs without errors
+- [ ] All pages load correctly
+- [ ] No browser console errors
+- [ ] Mobile responsive
+- [ ] Links and navigation work
+
+## Deployment Checklist
+- [ ] All tests pass locally
+- [ ] Code committed to GitHub
+- [ ] GitHub Actions CI passes (if configured)
+- [ ] Manual publish via Manus Dashboard
+- [ ] Verify on production URL
+
+## Important Notes
+
+### Sanity CMS
+- Content is managed in Sanity Studio (localhost:3333)
+- Don't hardcode blog content in code
+- Use server-side proxy for all Sanity API calls
+
+### Environment
+- Development: `pnpm dev` (localhost:3000)
+- Sanity Studio: `cd studio && pnpm sanity dev` (localhost:3333)
+- Production: Manual publish via Manus Dashboard
+
+### Secrets
+- Never commit API keys or tokens
+- All secrets managed in Manus Dashboard
+- Use environment variables for configuration
+
+## Resources
+- [Project README](./README.md)
+- [Development Guide](./DEVELOPMENT.md)
+- [Sanity Documentation](https://www.sanity.io/docs)
+- [tRPC Documentation](https://trpc.io/docs)
+- [Manus Help](https://help.manus.im)
+
+---
+
+**Remember: Always pull before starting work!**
+```bash
+git pull origin main
+```
