@@ -686,3 +686,38 @@
 - [ ] Deploy Sanity Studio (requires local machine - interactive CLI)
 - [x] Document Sanity setup and usage in SANITY.md
 - [x] Commit all changes and push to GitHub (commit fe9edfb)
+
+## Phase 48: Blog Post Featured Images & Media Enhancement
+
+- [x] Explore ryno-assets repository for available media
+- [x] Catalog diagrams, infographics, and architecture files
+- [x] Download ServerDomes logo for blog post 4
+- [x] Download Chilldyne logo for blog post 2
+- [x] Generate AI image for blog post 1 (TerraHash Stack intro) using ryno assets
+- [x] Generate AI image for blog post 3 (Retrofitting guide) using ryno assets
+- [x] Generate AI image for blog post 5 (Partnerships) using partner logos
+- [x] Generate AI image for blog post 6 (Open Source) using ryno assets
+- [x] Upload all images to Sanity Studio
+- [x] Update each blog post with mainImage in Sanity
+- [x] Identify relevant diagrams for each blog post
+- [x] Prepare diagrams for embedding (11 diagrams organized)
+- [ ] Manually embed diagrams via Sanity Studio UI (user action required)
+- [ ] Test blog posts with embedded diagrams displaying
+
+## Phase 49: Add Captions and Alt Text to Embedded Diagrams
+
+- [x] Query Sanity to identify which diagrams were embedded by user
+- [x] Create comprehensive alt text and caption reference guide
+- [ ] User adds alt text and captions via Sanity Studio UI
+- [ ] Verify all diagrams display with proper metadata
+- [ ] Test blog posts for accessibility
+
+## Phase 50: Multi-Agent Development Workflow & CI/CD
+
+- [ ] Commit all pending code changes to GitHub
+- [ ] Set up GitHub Actions workflow for CI/CD
+- [ ] Configure automatic deployment to Manus on push
+- [ ] Create DEVELOPMENT.md guide for multi-agent workflow
+- [ ] Document git pull requirements before development
+- [ ] Test CI/CD pipeline with test commit
+- [ ] Verify automatic deployment works
