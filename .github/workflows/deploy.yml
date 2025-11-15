@@ -1,0 +1,88 @@
+name: Deploy to Manus
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper git info
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: TypeScript check
+        run: pnpm check
+      
+      - name: Build project
+        run: pnpm build
+        env:
+          SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID || 'mo8rs3o1' }}
+          SANITY_DATASET: ${{ secrets.SANITY_DATASET || 'production' }}
+          VITE_APP_TITLE: "Ryno Crypto Services & TerraHash Stack"
+      
+      - name: Create Manus checkpoint and deploy
+        env:
+          MANUS_API_KEY: ${{ secrets.MANUS_API_KEY }}
+          MANUS_PROJECT_ID: ${{ secrets.MANUS_PROJECT_ID || 'ryno-terrahash-website' }}
+        run: |
+          echo "🚀 Deploying to Manus..."
+          
+          # Get commit info for checkpoint description
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMIT_SHA=$(git rev-parse --short HEAD)
+          COMMIT_AUTHOR=$(git log -1 --pretty=%an)
+          
+          # Create checkpoint description
+          DESCRIPTION="$COMMIT_MSG (${COMMIT_SHA} by ${COMMIT_AUTHOR})"
+          
+          # Call Manus API to create checkpoint and deploy
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            https://api.manus.space/v1/projects/${MANUS_PROJECT_ID}/checkpoints \
+            -H "Authorization: Bearer ${MANUS_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"description\": \"${DESCRIPTION}\",
+              \"auto_publish\": true
+            }")
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          
+          if [ "$HTTP_CODE" -eq 200 ] || [ "$HTTP_CODE" -eq 201 ]; then
+            echo "✅ Checkpoint created and deployment initiated!"
+            echo "$BODY" | jq '.'
+            
+            # Extract checkpoint version
+            VERSION=$(echo "$BODY" | jq -r '.version')
+            echo "📦 Checkpoint version: $VERSION"
+            echo "🌐 Deployment URL: https://rynocripto-rwmgyyvp.manus.space"
+          else
+            echo "❌ Deployment failed with HTTP $HTTP_CODE"
+            echo "$BODY"
+            exit 1
+          fi
+      
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed. Check logs above."
+          fi

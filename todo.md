@@ -723,3 +723,13 @@
 - [ ] Test CI/CD pipeline with test commit
 - [ ] Setup git hooks locally: bash scripts/setup-git-hooks.sh
 - [ ] Note: Manus deployment remains manual (no API available)
+
+## Phase 51: Automated Deployment with Manus API
+
+- [x] Install git hooks locally
+- [x] Test git hooks functionality
+- [x] Create GitHub Actions workflow with Manus API integration
+- [x] Create comprehensive deployment setup documentation
+- [ ] User: Configure MANUS_API_KEY secret in GitHub
+- [ ] User: Test automated deployment on push
+- [ ] User: Verify production deployment works automatically
