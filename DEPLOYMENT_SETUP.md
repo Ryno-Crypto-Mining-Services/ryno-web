@@ -66,36 +66,26 @@ manus api-keys create --name "GitHub Actions" --scope deploy
 
 ---
 
-## Step 3: Configure Webhook (Optional)
+## Step 3: Configure Webhook (Optional - Not Required)
 
-If you want Manus to trigger actions on certain events, configure a webhook:
+**⚠️ Important:** Webhooks from Manus → GitHub are **optional** and **not required** for automated deployment. Skip this step unless you need advanced integration.
 
-### Webhook URL for GitHub Actions
-
+**Current Setup Works Without Webhooks:**
 ```
-https://api.github.com/repos/Ryno-Crypto-Mining-Services/ryno-web/dispatches
+Push to GitHub → GitHub Actions runs → Calls Manus API → Deploys site ✅
 ```
 
-### Webhook Configuration in Manus
+**Webhook Would Enable (Advanced, Optional):**
+```
+Manus event → Calls GitHub API → Triggers GitHub Actions
+```
 
-1. Go to Manus Dashboard → Project Settings → Webhooks
-2. Click **Add Webhook**
-3. **URL**: (Use the URL above)
-4. **Events**: Select events that should trigger notifications
-   - `checkpoint.created`
-   - `deployment.started`
-   - `deployment.completed`
-   - `deployment.failed`
-5. **Secret**: Generate a random secret for security
-6. Save the webhook
+**Why You Might Get 401 Unauthorized:**
+The webhook URL `https://api.github.com/repos/Ryno-Crypto-Mining-Services/ryno-web/dispatches` requires GitHub Personal Access Token authentication. This is complex and unnecessary for basic deployment.
 
-### GitHub Personal Access Token (for webhook)
+**For detailed webhook setup instructions (optional), see `WEBHOOK_SETUP.md`.**
 
-If using webhooks from Manus to GitHub:
-
-1. Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. Generate new token with `repo` scope
-3. Add as secret in Manus webhook configuration
+**Recommended:** Skip webhooks and proceed to Step 4 (testing deployment).
 
 ---
 
