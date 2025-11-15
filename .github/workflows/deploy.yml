@@ -53,7 +53,7 @@ jobs:
           
           # Call Manus API to create checkpoint and deploy
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            https://api.manus.space/v1/projects/${MANUS_PROJECT_ID}/checkpoints \
+            https://api.manus.im/api/webdev/projects/${MANUS_PROJECT_ID}/checkpoints \
             -H "Authorization: Bearer ${MANUS_API_KEY}" \
             -H "Content-Type: application/json" \
             -d "{
