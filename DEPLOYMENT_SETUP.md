@@ -1,148 +1,109 @@
-# Automated Deployment Setup Guide
+# Deployment Setup Guide
 
 ## Overview
 
-This project is configured for **automatic deployment to Manus** on every push to the `main` branch using GitHub Actions and the Manus API.
+This project uses **GitHub Actions for CI/CD** to automatically build and test code on every push to `main`. Deployment to production is done through the **Manus Dashboard** by creating checkpoints.
 
 ---
 
-## Prerequisites
+## Deployment Workflow
 
-1. **Manus API Key** - Generated from your Manus account
-2. **GitHub Repository** - With Actions enabled
-3. **Manus Project ID** - Your project identifier (default: `ryno-terrahash-website`)
+```
+Push to GitHub → GitHub Actions CI → Build & Test → Manual Checkpoint in Manus → Deploy
+```
+
+**Why Manual Checkpoints?**
+- Manus webdev checkpoint API is not publicly exposed
+- Manual checkpoints give you control over when to deploy
+- You can review changes in the Manus Dashboard before publishing
 
 ---
 
-## Step 1: Configure GitHub Secrets
+## Step 1: Automated CI/CD (Already Configured)
 
-Add the following secrets to your GitHub repository:
+### What Happens Automatically
+
+Every push to `main` triggers GitHub Actions to:
+1. ✅ Checkout code
+2. ✅ Install dependencies (pnpm)
+3. ✅ Run TypeScript checks
+4. ✅ Build the project
+5. ✅ Report success/failure
+
+### View Build Status
+
+Go to: https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
+
+---
+
+## Step 2: Deploy to Production (Manual)
+
+### Option A: Manus Dashboard (Recommended)
+
+1. **Go to Manus Dashboard**
+   - URL: https://manus.im/projects
+   - Select project: `ryno-terrahash-website`
+
+2. **Create Checkpoint**
+   - Click **"Save Checkpoint"** button
+   - Add description (e.g., "Deploy latest changes from GitHub")
+   - Checkpoint is created with current code
+
+3. **Publish to Production**
+   - Click **"Publish"** button on the checkpoint
+   - Your site updates at: https://rynocripto-rwmgyyvp.manus.space
+
+### Option B: Manus CLI (If Available)
+
+```bash
+# Install Manus CLI (if not already installed)
+npm install -g @manus/cli
+
+# Login to Manus
+manus login
+
+# Deploy project
+manus deploy --project ryno-terrahash-website --message "Deploy from GitHub"
+```
+
+---
+
+## Step 3: Verify Deployment
+
+1. **Check Production Site**
+   - Visit: https://rynocripto-rwmgyyvp.manus.space
+   - Verify your changes are live
+   - Test functionality
+
+2. **Check Manus Dashboard**
+   - View deployment history
+   - Monitor site analytics
+   - Check for errors
+
+---
+
+## GitHub Secrets (Optional)
+
+While automatic deployment via API isn't available, you can still configure these secrets for future use:
 
 ### Navigate to GitHub Settings
 
-1. Go to your repository: https://github.com/Ryno-Crypto-Mining-Services/ryno-web
-2. Click **Settings** → **Secrets and variables** → **Actions**
-3. Click **New repository secret**
+1. Go to: https://github.com/Ryno-Crypto-Mining-Services/ryno-web/settings/secrets/actions
+2. Click **"New repository secret"**
 
-### Required Secrets
+### Optional Secrets
 
-#### `MANUS_API_KEY` (Required)
-- **Value**: Your Manus API key
-- **Where to get it**: Manus Dashboard → Settings → API Keys → Create New Key
-- **Example**: `manus_sk_abc123xyz789...`
-
-#### `MANUS_PROJECT_ID` (Optional)
-- **Value**: `ryno-terrahash-website`
-- **Note**: If not set, defaults to `ryno-terrahash-website`
-
-#### `SANITY_PROJECT_ID` (Optional)
+#### `SANITY_PROJECT_ID`
 - **Value**: `mo8rs3o1`
-- **Note**: Only needed if different from default
+- **Purpose**: Override default Sanity project ID
 
-#### `SANITY_DATASET` (Optional)
+#### `SANITY_DATASET`
 - **Value**: `production`
-- **Note**: Only needed if different from default
+- **Purpose**: Override default Sanity dataset
 
----
-
-## Step 2: Get Your Manus API Key
-
-### Option A: Via Manus Dashboard
-
-1. Log in to https://manus.space
-2. Navigate to **Settings** → **API Keys**
-3. Click **Create New API Key**
-4. Give it a name: `GitHub Actions Deployment`
-5. Set permissions: **Read & Write** (for checkpoint creation and deployment)
-6. Copy the generated key (starts with `manus_sk_...`)
-7. **Important**: Save it securely - you won't be able to see it again
-
-### Option B: Via Manus CLI (if available)
-
-```bash
-manus auth login
-manus api-keys create --name "GitHub Actions" --scope deploy
-```
-
----
-
-## Step 3: Configure Webhook (Optional - Not Required)
-
-**⚠️ Important:** Webhooks from Manus → GitHub are **optional** and **not required** for automated deployment. Skip this step unless you need advanced integration.
-
-**Current Setup Works Without Webhooks:**
-```
-Push to GitHub → GitHub Actions runs → Calls Manus API → Deploys site ✅
-```
-
-**Webhook Would Enable (Advanced, Optional):**
-```
-Manus event → Calls GitHub API → Triggers GitHub Actions
-```
-
-**Why You Might Get 401 Unauthorized:**
-The webhook URL `https://api.github.com/repos/Ryno-Crypto-Mining-Services/ryno-web/dispatches` requires GitHub Personal Access Token authentication. This is complex and unnecessary for basic deployment.
-
-**For detailed webhook setup instructions (optional), see `WEBHOOK_SETUP.md`.**
-
-**Recommended:** Skip webhooks and proceed to Step 4 (testing deployment).
-
----
-
-## Step 4: Test the Deployment
-
-### Manual Test
-
-1. Make a small change to the code:
-   ```bash
-   echo "# Test deployment" >> README.md
-   git add README.md
-   git commit -m "test: verify automated deployment"
-   git push origin main
-   ```
-
-2. Watch the deployment:
-   - GitHub: Go to **Actions** tab to see workflow running
-   - Manus: Check dashboard for new checkpoint and deployment status
-
-### Expected Workflow
-
-```
-Push to main
-    ↓
-GitHub Actions triggered
-    ↓
-Run tests & build
-    ↓
-Call Manus API
-    ↓
-Create checkpoint
-    ↓
-Auto-publish to production
-    ↓
-Deployment complete ✅
-```
-
----
-
-## Step 5: Verify Deployment
-
-After pushing to `main`:
-
-1. **Check GitHub Actions**:
-   - Go to https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
-   - Look for the "Deploy to Manus" workflow
-   - Verify it shows ✅ success
-
-2. **Check Manus Dashboard**:
-   - Go to your project in Manus
-   - Verify new checkpoint was created
-   - Check deployment status
-
-3. **Check Production Site**:
-   - Visit https://rynocripto-rwmgyyvp.manus.space
-   - Verify your changes are live
-   - Check browser console for errors
+#### `MANUS_PROJECT_ID`
+- **Value**: `ryno-terrahash-website`
+- **Purpose**: For future API integration
 
 ---
 
@@ -150,115 +111,56 @@ After pushing to `main`:
 
 ### `.github/workflows/deploy.yml`
 
-Main deployment workflow that runs on every push to `main`:
+Runs on every push to `main`:
 - Installs dependencies
 - Runs TypeScript checks
 - Builds the project
-- Creates Manus checkpoint
-- Triggers automatic deployment
+- Provides deployment instructions
 
 ### `.github/workflows/ci.yml`
 
-Continuous integration workflow for pull requests:
-- Runs on PRs to `main`
+Runs on pull requests to `main`:
 - Validates code quality
 - Ensures builds succeed
 - Does NOT deploy
 
 ---
 
-## Troubleshooting
+## Typical Development Workflow
 
-### Deployment Fails: "Authentication failed"
+### 1. Make Changes Locally
 
-**Problem**: Invalid or missing `MANUS_API_KEY`
-
-**Solution**:
-1. Verify the API key is correctly set in GitHub Secrets
-2. Check the key hasn't expired in Manus Dashboard
-3. Ensure the key has deployment permissions
-
-### Deployment Fails: "Project not found"
-
-**Problem**: Incorrect `MANUS_PROJECT_ID`
-
-**Solution**:
-1. Check your project ID in Manus Dashboard
-2. Update the `MANUS_PROJECT_ID` secret in GitHub
-3. Default is `ryno-terrahash-website` - verify this matches
-
-### Build Succeeds but Deployment Doesn't Trigger
-
-**Problem**: Manus API endpoint might be incorrect
-
-**Solution**:
-1. Check the API endpoint in `.github/workflows/deploy.yml`
-2. Verify the endpoint format: `https://api.manus.space/v1/projects/{id}/checkpoints`
-3. Check Manus API documentation for updates
-
-### Webhook Not Triggering
-
-**Problem**: Webhook configuration issue
-
-**Solution**:
-1. Verify webhook URL is correct
-2. Check webhook secret matches
-3. Ensure webhook events are properly selected
-4. Test webhook with Manus Dashboard webhook tester
-
----
-
-## API Endpoints Reference
-
-### Manus API
-
-**Base URL**: `https://api.manus.space/v1`
-
-**Create Checkpoint & Deploy**:
 ```bash
-POST /projects/{project_id}/checkpoints
-Authorization: Bearer {api_key}
-Content-Type: application/json
+# Create feature branch
+git checkout -b feature/my-feature
 
-{
-  "description": "Deployment from GitHub Actions",
-  "auto_publish": true
-}
+# Make changes
+# ... edit files ...
+
+# Test locally
+pnpm dev
+
+# Commit changes
+git add .
+git commit -m "feat: add new feature"
+git push origin feature/my-feature
 ```
 
-**Response**:
-```json
-{
-  "version": "abc123def",
-  "status": "deployed",
-  "url": "https://your-project.manus.space"
-}
-```
+### 2. Create Pull Request
 
----
+1. Go to GitHub repository
+2. Click **"New Pull Request"**
+3. Select your feature branch
+4. CI workflow runs automatically
+5. Review and merge when ready
 
-## Security Best Practices
+### 3. Deploy to Production
 
-### API Key Security
-
-✅ **DO**:
-- Store API keys in GitHub Secrets (encrypted)
-- Use separate API keys for different environments
-- Rotate API keys periodically
-- Revoke unused or compromised keys immediately
-
-❌ **DON'T**:
-- Commit API keys to the repository
-- Share API keys in chat or email
-- Use the same key across multiple projects
-- Give keys more permissions than needed
-
-### Webhook Security
-
-- Always use HTTPS for webhook URLs
-- Validate webhook signatures
-- Use strong, random webhook secrets
-- Limit webhook event subscriptions to what's needed
+1. Merge PR to `main`
+2. GitHub Actions builds automatically
+3. Go to Manus Dashboard
+4. Create checkpoint
+5. Click Publish
 
 ---
 
@@ -266,7 +168,7 @@ Content-Type: application/json
 
 ### GitHub Actions Dashboard
 
-View all deployments:
+View all builds:
 ```
 https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
 ```
@@ -275,7 +177,7 @@ https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
 
 Monitor deployment status:
 ```
-https://manus.space/projects/ryno-terrahash-website
+https://manus.im/projects/ryno-terrahash-website
 ```
 
 ### Production Site
@@ -291,104 +193,153 @@ https://rynocripto-rwmgyyvp.manus.space
 
 If a deployment introduces bugs:
 
-### Option 1: Revert Git Commit
-
-```bash
-git revert HEAD
-git push origin main
-# Automated deployment will trigger with reverted code
-```
-
-### Option 2: Manual Rollback in Manus
+### Option 1: Rollback in Manus Dashboard
 
 1. Go to Manus Dashboard
-2. Navigate to Checkpoints
+2. Navigate to **Checkpoints**
 3. Find the last working checkpoint
-4. Click "Rollback" or "Publish" on that checkpoint
+4. Click **"Publish"** on that checkpoint
 
-### Option 3: Deploy Previous Checkpoint via API
+### Option 2: Revert Git Commit
 
 ```bash
-curl -X POST https://api.manus.space/v1/projects/ryno-terrahash-website/checkpoints/{version_id}/publish \
-  -H "Authorization: Bearer $MANUS_API_KEY"
+# Revert the problematic commit
+git revert HEAD
+
+# Push to GitHub
+git push origin main
+
+# Wait for CI to build
+# Create new checkpoint in Manus Dashboard
+# Publish the reverted version
 ```
 
 ---
 
-## Deployment Frequency
+## Troubleshooting
 
-**Current Configuration**: Deploy on every push to `main`
+### Build Fails in GitHub Actions
 
-**Alternative Configurations**:
+**Problem**: TypeScript errors or build failures
 
-### Deploy on Tag Only
-```yaml
-on:
-  push:
-    tags:
-      - 'v*'  # Deploy only on version tags
+**Solution**:
+1. Check the Actions tab for error details
+2. Fix errors locally
+3. Test with `pnpm check` and `pnpm build`
+4. Push fixes to GitHub
+
+### Changes Not Showing on Production
+
+**Problem**: Site not updated after deployment
+
+**Solution**:
+1. Verify checkpoint was created in Manus Dashboard
+2. Ensure you clicked "Publish" on the checkpoint
+3. Clear browser cache (Ctrl+Shift+R)
+4. Check Manus Dashboard for deployment errors
+
+### Sanity CMS Content Not Loading
+
+**Problem**: Blog posts or CMS content missing
+
+**Solution**:
+1. Verify `SANITY_PROJECT_ID` and `SANITY_DATASET` are correct
+2. Check Sanity Studio: https://ryno-terrahash.sanity.studio
+3. Ensure content is published (not draft)
+4. Check browser console for API errors
+
+---
+
+## Best Practices
+
+### Commit Messages
+
+Use conventional commits:
+```
+feat: add new feature
+fix: resolve bug
+docs: update documentation
+style: format code
+refactor: restructure code
+test: add tests
+chore: update dependencies
 ```
 
-### Deploy on Schedule
-```yaml
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Deploy daily at midnight
-```
+### Branch Strategy
 
-### Manual Deployment Only
-```yaml
-on:
-  workflow_dispatch:  # Manual trigger only
+- `main` - Production-ready code
+- `feature/*` - New features
+- `fix/*` - Bug fixes
+- `docs/*` - Documentation updates
+
+### Testing Before Deployment
+
+Always test locally before pushing:
+```bash
+# Run TypeScript checks
+pnpm check
+
+# Build project
+pnpm build
+
+# Test dev server
+pnpm dev
 ```
 
 ---
 
-## Cost Considerations
+## Deployment Checklist
 
-- GitHub Actions: Free for public repositories (2,000 minutes/month for private)
-- Manus API: Check your plan's API rate limits
-- Deployments: Monitor your Manus plan's deployment quota
+Before creating a checkpoint:
+
+- [ ] All tests pass locally
+- [ ] TypeScript checks pass
+- [ ] Build succeeds
+- [ ] GitHub Actions CI passes
+- [ ] Changes tested in development
+- [ ] No console errors
+- [ ] Sanity CMS content verified
+- [ ] Responsive design checked
 
 ---
 
 ## Support
 
-### Manus API Issues
-- Documentation: https://docs.manus.space/api
-- Support: https://help.manus.im
-
 ### GitHub Actions Issues
 - Documentation: https://docs.github.com/actions
-- Community: https://github.community
+- Repository Actions: https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
+
+### Manus Platform Issues
+- Documentation: https://docs.manus.im
+- Support: https://help.manus.im
+- Dashboard: https://manus.im/projects
 
 ### Project-Specific Issues
-- Repository Issues: https://github.com/Ryno-Crypto-Mining-Services/ryno-web/issues
+- Repository: https://github.com/Ryno-Crypto-Mining-Services/ryno-web
+- Issues: https://github.com/Ryno-Crypto-Mining-Services/ryno-web/issues
 
 ---
 
 ## Quick Reference
 
-### Add GitHub Secret
+### Deploy New Changes
 ```
-Settings → Secrets and variables → Actions → New repository secret
-```
-
-### Trigger Manual Deployment
-```
-Actions → Deploy to Manus → Run workflow
+1. Push to main → GitHub Actions builds
+2. Manus Dashboard → Create Checkpoint
+3. Click Publish → Site updates
 ```
 
-### View Deployment Logs
+### View Build Status
 ```
-Actions → Latest workflow run → deploy job
+GitHub Actions → https://github.com/Ryno-Crypto-Mining-Services/ryno-web/actions
 ```
 
-### Check Production
+### Access Production
 ```
-https://rynocripto-rwmgyyvp.manus.space
+Website → https://rynocripto-rwmgyyvp.manus.space
+Dashboard → https://manus.im/projects/ryno-terrahash-website
 ```
 
 ---
 
-**Last Updated**: November 14, 2024
+**Last Updated**: November 15, 2024
